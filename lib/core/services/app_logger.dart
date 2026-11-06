@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:developer' as developer;
+
 import 'package:flutter/foundation.dart';
 
 /// Severity levels for [AppLogger].
@@ -65,7 +66,8 @@ class AppLogger {
   static final ListQueue<LogEntry> _recentLogs = ListQueue<LogEntry>();
 
   /// Returns an unmodifiable view of recent log entries.
-  static List<LogEntry> get recentLogs => List<LogEntry>.unmodifiable(_recentLogs);
+  static List<LogEntry> get recentLogs =>
+      List<LogEntry>.unmodifiable(_recentLogs);
 
   /// Clears the in-memory log buffer.
   static void clear() => _recentLogs.clear();
@@ -84,14 +86,13 @@ class AppLogger {
     String tag = 'Musalli',
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _record(
-        LogLevel.warning,
-        message,
-        tag: tag,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _record(
+    LogLevel.warning,
+    message,
+    tag: tag,
+    error: error,
+    stackTrace: stackTrace,
+  );
 
   /// Logs an error with optional [error] and [stackTrace].
   static void error(
@@ -99,14 +100,13 @@ class AppLogger {
     String tag = 'Musalli',
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _record(
-        LogLevel.error,
-        message,
-        tag: tag,
-        error: error,
-        stackTrace: stackTrace,
-      );
+  }) => _record(
+    LogLevel.error,
+    message,
+    tag: tag,
+    error: error,
+    stackTrace: stackTrace,
+  );
 
   static void _record(
     LogLevel level,
@@ -146,4 +146,3 @@ class AppLogger {
     }
   }
 }
-

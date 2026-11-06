@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musalli/core/design_system/glass/glass_surface.dart';
@@ -85,8 +87,8 @@ class _PressScaleContainerState extends State<PressScaleContainer> {
             setState(() => _isPressed = false);
           }
         },
-        onTap: () async {
-          await _triggerHaptic();
+        onTap: () {
+          unawaited(_triggerHaptic());
           widget.onTap?.call();
         },
         child: AnimatedScale(
@@ -164,22 +166,20 @@ class GlassCard extends StatelessWidget {
     if (heroTag != null) {
       surface = Hero(
         tag: heroTag!,
-        flightShuttleBuilder: (
-          BuildContext flightContext,
-          Animation<double> animation,
-          HeroFlightDirection flightDirection,
-          BuildContext fromHeroContext,
-          BuildContext toHeroContext,
-        ) {
-          return Material(
-            type: MaterialType.transparency,
-            child: toHeroContext.widget,
-          );
-        },
-        child: Material(
-          type: MaterialType.transparency,
-          child: surface,
-        ),
+        flightShuttleBuilder:
+            (
+              BuildContext flightContext,
+              Animation<double> animation,
+              HeroFlightDirection flightDirection,
+              BuildContext fromHeroContext,
+              BuildContext toHeroContext,
+            ) {
+              return Material(
+                type: MaterialType.transparency,
+                child: toHeroContext.widget,
+              );
+            },
+        child: Material(type: MaterialType.transparency, child: surface),
       );
     }
 
@@ -278,14 +278,9 @@ class GlassButton extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[
-                colors.primaryEmerald,
-                colors.tealDeep,
-              ],
+              colors: <Color>[colors.primaryEmerald, colors.tealDeep],
             ),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.28),
-            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.28)),
             boxShadow: <BoxShadow>[
               BoxShadow(
                 color: colors.primaryEmerald.withValues(alpha: 0.32),
@@ -438,39 +433,45 @@ class GlassSegmentedControl<T> extends StatelessWidget {
       enableBlur: false,
       padding: EdgeInsets.all(tokens.spacing.xxs),
       child: Row(
-        children: entries.map((MapEntry<T, String> entry) {
-          final isSelected = entry.key == selectedValue;
-          return Expanded(
-            child: PressScaleContainer(
-              onTap: () => onValueChanged(entry.key),
-              hapticSelectionClick: true,
-              semanticButton: true,
-              semanticLabel: entry.value,
-              child: AnimatedContainer(
-                duration: tokens.motion.normal,
-                curve: tokens.motion.emphasizedCurve,
-                padding: EdgeInsets.symmetric(
-                  vertical: tokens.spacing.xs,
-                  horizontal: tokens.spacing.xs,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: tokens.radii.borderFull,
-                  color: isSelected ? colors.primaryEmerald : Colors.transparent,
-                ),
-                child: Text(
-                  entry.value,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: tokens.typography.label.copyWith(
-                    color: isSelected ? Colors.white : colors.textSecondary,
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+        children: entries
+            .map((MapEntry<T, String> entry) {
+              final isSelected = entry.key == selectedValue;
+              return Expanded(
+                child: PressScaleContainer(
+                  onTap: () => onValueChanged(entry.key),
+                  hapticSelectionClick: true,
+                  semanticButton: true,
+                  semanticLabel: entry.value,
+                  child: AnimatedContainer(
+                    duration: tokens.motion.normal,
+                    curve: tokens.motion.emphasizedCurve,
+                    padding: EdgeInsets.symmetric(
+                      vertical: tokens.spacing.xs,
+                      horizontal: tokens.spacing.xs,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: tokens.radii.borderFull,
+                      color: isSelected
+                          ? colors.primaryEmerald
+                          : Colors.transparent,
+                    ),
+                    child: Text(
+                      entry.value,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: tokens.typography.label.copyWith(
+                        color: isSelected ? Colors.white : colors.textSecondary,
+                        fontWeight: isSelected
+                            ? FontWeight.w700
+                            : FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          );
-        }).toList(growable: false),
+              );
+            })
+            .toList(growable: false),
       ),
     );
   }
@@ -513,11 +514,7 @@ class GlassSearchBar extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(
-            Icons.search_rounded,
-            size: 20,
-            color: colors.primaryEmerald,
-          ),
+          Icon(Icons.search_rounded, size: 20, color: colors.primaryEmerald),
           SizedBox(width: tokens.spacing.sm),
           Expanded(
             child: TextField(
@@ -607,11 +604,7 @@ class GlassListTile extends StatelessWidget {
                 color: colors.primaryEmerald.withValues(alpha: 0.15),
                 borderRadius: tokens.radii.borderSm,
               ),
-              child: Icon(
-                leadingIcon,
-                color: colors.primaryEmerald,
-                size: 22,
-              ),
+              child: Icon(leadingIcon, color: colors.primaryEmerald, size: 22),
             ),
             SizedBox(width: tokens.spacing.md),
           ],
@@ -620,16 +613,10 @@ class GlassListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
-                  title,
-                  style: tokens.typography.titleMedium,
-                ),
+                Text(title, style: tokens.typography.titleMedium),
                 if (subtitle != null) ...<Widget>[
                   SizedBox(height: tokens.spacing.xxs),
-                  Text(
-                    subtitle!,
-                    style: tokens.typography.bodyMedium,
-                  ),
+                  Text(subtitle!, style: tokens.typography.bodyMedium),
                 ],
               ],
             ),
@@ -639,10 +626,7 @@ class GlassListTile extends StatelessWidget {
             trailing!,
           ] else if (onTap != null) ...<Widget>[
             SizedBox(width: tokens.spacing.sm),
-            Icon(
-              Icons.chevron_right_rounded,
-              color: colors.textMuted,
-            ),
+            Icon(Icons.chevron_right_rounded, color: colors.textMuted),
           ],
         ],
       ),
@@ -653,11 +637,7 @@ class GlassListTile extends StatelessWidget {
 /// Modal bottom sheet container built on [GlassSurface] with a top drag handle.
 class GlassBottomSheet extends StatelessWidget {
   /// Creates a [GlassBottomSheet].
-  const GlassBottomSheet({
-    required this.title,
-    required this.child,
-    super.key,
-  });
+  const GlassBottomSheet({required this.title, required this.child, super.key});
 
   /// Sheet header title.
   final String title;
@@ -675,10 +655,8 @@ class GlassBottomSheet extends StatelessWidget {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (BuildContext ctx) => GlassBottomSheet(
-        title: title,
-        child: child,
-      ),
+      builder: (BuildContext ctx) =>
+          GlassBottomSheet(title: title, child: child),
     );
   }
 
@@ -810,4 +788,3 @@ class GlassDialog extends StatelessWidget {
     );
   }
 }
-

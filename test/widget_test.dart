@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:musalli/app_bootstrap.dart';
 import 'package:musalli/core/config/flavor_config.dart';
 import 'package:musalli/core/database/app_database.dart';
+import 'package:musalli/core/design_system/components/glass_navigation.dart';
 import 'package:musalli/core/design_system/glass/glass_quality.dart';
 import 'package:musalli/core/design_system/showcase/design_system_showcase_screen.dart';
 import 'package:musalli/core/l10n/arb/app_localizations.dart';
@@ -13,10 +14,7 @@ import 'package:musalli/core/router/app_router.dart';
 import 'package:musalli/core/theme/musalli_theme.dart';
 
 void main() {
-  Widget buildTestApp({
-    required AppDatabase db,
-    FlavorConfig? flavor,
-  }) {
+  Widget buildTestApp({required AppDatabase db, FlavorConfig? flavor}) {
     return ProviderScope(
       overrides: [
         appDatabaseProvider.overrideWithValue(db),
@@ -33,29 +31,38 @@ void main() {
       addTearDown(db.close);
 
       await tester.pumpWidget(buildTestApp(db: db));
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      Finder navTab(String label) => find.descendant(
+        of: find.byType(GlassBottomNavBar),
+        matching: find.text(label),
+      );
 
       // Verify all 5 Bangla bottom tabs are visible
-      expect(find.text('হোম'), findsOneWidget);
-      expect(find.text('শিখুন'), findsOneWidget);
-      expect(find.text('সিমুলেটর'), findsOneWidget);
-      expect(find.text('সময়'), findsOneWidget);
-      expect(find.text('আরও'), findsOneWidget);
+      expect(navTab('হোম'), findsOneWidget);
+      expect(navTab('শিখুন'), findsOneWidget);
+      expect(navTab('সিমুলেটর'), findsOneWidget);
+      expect(navTab('সময়'), findsOneWidget);
+      expect(navTab('আরও'), findsOneWidget);
 
       // Switch to Learn tab (শিখুন) and enter search text to verify state preservation
-      await tester.tap(find.text('শিখুন'));
-      await tester.pumpAndSettle();
+      await tester.tap(navTab('শিখুন'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
       await tester.enterText(find.byType(TextField).first, 'জানাজা');
-      await tester.pumpAndSettle();
+      await tester.pump();
       expect(find.text('জানাজার নামাজের নিয়ম ও দোয়া'), findsOneWidget);
 
       // Switch to Times tab (সময়) and back to Learn tab (শিখুন) — search filter stays preserved
-      await tester.tap(find.text('সময়'));
-      await tester.pumpAndSettle();
+      await tester.tap(navTab('সময়'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
       expect(find.text('আসর (হানাফি)'), findsOneWidget);
 
-      await tester.tap(find.text('শিখুন'));
-      await tester.pumpAndSettle();
+      await tester.tap(navTab('শিখুন'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
       expect(find.text('জানাজার নামাজের নিয়ম ও দোয়া'), findsOneWidget);
 
       // Deep link to musalli://namaj/fajr opens placeholder prayer detail page with slug
@@ -63,7 +70,8 @@ void main() {
         tester.element(find.byType(MusalliApp)),
       );
       container.read(appRouterProvider).go('musalli://namaj/fajr');
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
 
       expect(find.textContaining('fajr'), findsWidgets);
     },
@@ -77,9 +85,7 @@ void main() {
 
       await tester.pumpWidget(
         ProviderScope(
-          overrides: [
-            appDatabaseProvider.overrideWithValue(db),
-          ],
+          overrides: [appDatabaseProvider.overrideWithValue(db)],
           child: MediaQuery(
             data: const MediaQueryData(
               size: Size(412, 915),

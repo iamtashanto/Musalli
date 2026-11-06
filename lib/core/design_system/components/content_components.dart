@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musalli/core/design_system/components/glass_components.dart';
@@ -32,38 +33,42 @@ class RulingBadge extends StatelessWidget {
     final tokens = context.tokens;
     final colors = tokens.colors;
 
-    final (Color fg, Color bg, String defaultBn, String defaultEn) =
-        switch (category) {
+    final (
+      Color fg,
+      Color bg,
+      String defaultBn,
+      String defaultEn,
+    ) = switch (category) {
       RulingCategory.fard => (
-          colors.fardColor,
-          colors.fardContainer,
-          'ফরজ',
-          'Fard'
-        ),
+        colors.fardColor,
+        colors.fardContainer,
+        'ফরজ',
+        'Fard',
+      ),
       RulingCategory.wajib => (
-          colors.wajibColor,
-          colors.wajibContainer,
-          'ওয়াজিব',
-          'Wajib'
-        ),
+        colors.wajibColor,
+        colors.wajibContainer,
+        'ওয়াজিব',
+        'Wajib',
+      ),
       RulingCategory.sunnah => (
-          colors.sunnahColor,
-          colors.sunnahContainer,
-          'সুন্নাত',
-          'Sunnah'
-        ),
+        colors.sunnahColor,
+        colors.sunnahContainer,
+        'সুন্নাত',
+        'Sunnah',
+      ),
       RulingCategory.nafl => (
-          colors.naflColor,
-          colors.naflContainer,
-          'নফল',
-          'Nafl'
-        ),
+        colors.naflColor,
+        colors.naflContainer,
+        'নফল',
+        'Nafl',
+      ),
       RulingCategory.special => (
-          colors.goldAccent,
-          colors.goldSoft,
-          'বিশেষ',
-          'Special'
-        ),
+        colors.goldAccent,
+        colors.goldSoft,
+        'বিশেষ',
+        'Special',
+      ),
     };
 
     final label = customLabel ?? (isBangla ? defaultBn : defaultEn);
@@ -154,11 +159,7 @@ class ReferenceChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(
-            Icons.menu_book_rounded,
-            size: 14,
-            color: colors.primaryEmerald,
-          ),
+          Icon(Icons.menu_book_rounded, size: 14, color: colors.primaryEmerald),
           const SizedBox(width: 6),
           Flexible(
             child: Text(
@@ -231,17 +232,14 @@ class Callout extends StatelessWidget {
 
     final (Color accent, IconData icon) = switch (variant) {
       CalloutVariant.tip => (
-          colors.primaryEmerald,
-          Icons.lightbulb_outline_rounded
-        ),
-      CalloutVariant.warning => (
-          colors.warning,
-          Icons.warning_amber_rounded
-        ),
+        colors.primaryEmerald,
+        Icons.lightbulb_outline_rounded,
+      ),
+      CalloutVariant.warning => (colors.warning, Icons.warning_amber_rounded),
       CalloutVariant.reference => (
-          colors.sunnahColor,
-          Icons.auto_stories_outlined
-        ),
+        colors.sunnahColor,
+        Icons.auto_stories_outlined,
+      ),
     };
 
     return DecoratedBox(
@@ -394,7 +392,8 @@ class ProgressRing extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Padding(
               padding: EdgeInsets.all(strokeWidth + 2),
-              child: centerChild ??
+              child:
+                  centerChild ??
                   Text(
                     '${BengaliNumberFormatter.formatInt(percent, isBangla: isBangla)}%',
                     style: tokens.typography.label.copyWith(
@@ -527,10 +526,7 @@ class EmptyState extends StatelessWidget {
           ),
           if (actionLabel != null && onAction != null) ...<Widget>[
             SizedBox(height: tokens.spacing.md),
-            GlassButton(
-              label: actionLabel!,
-              onPressed: onAction,
-            ),
+            GlassButton(label: actionLabel!, onPressed: onAction),
           ],
         ],
       ),
@@ -594,8 +590,9 @@ class _GlassShimmerLoaderState extends State<GlassShimmerLoader>
   Widget build(BuildContext context) {
     final tokens = context.tokens;
     final colors = tokens.colors;
-    final borderRadius =
-        BorderRadius.circular(widget.radius ?? tokens.radii.md);
+    final borderRadius = BorderRadius.circular(
+      widget.radius ?? tokens.radii.md,
+    );
 
     return AnimatedBuilder(
       animation: _controller,
@@ -727,22 +724,21 @@ class _ArabicBlockState extends State<ArabicBlock> {
     });
 
     _simulatedAudioTimer?.cancel();
-    _simulatedAudioTimer = Timer.periodic(
-      const Duration(milliseconds: 120),
-      (Timer timer) {
-        if (!mounted) {
+    _simulatedAudioTimer = Timer.periodic(const Duration(milliseconds: 120), (
+      Timer timer,
+    ) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      setState(() {
+        _audioProgress = (_audioProgress + 0.08).clamp(0.0, 1.0);
+        if (_audioProgress >= 1.0) {
+          _isPlayingSimulated = false;
           timer.cancel();
-          return;
         }
-        setState(() {
-          _audioProgress = (_audioProgress + 0.08).clamp(0.0, 1.0);
-          if (_audioProgress >= 1.0) {
-            _isPlayingSimulated = false;
-            timer.cancel();
-          }
-        });
-      },
-    );
+      });
+    });
   }
 
   Future<void> _copyToClipboard() async {
@@ -750,7 +746,8 @@ class _ArabicBlockState extends State<ArabicBlock> {
     final meaning = widget.isBanglaLocale
         ? widget.data.meaningBn
         : widget.data.meaningEn;
-    final payload = '${widget.data.titleBn}\n'
+    final payload =
+        '${widget.data.titleBn}\n'
         '${widget.data.arabic}\n'
         'উচ্চারণ: ${widget.data.uccharonBn}\n'
         'অর্থ: $meaning';
@@ -774,10 +771,12 @@ class _ArabicBlockState extends State<ArabicBlock> {
         .where((w) => w.isNotEmpty)
         .toList(growable: false);
 
-    final title =
-        widget.isBanglaLocale ? widget.data.titleBn : widget.data.titleEn;
-    final meaning =
-        widget.isBanglaLocale ? widget.data.meaningBn : widget.data.meaningEn;
+    final title = widget.isBanglaLocale
+        ? widget.data.titleBn
+        : widget.data.titleEn;
+    final meaning = widget.isBanglaLocale
+        ? widget.data.meaningBn
+        : widget.data.meaningEn;
     final refText = widget.isBanglaLocale
         ? widget.data.referenceTextBn
         : (widget.data.referenceTextEn ?? widget.data.referenceTextBn);
@@ -807,8 +806,10 @@ class _ArabicBlockState extends State<ArabicBlock> {
                   IconButton(
                     onPressed: () {
                       setState(() {
-                        _arabicFontScale =
-                            (_arabicFontScale - 0.1).clamp(0.8, 1.5);
+                        _arabicFontScale = (_arabicFontScale - 0.1).clamp(
+                          0.8,
+                          1.5,
+                        );
                       });
                     },
                     icon: const Icon(Icons.text_decrease_rounded, size: 18),
@@ -818,8 +819,10 @@ class _ArabicBlockState extends State<ArabicBlock> {
                   IconButton(
                     onPressed: () {
                       setState(() {
-                        _arabicFontScale =
-                            (_arabicFontScale + 0.1).clamp(0.8, 1.5);
+                        _arabicFontScale = (_arabicFontScale + 0.1).clamp(
+                          0.8,
+                          1.5,
+                        );
                       });
                     },
                     icon: const Icon(Icons.text_increase_rounded, size: 18),
@@ -862,7 +865,9 @@ class _ArabicBlockState extends State<ArabicBlock> {
                 value: _audioProgress,
                 minHeight: 4,
                 backgroundColor: colors.borderSubtle,
-                valueColor: AlwaysStoppedAnimation<Color>(colors.primaryEmerald),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  colors.primaryEmerald,
+                ),
               ),
             ),
           ],
@@ -904,11 +909,13 @@ class _ArabicBlockState extends State<ArabicBlock> {
               stream: widget.highlightWordIndexStream,
               initialData: widget.activeWordIndex,
               builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                final highlightedIndex = snapshot.data ??
+                final highlightedIndex =
+                    snapshot.data ??
                     (_isPlayingSimulated && words.isNotEmpty
-                        ? ((_audioProgress * words.length)
-                            .floor()
-                            .clamp(0, words.length - 1))
+                        ? ((_audioProgress * words.length).floor().clamp(
+                            0,
+                            words.length - 1,
+                          ))
                         : null);
 
                 return Directionality(
@@ -928,10 +935,13 @@ class _ArabicBlockState extends State<ArabicBlock> {
                               tokens.typography.arabicLarge.fontSize! *
                               _arabicFontScale,
                         ),
-                        children: List<InlineSpan>.generate(words.length, (int i) {
+                        children: List<InlineSpan>.generate(words.length, (
+                          int i,
+                        ) {
                           final isHighlighted = highlightedIndex == i;
                           return TextSpan(
-                            text: '${words[i]}${i < words.length - 1 ? ' ' : ''}',
+                            text:
+                                '${words[i]}${i < words.length - 1 ? ' ' : ''}',
                             style: isHighlighted
                                 ? TextStyle(
                                     color: colors.goldAccent,
@@ -1033,4 +1043,3 @@ class _LayerSection extends StatelessWidget {
     );
   }
 }
-

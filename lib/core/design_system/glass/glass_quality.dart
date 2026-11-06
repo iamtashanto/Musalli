@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
@@ -21,10 +22,10 @@ enum GlassQuality {
 
   /// Blur sigma corresponding to this quality tier.
   double get defaultBlurSigma => switch (this) {
-        GlassQuality.high => 24,
-        GlassQuality.medium => 12,
-        GlassQuality.low => 0,
-      };
+    GlassQuality.high => 24,
+    GlassQuality.medium => 12,
+    GlassQuality.low => 0,
+  };
 
   /// Returns `true` if `BackdropFilter` should be skipped completely.
   bool get isBlurDisabled => this == GlassQuality.low;
@@ -103,4 +104,3 @@ class GlassQualityDetector {
     return current;
   }
 }
-

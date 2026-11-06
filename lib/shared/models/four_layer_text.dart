@@ -69,4 +69,3 @@ abstract class FourLayerText with _$FourLayerText {
   factory FourLayerText.fromJson(Map<String, dynamic> json) =>
       _$FourLayerTextFromJson(json);
 }
-

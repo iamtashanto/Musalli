@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musalli/core/design_system/glass/glass_quality.dart';
@@ -9,16 +10,12 @@ import 'package:musalli/core/providers/app_providers.dart';
 /// [GlassSurface] has already applied a `BackdropFilter` in the current
 /// subtree, strictly enforcing the "never nest blurs" performance rule.
 class _GlassBlurScope extends InheritedWidget {
-  const _GlassBlurScope({
-    required this.hasActiveBlur,
-    required super.child,
-  });
+  const _GlassBlurScope({required this.hasActiveBlur, required super.child});
 
   final bool hasActiveBlur;
 
   static bool isInsideBlurredRegion(BuildContext context) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<_GlassBlurScope>();
+    final scope = context.dependOnInheritedWidgetOfExactType<_GlassBlurScope>();
     return scope?.hasActiveBlur ?? false;
   }
 
@@ -114,7 +111,8 @@ class GlassSurface extends ConsumerWidget {
         : (isDark ? 0.48 : 0.68);
     final effectiveOpacity = (opacity ?? defaultOpacity).clamp(0.0, 1.0);
 
-    final baseTint = tint ??
+    final baseTint =
+        tint ??
         (quality.isBlurDisabled
             ? colors.surfaceLowRamFallback
             : colors.surfaceGlassTint);
@@ -126,10 +124,7 @@ class GlassSurface extends ConsumerWidget {
         ? colors.primaryEmerald.withValues(alpha: 0.45)
         : colors.borderSubtle;
 
-    Widget content = Padding(
-      padding: padding ?? EdgeInsets.zero,
-      child: child,
-    );
+    Widget content = Padding(padding: padding ?? EdgeInsets.zero, child: child);
 
     content = CustomPaint(
       foregroundPainter: _GradientBorderPainter(
@@ -228,4 +223,3 @@ class _GradientBorderPainter extends CustomPainter {
         oldDelegate.strokeWidth != strokeWidth;
   }
 }
-

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -97,9 +98,7 @@ Future<void> bootstrapMusalliApp(FlavorConfig config) async {
 
   runApp(
     ProviderScope(
-      overrides: [
-        flavorConfigProvider.overrideWithValue(config),
-      ],
+      overrides: [flavorConfigProvider.overrideWithValue(config)],
       child: const MusalliApp(),
     ),
   );

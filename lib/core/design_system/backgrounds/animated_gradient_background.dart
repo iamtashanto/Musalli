@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:musalli/core/design_system/tokens/design_tokens.dart';
 
@@ -88,14 +89,8 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
             animation: _controller,
             builder: (BuildContext context, Widget? _) {
               final t = _controller.value;
-              final beginAlign = Alignment(
-                -0.8 + (0.4 * t),
-                -1.0 + (0.3 * t),
-              );
-              final endAlign = Alignment(
-                0.8 - (0.4 * t),
-                1.0 - (0.3 * t),
-              );
+              final beginAlign = Alignment(-0.8 + (0.4 * t), -1.0 + (0.3 * t));
+              final endAlign = Alignment(0.8 - (0.4 * t), 1.0 - (0.3 * t));
 
               return DecoratedBox(
                 decoration: BoxDecoration(

@@ -50,8 +50,9 @@ class AppLocaleNotifier extends _$AppLocaleNotifier {
 
   /// Toggles between Bangla (`bn`) and English (`en`).
   Future<void> toggleLocale() async {
-    final next =
-        state.languageCode == 'bn' ? const Locale('en') : const Locale('bn');
+    final next = state.languageCode == 'bn'
+        ? const Locale('en')
+        : const Locale('bn');
     await setLocale(next);
   }
 }
@@ -100,8 +101,7 @@ class GlassQualityNotifier extends _$GlassQualityNotifier {
   /// override in settings.
   Future<void> initializeAutoDetection() async {
     try {
-      final saved =
-          await ref.read(appDatabaseProvider).getSetting(_settingKey);
+      final saved = await ref.read(appDatabaseProvider).getSetting(_settingKey);
       if (saved != null) {
         final match = GlassQuality.values
             .where((q) => q.name == saved)
@@ -146,4 +146,3 @@ class GlassQualityNotifier extends _$GlassQualityNotifier {
     }
   }
 }
-

@@ -14,10 +14,7 @@ void main() {
       expect(BengaliNumberFormatter.formatInt(0), '০');
       expect(BengaliNumberFormatter.formatInt(17), '১৭');
       expect(BengaliNumberFormatter.formatInt(300), '৩০০');
-      expect(
-        BengaliNumberFormatter.formatString('04:52 AM'),
-        '০৪:৫২ AM',
-      );
+      expect(BengaliNumberFormatter.formatString('04:52 AM'), '০৪:৫২ AM');
     });
 
     test('preserves ASCII digits when isBangla is false', () {
@@ -63,10 +60,13 @@ void main() {
       );
     });
 
-    test('normalizes https://namajshikkha.tashanto.com/namaj/fajr App Link', () {
-      final uri = Uri.parse('https://namajshikkha.tashanto.com/namaj/fajr');
-      expect(normalizeIncomingDeepLinkUri(uri), '/namaj/fajr');
-    });
+    test(
+      'normalizes https://namajshikkha.tashanto.com/namaj/fajr App Link',
+      () {
+        final uri = Uri.parse('https://namajshikkha.tashanto.com/namaj/fajr');
+        expect(normalizeIncomingDeepLinkUri(uri), '/namaj/fajr');
+      },
+    );
 
     test('returns null for normal internal paths', () {
       final uri = Uri.parse('/namaj/fajr');
@@ -75,15 +75,18 @@ void main() {
   });
 
   group('FlavorConfig & GlassQualityDetector', () {
-    test('FlavorConfig.dev and FlavorConfig.prod have distinct IDs and names', () {
-      final dev = FlavorConfig.dev();
-      final prod = FlavorConfig.prod();
+    test(
+      'FlavorConfig.dev and FlavorConfig.prod have distinct IDs and names',
+      () {
+        final dev = FlavorConfig.dev();
+        final prod = FlavorConfig.prod();
 
-      expect(dev.isDev, isTrue);
-      expect(dev.applicationId, 'com.tashanto.musalli.dev');
-      expect(prod.isProd, isTrue);
-      expect(prod.applicationId, 'com.tashanto.musalli');
-    });
+        expect(dev.isDev, isTrue);
+        expect(dev.applicationId, 'com.tashanto.musalli.dev');
+        expect(prod.isProd, isTrue);
+        expect(prod.applicationId, 'com.tashanto.musalli');
+      },
+    );
 
     test('evaluateFrameTimings downgrades GlassQuality on slow frames', () {
       final slowTimings = List<FrameTiming>.generate(
@@ -145,4 +148,3 @@ void main() {
     });
   });
 }
-

@@ -5,11 +5,7 @@ import 'package:musalli/core/services/app_logger.dart';
 /// widget build error occurs.
 class BanglaErrorScreen extends StatelessWidget {
   /// Creates a [BanglaErrorScreen].
-  const BanglaErrorScreen({
-    this.errorDetails,
-    this.onRetry,
-    super.key,
-  });
+  const BanglaErrorScreen({this.errorDetails, this.onRetry, super.key});
 
   /// Optional Flutter error details captured by [ErrorWidget.builder].
   final FlutterErrorDetails? errorDetails;
@@ -44,7 +40,8 @@ class BanglaErrorScreen extends StatelessWidget {
                         width: 64,
                         height: 64,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF59E0B).withValues(alpha: 0.18),
+                          color: const Color(0xFFF59E0B)
+                              .withValues(alpha: 0.18),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -130,14 +127,14 @@ class GlobalErrorHandler {
 
     WidgetsBinding.instance.platformDispatcher.onError =
         (Object error, StackTrace stack) {
-      AppLogger.error(
-        'Uncaught platform error: $error',
-        tag: 'PlatformDispatcher',
-        error: error,
-        stackTrace: stack,
-      );
-      return true;
-    };
+          AppLogger.error(
+            'Uncaught platform error: $error',
+            tag: 'PlatformDispatcher',
+            error: error,
+            stackTrace: stack,
+          );
+          return true;
+        };
 
     ErrorWidget.builder = (FlutterErrorDetails details) {
       return BanglaErrorScreen(errorDetails: details);

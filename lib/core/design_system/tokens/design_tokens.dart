@@ -37,67 +37,67 @@ class MusalliColorTokens {
 
   /// Light palette inspired by soft morning courtyard light over emerald & pearl.
   factory MusalliColorTokens.light() => const MusalliColorTokens(
-        brightness: Brightness.light,
-        primaryEmerald: Color(0xFF059669),
-        emeraldLight: Color(0xFF34D399),
-        emeraldDark: Color(0xFF065F46),
-        tealDeep: Color(0xFF0F766E),
-        goldAccent: Color(0xFFD97706),
-        goldSoft: Color(0xFFFEF3C7),
-        backgroundStart: Color(0xFFECFDF5),
-        backgroundMiddle: Color(0xFFF0FDFA),
-        backgroundEnd: Color(0xFFF8FAFC),
-        surfaceGlassTint: Color(0xFFFFFFFF),
-        surfaceLowRamFallback: Color(0xF5FFFFFF),
-        borderHighlight: Color(0xCCFFFFFF),
-        borderSubtle: Color(0x26059669),
-        textPrimary: Color(0xFF062C22),
-        textSecondary: Color(0xFF335C50),
-        textMuted: Color(0xFF648279),
-        fardColor: Color(0xFF047857),
-        fardContainer: Color(0xFFD1FAE5),
-        wajibColor: Color(0xFFB45309),
-        wajibContainer: Color(0xFFFEF3C7),
-        sunnahColor: Color(0xFF0369A1),
-        sunnahContainer: Color(0xFFE0F2FE),
-        naflColor: Color(0xFF6D28D9),
-        naflContainer: Color(0xFFEDE9FE),
-        success: Color(0xFF059669),
-        warning: Color(0xFFD97706),
-        error: Color(0xFFDC2626),
-      );
+    brightness: Brightness.light,
+    primaryEmerald: Color(0xFF059669),
+    emeraldLight: Color(0xFF34D399),
+    emeraldDark: Color(0xFF065F46),
+    tealDeep: Color(0xFF0F766E),
+    goldAccent: Color(0xFFD97706),
+    goldSoft: Color(0xFFFEF3C7),
+    backgroundStart: Color(0xFFECFDF5),
+    backgroundMiddle: Color(0xFFF0FDFA),
+    backgroundEnd: Color(0xFFF8FAFC),
+    surfaceGlassTint: Color(0xFFFFFFFF),
+    surfaceLowRamFallback: Color(0xF5FFFFFF),
+    borderHighlight: Color(0xCCFFFFFF),
+    borderSubtle: Color(0x26059669),
+    textPrimary: Color(0xFF062C22),
+    textSecondary: Color(0xFF335C50),
+    textMuted: Color(0xFF648279),
+    fardColor: Color(0xFF047857),
+    fardContainer: Color(0xFFD1FAE5),
+    wajibColor: Color(0xFFB45309),
+    wajibContainer: Color(0xFFFEF3C7),
+    sunnahColor: Color(0xFF0369A1),
+    sunnahContainer: Color(0xFFE0F2FE),
+    naflColor: Color(0xFF6D28D9),
+    naflContainer: Color(0xFFEDE9FE),
+    success: Color(0xFF059669),
+    warning: Color(0xFFD97706),
+    error: Color(0xFFDC2626),
+  );
 
   /// Dark palette inspired by serene Tahajjud night emerald and warm gold lantern accents.
   factory MusalliColorTokens.dark() => const MusalliColorTokens(
-        brightness: Brightness.dark,
-        primaryEmerald: Color(0xFF10B981),
-        emeraldLight: Color(0xFF6EE7B7),
-        emeraldDark: Color(0xFF047857),
-        tealDeep: Color(0xFF115E59),
-        goldAccent: Color(0xFFFBBF24),
-        goldSoft: Color(0xFF451A03),
-        backgroundStart: Color(0xFF021E1A),
-        backgroundMiddle: Color(0xFF042F2E),
-        backgroundEnd: Color(0xFF061A17),
-        surfaceGlassTint: Color(0xFF0B3B34),
-        surfaceLowRamFallback: Color(0xF2082B26),
-        borderHighlight: Color(0x406EE7B7),
-        borderSubtle: Color(0x2434D399),
-        textPrimary: Color(0xFFECFDF5),
-        textSecondary: Color(0xFFA7F3D0),
-        textMuted: Color(0xFF6EE7B7),
-        fardColor: Color(0xFF34D399),
-        fardContainer: Color(0xFF064E3B),
-        wajibColor: Color(0xFFFBBF24),
-        wajibContainer: Color(0xFF451A03),
-        sunnahColor: Color(0xFF38BDF8),
-        sunnahContainer: Color(0xFF0C4A6E),
-        naflColor: Color(0xFFC084FC),
-        naflContainer: Color(0xFF3B0764),
-        success: Color(0xFF34D399),
-        warning: Color(0xFFFBBF24),
-        error: Color(0xFFF87171),
-      );
+    brightness: Brightness.dark,
+    primaryEmerald: Color(0xFF10B981),
+    emeraldLight: Color(0xFF6EE7B7),
+    emeraldDark: Color(0xFF047857),
+    tealDeep: Color(0xFF115E59),
+    goldAccent: Color(0xFFFBBF24),
+    goldSoft: Color(0xFF451A03),
+    backgroundStart: Color(0xFF021E1A),
+    backgroundMiddle: Color(0xFF042F2E),
+    backgroundEnd: Color(0xFF061A17),
+    surfaceGlassTint: Color(0xFF0B3B34),
+    surfaceLowRamFallback: Color(0xF2082B26),
+    borderHighlight: Color(0x406EE7B7),
+    borderSubtle: Color(0x2434D399),
+    textPrimary: Color(0xFFECFDF5),
+    textSecondary: Color(0xFFA7F3D0),
+    textMuted: Color(0xFF6EE7B7),
+    fardColor: Color(0xFF34D399),
+    fardContainer: Color(0xFF064E3B),
+    wajibColor: Color(0xFFFBBF24),
+    wajibContainer: Color(0xFF451A03),
+    sunnahColor: Color(0xFF38BDF8),
+    sunnahContainer: Color(0xFF0C4A6E),
+    naflColor: Color(0xFFC084FC),
+    naflContainer: Color(0xFF3B0764),
+    success: Color(0xFF34D399),
+    warning: Color(0xFFFBBF24),
+    error: Color(0xFFF87171),
+  );
 
   /// Theme brightness.
   final Brightness brightness;
@@ -201,8 +201,11 @@ class MusalliColorTokens {
       backgroundMiddle: Color.lerp(a.backgroundMiddle, b.backgroundMiddle, t)!,
       backgroundEnd: Color.lerp(a.backgroundEnd, b.backgroundEnd, t)!,
       surfaceGlassTint: Color.lerp(a.surfaceGlassTint, b.surfaceGlassTint, t)!,
-      surfaceLowRamFallback:
-          Color.lerp(a.surfaceLowRamFallback, b.surfaceLowRamFallback, t)!,
+      surfaceLowRamFallback: Color.lerp(
+        a.surfaceLowRamFallback,
+        b.surfaceLowRamFallback,
+        t,
+      )!,
       borderHighlight: Color.lerp(a.borderHighlight, b.borderHighlight, t)!,
       borderSubtle: Color.lerp(a.borderSubtle, b.borderSubtle, t)!,
       textPrimary: Color.lerp(a.textPrimary, b.textPrimary, t)!,
@@ -439,11 +442,8 @@ class MusalliMotionTokens {
   final Curve springCurve = Curves.elasticOut;
 
   /// Spring physics description for interactive sliding pills and press release.
-  SpringDescription get interactiveSpring => const SpringDescription(
-        mass: 1,
-        stiffness: 380,
-        damping: 28,
-      );
+  SpringDescription get interactiveSpring =>
+      const SpringDescription(mass: 1, stiffness: 380, damping: 28);
 }
 
 /// Unified [ThemeExtension] exposing all Musalli design tokens on `Theme.of(context)`.
@@ -499,14 +499,14 @@ class MusalliDesignTokens extends ThemeExtension<MusalliDesignTokens> {
 
   /// Soft elevation shadow for floating glass surfaces.
   List<BoxShadow> get glassShadows => <BoxShadow>[
-        BoxShadow(
-          color: colors.brightness == Brightness.dark
-              ? const Color(0x66000000)
-              : const Color(0x14047857),
-          blurRadius: 24,
-          offset: const Offset(0, 10),
-        ),
-      ];
+    BoxShadow(
+      color: colors.brightness == Brightness.dark
+          ? const Color(0x66000000)
+          : const Color(0x14047857),
+      blurRadius: 24,
+      offset: const Offset(0, 10),
+    ),
+  ];
 
   @override
   MusalliDesignTokens copyWith({

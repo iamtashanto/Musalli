@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musalli/core/design_system/glass/glass_surface.dart';
@@ -107,14 +109,17 @@ class GlassBottomNavBar extends StatelessWidget {
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                   colors: <Color>[
-                                    colors.primaryEmerald.withValues(alpha: 0.9),
+                                    colors.primaryEmerald.withValues(
+                                      alpha: 0.9,
+                                    ),
                                     colors.tealDeep.withValues(alpha: 0.9),
                                   ],
                                 ),
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
-                                    color: colors.primaryEmerald
-                                        .withValues(alpha: 0.35),
+                                    color: colors.primaryEmerald.withValues(
+                                      alpha: 0.35,
+                                    ),
                                     blurRadius: 12,
                                     offset: const Offset(0, 4),
                                   ),
@@ -124,11 +129,14 @@ class GlassBottomNavBar extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          children: List<Widget>.generate(items.length, (int i) {
+                          children: List<Widget>.generate(items.length, (
+                            int i,
+                          ) {
                             final item = items[i];
                             final selected = i == currentIndex;
-                            final fg =
-                                selected ? Colors.white : colors.textSecondary;
+                            final fg = selected
+                                ? Colors.white
+                                : colors.textSecondary;
 
                             return Expanded(
                               child: Semantics(
@@ -137,8 +145,8 @@ class GlassBottomNavBar extends StatelessWidget {
                                 label: item.label,
                                 child: GestureDetector(
                                   behavior: HitTestBehavior.opaque,
-                                  onTap: () async {
-                                    await HapticFeedback.selectionClick();
+                                  onTap: () {
+                                    unawaited(HapticFeedback.selectionClick());
                                     onTap(i);
                                   },
                                   child: Padding(
@@ -150,7 +158,9 @@ class GlassBottomNavBar extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         Icon(
-                                          selected ? item.activeIcon : item.icon,
+                                          selected
+                                              ? item.activeIcon
+                                              : item.icon,
                                           size: 21,
                                           color: fg,
                                         ),
@@ -162,13 +172,14 @@ class GlassBottomNavBar extends StatelessWidget {
                                           textScaler: MediaQuery.textScalerOf(
                                             context,
                                           ).clamp(maxScaleFactor: 1.3),
-                                          style: tokens.typography.label.copyWith(
-                                            fontSize: 11,
-                                            color: fg,
-                                            fontWeight: selected
-                                                ? FontWeight.w700
-                                                : FontWeight.w500,
-                                          ),
+                                          style: tokens.typography.label
+                                              .copyWith(
+                                                fontSize: 11,
+                                                color: fg,
+                                                fontWeight: selected
+                                                    ? FontWeight.w700
+                                                    : FontWeight.w500,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -349,9 +360,7 @@ class _GlassSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: tokens.typography.display.copyWith(
-                        fontSize: 24,
-                      ),
+                      style: tokens.typography.display.copyWith(fontSize: 24),
                     ),
                   ],
                 ),
@@ -452,9 +461,7 @@ class CrescentMoonIndicator extends StatelessWidget {
     return SizedBox(
       width: size,
       height: size,
-      child: CustomPaint(
-        painter: _CrescentMoonPainter(color: color),
-      ),
+      child: CustomPaint(painter: _CrescentMoonPainter(color: color)),
     );
   }
 }
@@ -468,12 +475,17 @@ class _CrescentMoonPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final outerRadius = size.width * 0.42;
-    final innerCenter = center.translate(outerRadius * 0.35, -outerRadius * 0.15);
+    final innerCenter = center.translate(
+      outerRadius * 0.35,
+      -outerRadius * 0.15,
+    );
 
     final outerPath = Path()
       ..addOval(Rect.fromCircle(center: center, radius: outerRadius));
     final innerPath = Path()
-      ..addOval(Rect.fromCircle(center: innerCenter, radius: outerRadius * 0.82));
+      ..addOval(
+        Rect.fromCircle(center: innerCenter, radius: outerRadius * 0.82),
+      );
 
     final crescent = Path.combine(
       PathOperation.difference,

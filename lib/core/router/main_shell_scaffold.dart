@@ -75,6 +75,7 @@ class _MainShellScaffoldState extends State<MainShellScaffold> {
     if (!_isBottomNavVisible) {
       setState(() => _isBottomNavVisible = true);
     }
+    // Switch to the target branch via GoRouter
     widget.navigationShell.goBranch(index);
   }
 
@@ -130,13 +131,12 @@ class _MainShellScaffoldState extends State<MainShellScaffold> {
                     enabled: isActive,
                     child: AnimatedOpacity(
                       opacity: isActive ? 1.0 : 0.0,
-                      duration:
-                          reducedMotion ? Duration.zero : tokens.motion.fast,
+                      duration: reducedMotion
+                          ? Duration.zero
+                          : tokens.motion.fast,
                       curve: tokens.motion.standardCurve,
                       child: AnimatedSlide(
-                        offset: isActive
-                            ? Offset.zero
-                            : const Offset(0, 0.015),
+                        offset: isActive ? Offset.zero : const Offset(0, 0.015),
                         duration: reducedMotion
                             ? Duration.zero
                             : tokens.motion.normal,
@@ -165,4 +165,3 @@ class _MainShellScaffoldState extends State<MainShellScaffold> {
     );
   }
 }
-

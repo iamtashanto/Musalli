@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -17,16 +18,11 @@ const FourLayerText _sampleSana = FourLayerText(
   id: 'dua-sana',
   titleBn: 'সানা (তাকবীরে তাহরীমার পর পাঠ্য)',
   titleEn: 'Sana (Opening Supplication)',
-  arabic:
-      'سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَىٰ جَدُّكَ وَلَا إِلَـٰهَ غَيْرُكَ',
-  uccharonBn:
-      'সুবহানাকাল্লাহুম্মা ওয়া বিহামদিকা ওয়া তাবারাকাসমুকা ওয়া তাআলা জাদ্দুকা ওয়া লা ইলাহা গাইরুক।',
-  banglish:
-      "Subhanakallahumma wa bihamdika wa tabarakasmuka wa ta'ala jadduka wa la ilaha ghairuk.",
-  meaningBn:
-      'হে আল্লাহ! আমি আপনার পবিত্রতা ও প্রশংসা বর্ণনা করছি। আপনার নাম বরকতময়, আপনার মহত্ত্ব অতি উচ্চে এবং আপনি ছাড়া কোনো উপাস্য নেই।',
-  meaningEn:
-      'Glory be to You, O Allah, and praise be to You. Blessed is Your Name and exalted is Your Majesty, and there is none worthy of worship besides You.',
+  arabic: 'سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَىٰ جَدُّكَ وَلَا إِلَـٰهَ غَيْرُكَ',
+  uccharonBn: 'সুবহানাকাল্লাহুম্মা ওয়া বিহামদিকা ওয়া তাবারাকাসমুকা ওয়া তাআলা জাদ্দুকা ওয়া লা ইলাহা গাইরুক।',
+  banglish: "Subhanakallahumma wa bihamdika wa tabarakasmuka wa ta'ala jadduka wa la ilaha ghairuk.",
+  meaningBn: 'হে আল্লাহ! আমি আপনার পবিত্রতা ও প্রশংসা বর্ণনা করছি। আপনার নাম বরকতময়, আপনার মহত্ত্ব অতি উচ্চে এবং আপনি ছাড়া কোনো উপাস্য নেই।',
+  meaningEn: 'Glory be to You, O Allah, and praise be to You. Blessed is Your Name and exalted is Your Majesty, and there is none worthy of worship besides You.',
   referenceTextBn: 'সুনানে আবু দাউদ ৭৭৫ • জামে তিরমিজি ২৪৩',
   referenceTextEn: 'Sunan Abu Dawud 775 • Jami at-Tirmidhi 243',
   grade: HadithGrade.sahih,
@@ -45,51 +41,68 @@ class HomeTabScreen extends ConsumerStatefulWidget {
 class _HomeTabScreenState extends ConsumerState<HomeTabScreen> {
   int _streakDays = 7;
 
-  static const List<({String slug, String nameBn, String nameEn, int rakats, RulingCategory category})>
-      _featuredPrayers = <({String slug, String nameBn, String nameEn, int rakats, RulingCategory category})>[
-    (
-      slug: 'fajr',
-      nameBn: 'ফজরের নামাজ',
-      nameEn: 'Fajr Prayer',
-      rakats: 4,
-      category: RulingCategory.fard,
-    ),
-    (
-      slug: 'dhuhr',
-      nameBn: 'যোহরের নামাজ',
-      nameEn: 'Dhuhr Prayer',
-      rakats: 12,
-      category: RulingCategory.fard,
-    ),
-    (
-      slug: 'asr',
-      nameBn: 'আসরের নামাজ',
-      nameEn: 'Asr Prayer',
-      rakats: 8,
-      category: RulingCategory.fard,
-    ),
-    (
-      slug: 'maghrib',
-      nameBn: 'মাগরিবের নামাজ',
-      nameEn: 'Maghrib Prayer',
-      rakats: 7,
-      category: RulingCategory.fard,
-    ),
-    (
-      slug: 'isha',
-      nameBn: 'এশার নামাজ',
-      nameEn: 'Isha Prayer',
-      rakats: 17,
-      category: RulingCategory.fard,
-    ),
-    (
-      slug: 'witr',
-      nameBn: 'বিতর নামাজ',
-      nameEn: 'Witr Prayer',
-      rakats: 3,
-      category: RulingCategory.wajib,
-    ),
-  ];
+  static const List<
+    ({
+      String slug,
+      String nameBn,
+      String nameEn,
+      int rakats,
+      RulingCategory category,
+    })
+  >
+  _featuredPrayers =
+      <
+        ({
+          String slug,
+          String nameBn,
+          String nameEn,
+          int rakats,
+          RulingCategory category,
+        })
+      >[
+        (
+          slug: 'fajr',
+          nameBn: 'ফজরের নামাজ',
+          nameEn: 'Fajr Prayer',
+          rakats: 4,
+          category: RulingCategory.fard,
+        ),
+        (
+          slug: 'dhuhr',
+          nameBn: 'যোহরের নামাজ',
+          nameEn: 'Dhuhr Prayer',
+          rakats: 12,
+          category: RulingCategory.fard,
+        ),
+        (
+          slug: 'asr',
+          nameBn: 'আসরের নামাজ',
+          nameEn: 'Asr Prayer',
+          rakats: 8,
+          category: RulingCategory.fard,
+        ),
+        (
+          slug: 'maghrib',
+          nameBn: 'মাগরিবের নামাজ',
+          nameEn: 'Maghrib Prayer',
+          rakats: 7,
+          category: RulingCategory.fard,
+        ),
+        (
+          slug: 'isha',
+          nameBn: 'এশার নামাজ',
+          nameEn: 'Isha Prayer',
+          rakats: 17,
+          category: RulingCategory.fard,
+        ),
+        (
+          slug: 'witr',
+          nameBn: 'বিতর নামাজ',
+          nameEn: 'Witr Prayer',
+          rakats: 3,
+          category: RulingCategory.wajib,
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +126,8 @@ class _HomeTabScreenState extends ConsumerState<HomeTabScreen> {
             subtitle: l10n.hanafiBadge,
             actions: <Widget>[
               IconButton(
-                onPressed: () => ref.read(appLocaleProvider.notifier).toggleLocale(),
+                onPressed: () =>
+                    ref.read(appLocaleProvider.notifier).toggleLocale(),
                 tooltip: l10n.languageLabel,
                 icon: const Icon(Icons.translate_rounded),
               ),
@@ -141,10 +155,7 @@ class _HomeTabScreenState extends ConsumerState<HomeTabScreen> {
                     borderGlow: true,
                     child: Row(
                       children: <Widget>[
-                        ProgressRing(
-                          progress: 0.8,
-                          isBangla: isBangla,
-                        ),
+                        ProgressRing(progress: 0.8, isBangla: isBangla),
                         SizedBox(width: tokens.spacing.md),
                         Expanded(
                           child: Column(
@@ -169,10 +180,11 @@ class _HomeTabScreenState extends ConsumerState<HomeTabScreen> {
                                     value: _streakDays,
                                     formatter: (int v) =>
                                         '${BengaliNumberFormatter.formatInt(v, isBangla: isBangla)} ${isBangla ? 'দিন' : 'days'}',
-                                    style: tokens.typography.titleMedium.copyWith(
-                                      color: tokens.colors.goldAccent,
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style: tokens.typography.titleMedium
+                                        .copyWith(
+                                          color: tokens.colors.goldAccent,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -255,49 +267,57 @@ class _LearnTabScreenState extends ConsumerState<LearnTabScreen> {
     final tokens = context.tokens;
     final isBangla = ref.watch(appLocaleProvider).languageCode == 'bn';
 
-    final topics = <({String slug, String titleBn, String titleEn, String subBn, String subEn})>[
-      (
-        slug: 'fajr',
-        titleBn: 'নামাজের ফরজ, ওয়াজিব ও সুন্নাত',
-        titleEn: 'Fard, Wajib & Sunnah of Salah',
-        subBn: 'হানাফি ফিকহ অনুযায়ী ১৪ ফরজ ও ১৪ ওয়াজিব',
-        subEn: '14 Fard & 14 Wajib rulings according to Hanafi Fiqh',
-      ),
-      (
-        slug: 'jumuah',
-        titleBn: 'জুমআ ও দুই ঈদের নামাজ',
-        titleEn: 'Jumuah & Eid Prayers',
-        subBn: 'জুমআর শর্তাবলি ও ৬ অতিরিক্ত তাকবীরের নিয়ম',
-        subEn: 'Conditions of Jumuah and 6 extra Eid takbirs',
-      ),
-      (
-        slug: 'janaza',
-        titleBn: 'জানাজার নামাজের নিয়ম ও দোয়া',
-        titleEn: 'Janaza Prayer Guide & Duas',
-        subBn: '৪ তাকবীর, সানা, দরূদ এবং বালেগ ও নাবালেগের দোয়া',
-        subEn: '4 Takbirs, Sana, Durood & funeral supplications',
-      ),
-      (
-        slug: 'tahajjud',
-        titleBn: 'তাহাজ্জুদ, তারাবীহ ও নফল নামাজ',
-        titleEn: 'Tahajjud, Tarawih & Nafl Salah',
-        subBn: 'রাকাত সংখ্যা, সময় ও ফযীলত দলিলসহ',
-        subEn: 'Rakat counts, times, and authentic virtues',
-      ),
-    ].where((t) {
-      if (_query.trim().isEmpty) return true;
-      final q = _query.toLowerCase();
-      return t.titleBn.toLowerCase().contains(q) ||
-          t.titleEn.toLowerCase().contains(q);
-    }).toList(growable: false);
+    final topics =
+        <
+              ({
+                String slug,
+                String titleBn,
+                String titleEn,
+                String subBn,
+                String subEn,
+              })
+            >[
+              (
+                slug: 'fajr',
+                titleBn: 'নামাজের ফরজ, ওয়াজিব ও সুন্নাত',
+                titleEn: 'Fard, Wajib & Sunnah of Salah',
+                subBn: 'হানাফি ফিকহ অনুযায়ী ১৪ ফরজ ও ১৪ ওয়াজিব',
+                subEn: '14 Fard & 14 Wajib rulings according to Hanafi Fiqh',
+              ),
+              (
+                slug: 'jumuah',
+                titleBn: 'জুমআ ও দুই ঈদের নামাজ',
+                titleEn: 'Jumuah & Eid Prayers',
+                subBn: 'জুমআর শর্তাবলি ও ৬ অতিরিক্ত তাকবীরের নিয়ম',
+                subEn: 'Conditions of Jumuah and 6 extra Eid takbirs',
+              ),
+              (
+                slug: 'janaza',
+                titleBn: 'জানাজার নামাজের নিয়ম ও দোয়া',
+                titleEn: 'Janaza Prayer Guide & Duas',
+                subBn: '৪ তাকবীর, সানা, দরূদ এবং বালেগ ও নাবালেগের দোয়া',
+                subEn: '4 Takbirs, Sana, Durood & funeral supplications',
+              ),
+              (
+                slug: 'tahajjud',
+                titleBn: 'তাহাজ্জুদ, তারাবীহ ও নফল নামাজ',
+                titleEn: 'Tahajjud, Tarawih & Nafl Salah',
+                subBn: 'রাকাত সংখ্যা, সময় ও ফযীলত দলিলসহ',
+                subEn: 'Rakat counts, times, and authentic virtues',
+              ),
+            ]
+            .where((t) {
+              if (_query.trim().isEmpty) return true;
+              final q = _query.toLowerCase();
+              return t.titleBn.toLowerCase().contains(q) ||
+                  t.titleEn.toLowerCase().contains(q);
+            })
+            .toList(growable: false);
 
     return CustomScrollView(
       key: const PageStorageKey<String>('learn-tab-scroll'),
       slivers: <Widget>[
-        GlassSliverAppBar(
-          title: l10n.tabLearn,
-          subtitle: l10n.hanafiBadge,
-        ),
+        GlassSliverAppBar(title: l10n.tabLearn, subtitle: l10n.hanafiBadge),
         SliverPadding(
           padding: EdgeInsets.fromLTRB(
             tokens.spacing.md,
@@ -314,8 +334,7 @@ class _LearnTabScreenState extends ConsumerState<LearnTabScreen> {
               SizedBox(height: tokens.spacing.md),
               const Callout(
                 title: 'পুরুষ ও মহিলাদের নামাজের পার্থক্য',
-                message:
-                    'হানাফি ফিকহ অনুযায়ী তাকবীরে হাত উঠানো, হাত বাঁধা, রুকু ও সিজদার সংকুচিত অবস্থানে পুরুষ ও মহিলাদের সুন্নাত পদ্ধতির পার্থক্য প্রতিটি অধ্যায়ে স্পষ্টভাবে দেখানো হয়েছে।',
+                message: 'হানাফি ফিকহ অনুযায়ী তাকবীরে হাত উঠানো, হাত বাঁধা, রুকু ও সিজদার সংকুচিত অবস্থানে পুরুষ ও মহিলাদের সুন্নাত পদ্ধতির পার্থক্য প্রতিটি অধ্যায়ে স্পষ্টভাবে দেখানো হয়েছে।',
               ),
               SizedBox(height: tokens.spacing.md),
               ...topics.map(
@@ -588,7 +607,8 @@ class MoreTabScreen extends ConsumerWidget {
                 leadingIcon: Icons.language_rounded,
                 title: l10n.languageLabel,
                 subtitle: isBangla ? 'বাংলা (Bangla)' : 'English',
-                onTap: () => ref.read(appLocaleProvider.notifier).toggleLocale(),
+                onTap: () =>
+                    ref.read(appLocaleProvider.notifier).toggleLocale(),
               ),
               SizedBox(height: tokens.spacing.sm),
               GlassListTile(
@@ -624,10 +644,7 @@ class MoreTabScreen extends ConsumerWidget {
 /// - `https://namajshikkha.tashanto.com/namaj/<slug>`
 class PrayerDetailPlaceholderScreen extends ConsumerWidget {
   /// Creates a [PrayerDetailPlaceholderScreen].
-  const PrayerDetailPlaceholderScreen({
-    required this.slug,
-    super.key,
-  });
+  const PrayerDetailPlaceholderScreen({required this.slug, super.key});
 
   /// Canonical prayer slug (e.g. `fajr`, `dhuhr`, `witr`).
   final String slug;
@@ -640,9 +657,7 @@ class PrayerDetailPlaceholderScreen extends ConsumerWidget {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text('${l10n.prayerDetailTitle}: $slug'),
-      ),
+      appBar: AppBar(title: Text('${l10n.prayerDetailTitle}: $slug')),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.all(tokens.spacing.md),
@@ -663,10 +678,7 @@ class PrayerDetailPlaceholderScreen extends ConsumerWidget {
                             : RulingCategory.fard,
                         isBangla: isBangla,
                       ),
-                      Text(
-                        'slug: $slug',
-                        style: tokens.typography.label,
-                      ),
+                      Text('slug: $slug', style: tokens.typography.label),
                     ],
                   ),
                   SizedBox(height: tokens.spacing.sm),
@@ -692,10 +704,7 @@ class PrayerDetailPlaceholderScreen extends ConsumerWidget {
               ),
             ),
             SizedBox(height: tokens.spacing.md),
-            ArabicBlock(
-              data: _sampleSana,
-              isBanglaLocale: isBangla,
-            ),
+            ArabicBlock(data: _sampleSana, isBanglaLocale: isBangla),
           ],
         ),
       ),

@@ -36,11 +36,7 @@ class BengaliNumberFormatter {
   }
 
   /// Formats an integer [value] into Bengali digits when [isBangla] is `true`.
-  static String formatInt(
-    int value, {
-    bool isBangla = true,
-    int padLeft = 0,
-  }) {
+  static String formatInt(int value, {bool isBangla = true, int padLeft = 0}) {
     final raw = padLeft > 0
         ? value.toString().padLeft(padLeft, '0')
         : value.toString();
@@ -59,12 +55,14 @@ class BengaliNumberFormatter {
     final seconds = totalSeconds % 60;
 
     if (includeHours || hours > 0) {
-      final raw = '${hours.toString().padLeft(2, '0')}:'
+      final raw =
+          '${hours.toString().padLeft(2, '0')}:'
           '${minutes.toString().padLeft(2, '0')}:'
           '${seconds.toString().padLeft(2, '0')}';
       return formatString(raw, isBangla: isBangla);
     }
-    final raw = '${minutes.toString().padLeft(2, '0')}:'
+    final raw =
+        '${minutes.toString().padLeft(2, '0')}:'
         '${seconds.toString().padLeft(2, '0')}';
     return formatString(raw, isBangla: isBangla);
   }
@@ -84,4 +82,3 @@ class BengaliNumberFormatter {
     return buffer.toString();
   }
 }
-

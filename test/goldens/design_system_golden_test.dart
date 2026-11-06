@@ -40,14 +40,12 @@ Widget _buildGoldenSubject({
   return ProviderScope(
     overrides: [
       appDatabaseProvider.overrideWithValue(db),
-      glassQualityProvider
-          .overrideWith(() => _TestGlassQualityNotifier(quality)),
+      glassQualityProvider.overrideWith(
+        () => _TestGlassQualityNotifier(quality),
+      ),
     ],
     child: MediaQuery(
-      data: const MediaQueryData(
-        size: Size(420, 620),
-        disableAnimations: true,
-      ),
+      data: const MediaQueryData(size: Size(420, 740), disableAnimations: true),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         locale: const Locale('bn'),
@@ -55,7 +53,7 @@ Widget _buildGoldenSubject({
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         theme: theme,
         home: Scaffold(
-          body: Padding(
+          body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -95,10 +93,7 @@ Widget _buildGoldenSubject({
                   ],
                 ),
                 const SizedBox(height: 12),
-                const ArabicBlock(
-                  data: sampleText,
-                  initialShowBanglish: true,
-                ),
+                const ArabicBlock(data: sampleText, initialShowBanglish: true),
               ],
             ),
           ),
@@ -134,30 +129,29 @@ void main() {
     ];
 
     for (final config in matrix) {
-      testWidgets(
-        'matches golden snapshot for ${config.name}',
-        (WidgetTester tester) async {
-          final db = AppDatabase(NativeDatabase.memory());
-          addTearDown(db.close);
+      testWidgets('matches golden snapshot for ${config.name}', (
+        WidgetTester tester,
+      ) async {
+        final db = AppDatabase(NativeDatabase.memory());
+        addTearDown(db.close);
 
-          await tester.binding.setSurfaceSize(const Size(420, 620));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
+        await tester.binding.setSurfaceSize(const Size(420, 740));
+        addTearDown(() => tester.binding.setSurfaceSize(null));
 
-          await tester.pumpWidget(
-            _buildGoldenSubject(
-              theme: config.theme,
-              quality: config.quality,
-              db: db,
-            ),
-          );
-          await tester.pump();
+        await tester.pumpWidget(
+          _buildGoldenSubject(
+            theme: config.theme,
+            quality: config.quality,
+            db: db,
+          ),
+        );
+        await tester.pump();
 
-          await expectLater(
-            find.byType(Scaffold),
-            matchesGoldenFile('goldens/${config.name}.png'),
-          );
-        },
-      );
+        await expectLater(
+          find.byType(Scaffold),
+          matchesGoldenFile('goldens/${config.name}.png'),
+        );
+      });
     }
   });
 }

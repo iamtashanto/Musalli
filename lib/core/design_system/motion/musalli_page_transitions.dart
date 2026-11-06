@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:musalli/core/design_system/tokens/design_tokens.dart';
@@ -22,36 +23,37 @@ class MusalliPageTransitions {
       key: state.pageKey,
       child: child,
       reverseTransitionDuration: const Duration(milliseconds: 250),
-      transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-      ) {
-        if (context.isReducedMotion) {
-          return FadeTransition(opacity: animation, child: child);
-        }
+      transitionsBuilder:
+          (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            if (context.isReducedMotion) {
+              return FadeTransition(opacity: animation, child: child);
+            }
 
-        final curved = CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeInOutCubicEmphasized,
-          reverseCurve: Curves.easeInCubic,
-        );
+            final curved = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOutCubicEmphasized,
+              reverseCurve: Curves.easeInCubic,
+            );
 
-        return FadeTransition(
-          opacity: curved,
-          child: SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0.08, 0),
-              end: Offset.zero,
-            ).animate(curved),
-            child: ScaleTransition(
-              scale: Tween<double>(begin: 0.97, end: 1).animate(curved),
-              child: child,
-            ),
-          ),
-        );
-      },
+            return FadeTransition(
+              opacity: curved,
+              child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0.08, 0),
+                  end: Offset.zero,
+                ).animate(curved),
+                child: ScaleTransition(
+                  scale: Tween<double>(begin: 0.97, end: 1).animate(curved),
+                  child: child,
+                ),
+              ),
+            );
+          },
     );
   }
 
@@ -66,18 +68,19 @@ class MusalliPageTransitions {
       child: child,
       transitionDuration: const Duration(milliseconds: 350),
       reverseTransitionDuration: const Duration(milliseconds: 280),
-      transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-      ) {
-        final curved = CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeInOutCubicEmphasized,
-        );
-        return FadeTransition(opacity: curved, child: child);
-      },
+      transitionsBuilder:
+          (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            final curved = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOutCubicEmphasized,
+            );
+            return FadeTransition(opacity: curved, child: child);
+          },
     );
   }
 
@@ -95,38 +98,39 @@ class MusalliPageTransitions {
       transitionDuration: const Duration(milliseconds: 360),
       reverseTransitionDuration: const Duration(milliseconds: 260),
       child: child,
-      transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-      ) {
-        if (context.isReducedMotion) {
-          return FadeTransition(opacity: animation, child: child);
-        }
+      transitionsBuilder:
+          (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            if (context.isReducedMotion) {
+              return FadeTransition(opacity: animation, child: child);
+            }
 
-        final curved = CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeInOutCubicEmphasized,
-        );
+            final curved = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOutCubicEmphasized,
+            );
 
-        return BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 8 * curved.value,
-            sigmaY: 8 * curved.value,
-          ),
-          child: FadeTransition(
-            opacity: curved,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0, 0.14),
-                end: Offset.zero,
-              ).animate(curved),
-              child: child,
-            ),
-          ),
-        );
-      },
+            return BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 8 * curved.value,
+                sigmaY: 8 * curved.value,
+              ),
+              child: FadeTransition(
+                opacity: curved,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 0.14),
+                    end: Offset.zero,
+                  ).animate(curved),
+                  child: child,
+                ),
+              ),
+            );
+          },
     );
   }
 }
@@ -212,10 +216,7 @@ class _FirstMountStaggeredEntranceState
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _opacity,
-      child: SlideTransition(
-        position: _slide,
-        child: widget.child,
-      ),
+      child: SlideTransition(position: _slide, child: widget.child),
     );
   }
 }

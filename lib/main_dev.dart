@@ -5,4 +5,3 @@ import 'package:musalli/core/config/flavor_config.dart';
 Future<void> main() async {
   await bootstrapMusalliApp(FlavorConfig.dev());
 }
-

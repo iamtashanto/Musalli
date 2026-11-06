@@ -11,10 +11,8 @@ class AppSettings extends Table {
   TextColumn get value => text()();
 
   /// Last modification timestamp.
-  DateTimeColumn get updatedAt =>
-      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 
   @override
   Set<Column<Object>> get primaryKey => <Column<Object>>{key};
 }
-

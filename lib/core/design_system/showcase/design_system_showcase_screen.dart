@@ -18,7 +18,8 @@ const FourLayerText _showcaseFatihaVerse = FourLayerText(
   uccharonBn: 'বিসমিল্লাহির রাহমানির রাহীম।',
   banglish: 'Bismillahir Rahmanir Rahim.',
   meaningBn: 'পরম করুণাময় অতি দয়ালু আল্লাহর নামে শুরু করছি।',
-  meaningEn: 'In the name of Allah, the Entirely Merciful, the Especially Merciful.',
+  meaningEn:
+      'In the name of Allah, the Entirely Merciful, the Especially Merciful.',
   referenceTextBn: 'সূরা আল-ফাতিহা ১:১',
   referenceTextEn: 'Surah Al-Fatihah 1:1',
 );
@@ -53,7 +54,8 @@ class _DesignSystemShowcaseScreenState
           slivers: <Widget>[
             GlassSliverAppBar(
               title: 'ডিজাইন সিস্টেম শোকেস',
-              subtitle: 'Theme: ${themeMode.name} • Glass: ${glassQuality.name}',
+              subtitle:
+                  'Theme: ${themeMode.name} • Glass: ${glassQuality.name}',
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_rounded),
                 onPressed: () => Navigator.of(context).maybePop(),
@@ -169,30 +171,24 @@ class _DesignSystemShowcaseScreenState
                     title: '৪. সার্চ বার, কলআউট, প্রোগ্রেস রিং ও লোডার',
                   ),
                   SizedBox(height: tokens.spacing.sm),
-                  const GlassSearchBar(
-                    hintText: 'নামাজ বা সূরা খুঁজুন...',
-                  ),
+                  const GlassSearchBar(hintText: 'নামাজ বা সূরা খুঁজুন...'),
                   SizedBox(height: tokens.spacing.sm),
                   const Callout(
                     title: 'হানাফি মাযহাবের মূলনীতি',
-                    message:
-                        'ফরজ নামাজের প্রথম দুই রাকাতে সূরা ফাতিহার পর অন্য একটি সূরা বা অন্তত তিন ছোট আয়াত মিলানো ওয়াজিব।',
+                    message: 'ফরজ নামাজের প্রথম দুই রাকাতে সূরা ফাতিহার পর অন্য একটি সূরা বা অন্তত তিন ছোট আয়াত মিলানো ওয়াজিব।',
                   ),
                   SizedBox(height: tokens.spacing.sm),
                   const Callout(
                     variant: CalloutVariant.warning,
                     title: 'সিজদায়ে সাহু সতর্কতা',
-                    message:
-                        'কোনো ওয়াজিব ভুলবশত ছুটে গেলে শেষ বৈঠকে তাশাহহুদের পর সিজদায়ে সাহু আদায় করা আবশ্যক।',
+                    message: 'কোনো ওয়াজিব ভুলবশত ছুটে গেলে শেষ বৈঠকে তাশাহহুদের পর সিজদায়ে সাহু আদায় করা আবশ্যক।',
                   ),
                   SizedBox(height: tokens.spacing.sm),
                   Row(
                     children: <Widget>[
                       const ProgressRing(progress: 0.75),
                       SizedBox(width: tokens.spacing.md),
-                      const Expanded(
-                        child: GlassShimmerLoader(height: 60),
-                      ),
+                      const Expanded(child: GlassShimmerLoader(height: 60)),
                     ],
                   ),
                   SizedBox(height: tokens.spacing.sm),
@@ -217,7 +213,8 @@ class _DesignSystemShowcaseScreenState
 
                   // 6. 50 GlassCards 60fps Stress Test List
                   const SectionHeader(
-                    title: '৬. ৫০টি GlassCard পারফরম্যান্স স্ট্রেস টেস্ট (60fps)',
+                    title:
+                        '৬. ৫০টি GlassCard পারফরম্যান্স স্ট্রেস টেস্ট (60fps)',
                     subtitle: 'কম র‍্যাম ডিভাইসে মসৃণ স্ক্রলিং যাচাইয়ের তালিকা',
                   ),
                   SizedBox(height: tokens.spacing.sm),
@@ -232,24 +229,24 @@ class _DesignSystemShowcaseScreenState
                 tokens.spacing.xxl,
               ),
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    final itemNum = BengaliNumberFormatter.formatInt(index + 1);
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: tokens.spacing.xs),
-                      child: GlassListTile(
-                        leadingIcon: Icons.verified_outlined,
-                        title: 'গ্লাস কার্ড আইটেম #$itemNum',
-                        subtitle:
-                            'হানাফি ফিকহ • ৬০ এফপিএস স্ক্রলিং পরীক্ষা (#$itemNum/৫০)',
-                        trailing: const RulingBadge(
-                          category: RulingCategory.sunnah,
-                        ),
+                delegate: SliverChildBuilderDelegate((
+                  BuildContext context,
+                  int index,
+                ) {
+                  final itemNum = BengaliNumberFormatter.formatInt(index + 1);
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: tokens.spacing.xs),
+                    child: GlassListTile(
+                      leadingIcon: Icons.verified_outlined,
+                      title: 'গ্লাস কার্ড আইটেম #$itemNum',
+                      subtitle:
+                          'হানাফি ফিকহ • ৬০ এফপিএস স্ক্রলিং পরীক্ষা (#$itemNum/৫০)',
+                      trailing: const RulingBadge(
+                        category: RulingCategory.sunnah,
                       ),
-                    );
-                  },
-                  childCount: 50,
-                ),
+                    ),
+                  );
+                }, childCount: 50),
               ),
             ),
           ],
@@ -258,4 +255,3 @@ class _DesignSystemShowcaseScreenState
     );
   }
 }
-

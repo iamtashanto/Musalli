@@ -47,4 +47,3 @@ class AppDatabase extends _$AppDatabase {
     return driftDatabase(name: 'musalli_local_db');
   }
 }
-

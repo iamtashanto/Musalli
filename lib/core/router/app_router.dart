@@ -8,18 +8,24 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
-final GlobalKey<NavigatorState> _homeBranchKey =
-    GlobalKey<NavigatorState>(debugLabel: 'homeBranch');
-final GlobalKey<NavigatorState> _learnBranchKey =
-    GlobalKey<NavigatorState>(debugLabel: 'learnBranch');
-final GlobalKey<NavigatorState> _simulatorBranchKey =
-    GlobalKey<NavigatorState>(debugLabel: 'simulatorBranch');
-final GlobalKey<NavigatorState> _timesBranchKey =
-    GlobalKey<NavigatorState>(debugLabel: 'timesBranch');
-final GlobalKey<NavigatorState> _moreBranchKey =
-    GlobalKey<NavigatorState>(debugLabel: 'moreBranch');
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'rootNavigator',
+);
+final GlobalKey<NavigatorState> _homeBranchKey = GlobalKey<NavigatorState>(
+  debugLabel: 'homeBranch',
+);
+final GlobalKey<NavigatorState> _learnBranchKey = GlobalKey<NavigatorState>(
+  debugLabel: 'learnBranch',
+);
+final GlobalKey<NavigatorState> _simulatorBranchKey = GlobalKey<NavigatorState>(
+  debugLabel: 'simulatorBranch',
+);
+final GlobalKey<NavigatorState> _timesBranchKey = GlobalKey<NavigatorState>(
+  debugLabel: 'timesBranch',
+);
+final GlobalKey<NavigatorState> _moreBranchKey = GlobalKey<NavigatorState>(
+  debugLabel: 'moreBranch',
+);
 
 /// Normalizes incoming custom-scheme (`musalli://...`) and HTTPS Universal /
 /// App Link (`https://namajshikkha.tashanto.com/...`) URIs into canonical
@@ -65,23 +71,25 @@ GoRouter appRouter(Ref ref) {
     },
     routes: <RouteBase>[
       StatefulShellRoute(
-        builder: (
-          BuildContext context,
-          GoRouterState state,
-          StatefulNavigationShell navigationShell,
-        ) {
-          return navigationShell;
-        },
-        navigatorContainerBuilder: (
-          BuildContext context,
-          StatefulNavigationShell navigationShell,
-          List<Widget> children,
-        ) {
-          return MainShellScaffold(
-            navigationShell: navigationShell,
-            children: children,
-          );
-        },
+        builder:
+            (
+              BuildContext context,
+              GoRouterState state,
+              StatefulNavigationShell navigationShell,
+            ) {
+              return navigationShell;
+            },
+        navigatorContainerBuilder:
+            (
+              BuildContext context,
+              StatefulNavigationShell navigationShell,
+              List<Widget> children,
+            ) {
+              return MainShellScaffold(
+                navigationShell: navigationShell,
+                children: children,
+              );
+            },
         branches: <StatefulShellBranch>[
           // Branch 0: হোম (Home)
           StatefulShellBranch(
@@ -176,4 +184,3 @@ GoRouter appRouter(Ref ref) {
     ],
   );
 }
-
