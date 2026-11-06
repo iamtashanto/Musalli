@@ -139,16 +139,17 @@ class _MainShellScaffoldState extends State<MainShellScaffold> {
                 );
               }),
 
-              // Floating GlassBottomNavBar
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: GlassBottomNavBar(
-                  items: navItems,
-                  currentIndex: currentIndex,
-                  isVisible: _isBottomNavVisible,
-                  onTap: _onTapTab,
+              // Floating GlassBottomNavBar (hidden on Simulator tab so controls are completely unobstructed)
+              if (currentIndex != 2)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: GlassBottomNavBar(
+                    items: navItems,
+                    currentIndex: currentIndex,
+                    isVisible: _isBottomNavVisible,
+                    onTap: _onTapTab,
+                  ),
                 ),
-              ),
             ],
           ),
         ),

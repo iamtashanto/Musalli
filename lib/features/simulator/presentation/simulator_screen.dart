@@ -367,31 +367,33 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Back Button (if pushed) + Prayer Name & Unit Label
+                        // Back Button + Prayer Name & Unit Label
                         Expanded(
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              if (Navigator.of(context).canPop()) ...[
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.arrow_back_ios_new_rounded,
-                                    size: 18,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  color: colors.textPrimary,
-                                  tooltip: 'ফিরে যান',
-                                  onPressed: () {
-                                    unawaited(HapticFeedback.lightImpact());
-                                    Navigator.of(context).maybePop();
-                                  },
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_back_ios_new_rounded,
+                                  size: 18,
                                 ),
-                                const SizedBox(width: 4),
-                              ],
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                color: colors.textPrimary,
+                                tooltip: 'হোমে ফিরে যান',
+                                onPressed: () {
+                                  unawaited(HapticFeedback.lightImpact());
+                                  if (Navigator.of(context).canPop()) {
+                                    Navigator.of(context).maybePop();
+                                  } else {
+                                    context.go('/');
+                                  }
+                                },
+                              ),
+                              const SizedBox(width: 4),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -588,7 +590,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                 tokens.spacing.md,
                 0,
                 tokens.spacing.md,
-                tokens.spacing.xs,
+                MediaQuery.paddingOf(context).bottom + tokens.spacing.sm,
               ),
               child: SimulatorControls(
                 isPlaying: _controller!.isPlaying,
