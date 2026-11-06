@@ -370,7 +370,6 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                         // Back Button + Prayer Name & Unit Label
                         Expanded(
                           child: Row(
-                            mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
                                 icon: const Icon(
@@ -397,6 +396,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
                                       _prayer!.nameBn,
@@ -422,7 +422,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                             ],
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 4),
 
                         // Rakat Badge & Setup Button
                         Row(
