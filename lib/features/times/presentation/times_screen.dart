@@ -159,6 +159,16 @@ $dateStr
           ),
           actions: [
             IconButton(
+              tooltip: 'কিবলা কম্পাস',
+              icon: Icon(Icons.explore_rounded, color: colors.primaryEmerald),
+              onPressed: () => Navigator.of(context).pushNamed('/qibla'),
+            ),
+            IconButton(
+              tooltip: 'নোটিফিকেশন ও আজান',
+              icon: const Icon(Icons.notifications_active_rounded),
+              onPressed: () => Navigator.of(context).pushNamed('/notifications/settings'),
+            ),
+            IconButton(
               tooltip: 'রমজান ক্যালেন্ডার',
               icon: Icon(Icons.nightlight_round, color: colors.goldAccent),
               onPressed: () => _openRamadanView(settings),

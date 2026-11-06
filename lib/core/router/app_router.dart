@@ -3,6 +3,19 @@ import 'package:go_router/go_router.dart';
 import 'package:musalli/core/design_system/motion/musalli_page_transitions.dart';
 import 'package:musalli/core/design_system/showcase/design_system_showcase_screen.dart';
 import 'package:musalli/core/router/main_shell_scaffold.dart';
+import 'package:musalli/features/extra/presentation/adhkar_screen.dart';
+import 'package:musalli/features/extra/presentation/asmaul_husna_screen.dart';
+import 'package:musalli/features/extra/presentation/calendar_screen.dart';
+import 'package:musalli/features/extra/presentation/ramadan_screen.dart';
+import 'package:musalli/features/extra/presentation/tasbih_screen.dart';
+import 'package:musalli/features/extra/presentation/zakat_calculator_screen.dart';
+import 'package:musalli/features/hifz/presentation/hifz_practice_screen.dart';
+import 'package:musalli/features/more/presentation/more_screen.dart';
+import 'package:musalli/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:musalli/features/settings/presentation/settings_screen.dart';
+import 'package:musalli/features/times/presentation/notification_settings_screen.dart';
+import 'package:musalli/features/times/presentation/qibla_screen.dart';
+import 'package:musalli/features/tracker/presentation/tracker_screen.dart';
 import 'package:musalli/features/dua/presentation/dua_detail_screen.dart';
 import 'package:musalli/features/hadith/presentation/hadith_screen.dart';
 import 'package:musalli/features/helpers/presentation/masbuq_calculator_screen.dart';
@@ -181,7 +194,7 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: '/more',
                 builder: (BuildContext context, GoRouterState state) =>
-                    const MoreTabScreen(),
+                    const MoreScreen(),
               ),
             ],
           ),
@@ -346,6 +359,151 @@ GoRouter appRouter(Ref ref) {
           return MusalliPageTransitions.sharedAxisHorizontal(
             state: state,
             child: const KidsHubScreen(),
+          );
+        },
+      ),
+
+      // Onboarding Screen route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/onboarding',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.fadeThrough(
+            state: state,
+            child: const OnboardingScreen(),
+          );
+        },
+      ),
+
+      // Private Tracker & Qaza route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/tracker',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const TrackerScreen(),
+          );
+        },
+      ),
+
+      // Qibla Compass route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/qibla',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const QiblaScreen(),
+          );
+        },
+      ),
+
+      // Prayer Notification Settings route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/notifications/settings',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const NotificationSettingsScreen(),
+          );
+        },
+      ),
+
+      // Hifz Memorization route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/hifz/:number',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final number = int.tryParse(state.pathParameters['number'] ?? '1') ?? 1;
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: HifzPracticeScreen(surahNumber: number),
+          );
+        },
+      ),
+
+      // Digital Tasbih route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/tasbih',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const TasbihScreen(),
+          );
+        },
+      ),
+
+      // Morning & Evening Adhkar route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/adhkar',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const AdhkarScreen(),
+          );
+        },
+      ),
+
+      // Asmaul Husna (99 Names) route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/asmaul-husna',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const AsmaulHusnaScreen(),
+          );
+        },
+      ),
+
+      // Hijri Calendar route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/calendar',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const CalendarScreen(),
+          );
+        },
+      ),
+
+      // Ramadan Mode route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/ramadan',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const RamadanScreen(),
+          );
+        },
+      ),
+
+      // Zakat Calculator route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/zakat',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const ZakatCalculatorScreen(),
+          );
+        },
+      ),
+
+      // App Settings route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/settings',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const SettingsScreen(),
           );
         },
       ),

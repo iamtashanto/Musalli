@@ -458,22 +458,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           (
                             'কিবলা',
                             Icons.explore_rounded,
-                            () => context.go('/times'),
+                            () => context.push('/qibla'),
                           ),
                           (
                             'তাসবীহ',
                             Icons.fingerprint_rounded,
-                            () => context.go('/simulator'),
+                            () => context.push('/tasbih'),
                           ),
                           (
-                            'দোয়া',
-                            Icons.favorite_border_rounded,
-                            () => context.go('/learn'),
+                            'ট্র্যাকার',
+                            Icons.track_changes_rounded,
+                            () => context.push('/tracker'),
                           ),
                           (
                             'কুরআন',
                             Icons.menu_book_rounded,
-                            () => context.go('/learn'),
+                            () => context.push('/quran/1'),
                           ),
                         ].map((item) {
                           return Expanded(
