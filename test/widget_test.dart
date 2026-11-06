@@ -13,6 +13,7 @@ import 'package:musalli/core/l10n/arb/app_localizations.dart';
 import 'package:musalli/core/providers/app_providers.dart';
 import 'package:musalli/core/router/app_router.dart';
 import 'package:musalli/core/theme/musalli_theme.dart';
+import 'package:musalli/features/content/presentation/providers/content_providers.dart';
 
 void main() {
   Widget buildTestApp({required AppDatabase db, FlavorConfig? flavor}) {

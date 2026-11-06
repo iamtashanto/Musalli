@@ -12,4 +12,3 @@ export 'salah_config.dart';
 export 'shikhun_article.dart';
 export 'surah.dart';
 export 'taharat_section.dart';
-

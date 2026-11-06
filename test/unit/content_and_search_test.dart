@@ -151,31 +151,28 @@ void main() {
       },
     );
 
-    test(
-      'All 13 prayer Surahs have non-empty Ayahs with valid numbering',
-      () async {
-        final surahs = await repository.getSurahs();
-        expect(surahs.length, 13);
+    test('All 13 prayer Surahs have non-empty Ayahs with valid numbering', () async {
+      final surahs = await repository.getSurahs();
+      expect(surahs.length, 13);
 
-        for (final surah in surahs) {
-          expect(
-            surah.ayahs,
-            isNotEmpty,
-            reason: 'Surah ${surah.id} has no ayahs',
-          );
-          expect(
-            surah.ayahs.length >= surah.ayahCount,
-            isTrue,
-            reason:
-                'Surah ${surah.id} has ${surah.ayahs.length} ayahs, expected at least ${surah.ayahCount}',
-          );
-          for (final ayah in surah.ayahs) {
-            expect(ayah.arabic.trim(), isNotEmpty);
-            expect(ayah.meaningBn.trim(), isNotEmpty);
-          }
+      for (final surah in surahs) {
+        expect(
+          surah.ayahs,
+          isNotEmpty,
+          reason: 'Surah ${surah.id} has no ayahs',
+        );
+        expect(
+          surah.ayahs.length >= surah.ayahCount,
+          isTrue,
+          reason:
+              'Surah ${surah.id} has ${surah.ayahs.length} ayahs, expected at least ${surah.ayahCount}',
+        );
+        for (final ayah in surah.ayahs) {
+          expect(ayah.arabic.trim(), isNotEmpty);
+          expect(ayah.meaningBn.trim(), isNotEmpty);
         }
-      },
-    );
+      }
+    });
 
     test('All 114 Quran Surahs metadata are present', () async {
       final allSurahs = await repository.getAllSurahs();

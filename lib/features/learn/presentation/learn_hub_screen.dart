@@ -168,6 +168,12 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                               onTap: () {
                                 if (item.route.startsWith('/namaj/')) {
                                   unawaited(context.push(item.route));
+                                } else if (item.type == 'ruling') {
+                                  unawaited(context.push('/masail/${item.id}'));
+                                } else if (item.type == 'dua') {
+                                  unawaited(context.push('/dua/${item.id}'));
+                                } else if (item.type == 'quran') {
+                                  unawaited(context.push('/quran/${item.id}'));
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text(item.title)),
@@ -440,6 +446,66 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
 
                   // 2. MASAIL (RULINGS) SECTION
                   if (_activeTabSection == 'masail') ...[
+                    // Interactive Helpers Grid
+                    Text(
+                      'স্মার্ট নামাজ সহকারী ও ক্যালকুলেটর',
+                      style: typography.titleMedium.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colors.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: tokens.spacing.xs),
+                    GridView.count(
+                      crossAxisCount: 2,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                      childAspectRatio: 1.35,
+                      children: [
+                        _buildHelperTile(
+                          context,
+                          title: 'আমার কী ভুল হয়েছে?',
+                          subtitle: 'সাহু সিজদা ডিসিশন ট্রি',
+                          icon: Icons.help_outline_rounded,
+                          color: colors.primaryEmerald,
+                          route: '/helpers/sajda-sahu',
+                        ),
+                        _buildHelperTile(
+                          context,
+                          title: 'কীভাবে নামাজ পড়ব?',
+                          subtitle: 'অসুস্থ ব্যক্তির নামাজ গাইড',
+                          icon: Icons.accessibility_new_rounded,
+                          color: colors.goldAccent,
+                          route: '/helpers/sick-prayer',
+                        ),
+                        _buildHelperTile(
+                          context,
+                          title: 'মাসবুক ক্যালকুলেটর',
+                          subtitle: 'দেরিতে জামাতে শরিক হলে',
+                          icon: Icons.groups_rounded,
+                          color: const Color(0xFF38BDF8),
+                          route: '/helpers/masbuq',
+                        ),
+                        _buildHelperTile(
+                          context,
+                          title: 'কসর ক্যালকুলেটর',
+                          subtitle: 'মুসাফিরের সফর দূরত্ব',
+                          icon: Icons.flight_takeoff_rounded,
+                          color: colors.primaryEmerald,
+                          route: '/helpers/qasr',
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: tokens.spacing.md),
+                    Text(
+                      'নামাজের গুরুত্বপূর্ণ মাসায়েলসমূহ',
+                      style: typography.titleMedium.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colors.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: tokens.spacing.xs),
                     rulingsAsync.when(
                       loading: () => const GlassShimmerLoader(height: 180),
                       error: (err, _) => Text('Error: $err'),
@@ -449,6 +515,9 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: GlassCard(
+                                onTap: () => unawaited(
+                                  context.push('/masail/${r.slug}'),
+                                ),
                                 padding: EdgeInsets.all(tokens.spacing.md),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,13 +526,15 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        Text(
-                                          r.titleBn,
-                                          style: typography.titleMedium
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: colors.textPrimary,
-                                              ),
+                                        Expanded(
+                                          child: Text(
+                                            r.titleBn,
+                                            style: typography.titleMedium
+                                                .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: colors.textPrimary,
+                                                ),
+                                          ),
                                         ),
                                         RulingBadge(
                                           category: r.status.name == 'fard'
@@ -509,6 +580,9 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: GlassCard(
+                                onTap: () => unawaited(
+                                  context.push('/taharat/${t.slug}'),
+                                ),
                                 padding: EdgeInsets.all(tokens.spacing.md),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -579,16 +653,44 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: GlassCard(
+                                onTap: () =>
+                                    unawaited(context.push('/dua/${d.id}')),
                                 padding: EdgeInsets.all(tokens.spacing.md),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      d.titleBn,
-                                      style: typography.titleMedium.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: colors.textPrimary,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          d.titleBn,
+                                          style: typography.titleMedium
+                                              .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: colors.textPrimary,
+                                              ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                            vertical: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: colors.primaryEmerald
+                                                .withValues(alpha: 0.1),
+                                            borderRadius: BorderRadius.circular(
+                                              tokens.radii.full,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            d.category,
+                                            style: typography.label.copyWith(
+                                              color: colors.primaryEmerald,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
@@ -625,6 +727,9 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: GlassCard(
+                                onTap: () => unawaited(
+                                  context.push('/quran/${q.number}'),
+                                ),
                                 padding: EdgeInsets.all(tokens.spacing.md),
                                 child: Row(
                                   children: <Widget>[
@@ -690,6 +795,15 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
 
                   // 6. HADITH & FAQ SECTION
                   if (_activeTabSection == 'hadith_faq') ...[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: GlassButton(
+                        label: 'হাদিস ও প্রশ্নোত্তর পূর্ণাঙ্গ ভিউ',
+                        icon: Icons.menu_book_rounded,
+                        isExpanded: true,
+                        onPressed: () => unawaited(context.push('/hadith')),
+                      ),
+                    ),
                     faqsAsync.when(
                       loading: () => const GlassShimmerLoader(height: 180),
                       error: (err, _) => Text('Error: $err'),
@@ -729,6 +843,15 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
 
                   // 7. HISTORY SECTION
                   if (_activeTabSection == 'history') ...[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: GlassButton(
+                        label: 'ইসলামের ৫৮টি ঘটনার টাইমলাইন দেখুন',
+                        icon: Icons.timeline_rounded,
+                        isExpanded: true,
+                        onPressed: () => unawaited(context.push('/history')),
+                      ),
+                    ),
                     historyAsync.when(
                       loading: () => const GlassShimmerLoader(height: 180),
                       error: (err, _) => Text('Error: $err'),
@@ -738,6 +861,8 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: GlassCard(
+                                onTap: () =>
+                                    unawaited(context.push('/history')),
                                 padding: EdgeInsets.all(tokens.spacing.md),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -782,6 +907,57 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
 
                 const SizedBox(height: 100), // bottom clearance
               ]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHelperTile(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color color,
+    required String route,
+  }) {
+    final tokens = context.tokens;
+    final typography = tokens.typography;
+
+    return GlassCard(
+      onTap: () => unawaited(context.push(route)),
+      borderGlow: true,
+      padding: EdgeInsets.all(tokens.spacing.sm + 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.15),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: color, size: 20),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: typography.titleMedium.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
+          ),
+          Text(
+            subtitle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: typography.label.copyWith(
+              fontSize: 10,
+              color: tokens.colors.textSecondary,
             ),
           ),
         ],

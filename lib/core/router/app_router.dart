@@ -3,10 +3,20 @@ import 'package:go_router/go_router.dart';
 import 'package:musalli/core/design_system/motion/musalli_page_transitions.dart';
 import 'package:musalli/core/design_system/showcase/design_system_showcase_screen.dart';
 import 'package:musalli/core/router/main_shell_scaffold.dart';
+import 'package:musalli/features/dua/presentation/dua_detail_screen.dart';
+import 'package:musalli/features/hadith/presentation/hadith_screen.dart';
+import 'package:musalli/features/helpers/presentation/masbuq_calculator_screen.dart';
+import 'package:musalli/features/helpers/presentation/qasr_calculator_screen.dart';
+import 'package:musalli/features/helpers/presentation/sajda_sahu_helper_screen.dart';
+import 'package:musalli/features/helpers/presentation/sick_prayer_helper_screen.dart';
+import 'package:musalli/features/history/presentation/history_screen.dart';
 import 'package:musalli/features/home/presentation/home_screen.dart';
 import 'package:musalli/features/learn/presentation/learn_hub_screen.dart';
+import 'package:musalli/features/masail/presentation/masail_detail_screen.dart';
 import 'package:musalli/features/prayer_detail/presentation/prayer_detail_screen.dart';
+import 'package:musalli/features/quran/presentation/quran_reader_screen.dart';
 import 'package:musalli/features/shell/presentation/placeholder_screens.dart';
+import 'package:musalli/features/taharat/presentation/taharat_detail_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
@@ -169,6 +179,131 @@ GoRouter appRouter(Ref ref) {
           return MusalliPageTransitions.heroDetail(
             state: state,
             child: PrayerDetailScreen(slug: slug),
+          );
+        },
+      ),
+
+      // Masail detail route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/masail/:slug',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final slug = state.pathParameters['slug'] ?? '';
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: MasailDetailScreen(slug: slug),
+          );
+        },
+      ),
+
+      // Taharat detail route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/taharat/:slug',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final slug = state.pathParameters['slug'] ?? 'wudu';
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: TaharatDetailScreen(slug: slug),
+          );
+        },
+      ),
+
+      // Interactive Helper 1: Sajda Sahu Assistant
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/helpers/sajda-sahu',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const SajdaSahuHelperScreen(),
+          );
+        },
+      ),
+
+      // Interactive Helper 2: Sick Prayer Assistant
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/helpers/sick-prayer',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const SickPrayerHelperScreen(),
+          );
+        },
+      ),
+
+      // Interactive Helper 3: Masbuq Calculator
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/helpers/masbuq',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const MasbuqCalculatorScreen(),
+          );
+        },
+      ),
+
+      // Interactive Helper 4: Qasr Calculator
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/helpers/qasr',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const QasrCalculatorScreen(),
+          );
+        },
+      ),
+
+      // Dua detail route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/dua/:id',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final id = state.pathParameters['id'] ?? '';
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: DuaDetailScreen(duaId: id),
+          );
+        },
+      ),
+
+      // Quran reader route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/quran/:number',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final numStr = state.pathParameters['number'] ?? '1';
+          final number = int.tryParse(numStr) ?? 1;
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: QuranReaderScreen(surahNumber: number),
+          );
+        },
+      ),
+
+      // Hadith & FAQ full screen route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/hadith',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const HadithScreen(),
+          );
+        },
+      ),
+
+      // History full screen route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/history',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const HistoryScreen(),
           );
         },
       ),

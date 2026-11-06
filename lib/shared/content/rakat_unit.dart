@@ -18,4 +18,3 @@ abstract class ContentRakatUnit with _$ContentRakatUnit {
   factory ContentRakatUnit.fromJson(Map<String, dynamic> json) =>
       _$ContentRakatUnitFromJson(json);
 }
-

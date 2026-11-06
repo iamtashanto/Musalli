@@ -24,4 +24,3 @@ abstract class ContentRecitation with _$ContentRecitation {
   factory ContentRecitation.fromJson(Map<String, dynamic> json) =>
       _$ContentRecitationFromJson(json);
 }
-
