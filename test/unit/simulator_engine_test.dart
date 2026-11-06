@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:musalli/features/simulator/domain/engine.dart';
 import 'package:musalli/features/simulator/domain/types.dart';
-import 'package:musalli/shared/content/content_enums.dart';
 import 'package:musalli/shared/content/prayer_type.dart';
 import 'package:musalli/shared/content/salah_config.dart';
 
@@ -57,10 +56,7 @@ void main() {
       const config = ContentSalahConfig(
         rakats: 2,
         qiratRakats: [1, 2],
-        firstSittingAfter: null,
         jahr: [1, 2],
-        sajdaCount: 2,
-        endsWithSalam: true,
       );
 
       final timeline = buildTimeline(
@@ -103,8 +99,6 @@ void main() {
         qiratRakats: [1, 2],
         firstSittingAfter: 2,
         jahr: [1, 2],
-        sajdaCount: 2,
-        endsWithSalam: true,
       );
 
       final timeline = buildTimeline(
@@ -142,9 +136,6 @@ void main() {
         rakats: 4,
         qiratRakats: [1, 2],
         firstSittingAfter: 2,
-        jahr: [],
-        sajdaCount: 2,
-        endsWithSalam: true,
       );
 
       final timeline = buildTimeline(
@@ -172,10 +163,7 @@ void main() {
         rakats: 3,
         qiratRakats: [1, 2, 3],
         firstSittingAfter: 2,
-        hasQunut: QunutConfig(enabled: true, rakat: 3, position: 'before-ruku'),
-        jahr: [],
-        sajdaCount: 2,
-        endsWithSalam: true,
+        hasQunut: QunutConfig(enabled: true, rakat: 3),
       );
 
       final timeline = buildTimeline(
@@ -210,8 +198,6 @@ void main() {
           ExtraTakbir(count: 3, position: 'before-ruku', rakat: 2),
         ],
         jahr: [1, 2],
-        sajdaCount: 2,
-        endsWithSalam: true,
       );
 
       final timeline = buildTimeline(
@@ -235,7 +221,6 @@ void main() {
         rakats: 0,
         isJanaza: true,
         sajdaCount: 0,
-        endsWithSalam: true,
       );
 
       final timeline = buildTimeline(
@@ -308,8 +293,6 @@ void main() {
             labelBn: '২য় সিজদায়',
           ),
         ],
-        sajdaCount: 2,
-        endsWithSalam: true,
       );
 
       final timeline = buildTimeline(
@@ -329,10 +312,7 @@ void main() {
       const config = ContentSalahConfig(
         rakats: 2,
         qiratRakats: [1, 2],
-        firstSittingAfter: null,
         jahr: [1, 2],
-        sajdaCount: 2,
-        endsWithSalam: true,
       );
 
       final timeline = buildTimeline(

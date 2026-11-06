@@ -1,4 +1,4 @@
-/// Bottom Sheet displaying all steps in the current simulation for jumping.
+// Bottom Sheet displaying all steps in the current simulation for jumping.
 
 import 'package:flutter/material.dart';
 import 'package:musalli/core/design_system/components/glass_components.dart';
@@ -129,7 +129,7 @@ class StepListSheet extends StatelessWidget {
                                 children: [
                                   if (step.rakat != null) ...[
                                     Text(
-                                      '${BengaliNumbers.toBengali(step.rakat!)}ম রাকাত • ',
+                                      '${BengaliNumbers.toBengali(step.rakat)}ম রাকাত • ',
                                       style: typography.label.copyWith(
                                         color: colors.textSecondary,
                                         fontWeight: FontWeight.w600,

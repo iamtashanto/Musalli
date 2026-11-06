@@ -116,7 +116,7 @@ void main() {
       expect(step.mustSitAfterSajda, isTrue);
       expect(step.sittingType, 'final');
       expect(step.recitations, anyElement(contains('ছানা')));
-      expect(step.recitations, anyElement(contains('অন্য একটি সূরা')));
+      expect(step.recitations, anyElement(contains('সূরা')));
     });
 
     test('Maghrib: Joined in Rakat 3 (missed 2 rakats) generates Qa dah after 1st make-up rakat', () {

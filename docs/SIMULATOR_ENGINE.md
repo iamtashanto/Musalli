@@ -89,3 +89,4 @@ The `SimulatorController` manages playback state, transitions, seeking, and repe
 - `setSpeed(double speed)`: Dynamically rescales transition delays (0.75x, 1.0x, 1.25x, 1.5x)
 - `setAutoMode(bool auto)`: Switches between auto-advancement and user-driven manual stepping
 - Broadcasts discrete events via `events` stream (`StepChangedEvent`, `RepeatTickEvent`, `RakatChangedEvent`, `PlaybackStateChangedEvent`, `SimulationCompletedEvent`).
+

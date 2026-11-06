@@ -47,3 +47,4 @@ Should a motion designer produce a dedicated Rive rig for a future release, the 
 - `viewMode` (Number: `0` = side view facing left, `1` = front view).
 - `showHighlights` (Boolean: triggers glow on 7 contact points in Sajda).
 - `speed` (Number: $0.75$ to $1.5$).
+

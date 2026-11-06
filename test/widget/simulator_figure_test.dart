@@ -70,11 +70,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        buildTestableFigure(
-          posture: Posture.sajda,
-          gender: SimGender.male,
-          showHighlights: true,
-        ),
+        buildTestableFigure(posture: Posture.sajda, gender: SimGender.male),
       );
       await tester.pumpAndSettle();
 

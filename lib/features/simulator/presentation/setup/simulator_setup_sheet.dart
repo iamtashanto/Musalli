@@ -670,8 +670,6 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
           GlassButton(
             label: 'সিমুলেশন শুরু করুন',
             icon: Icons.play_arrow_rounded,
-            variant: GlassButtonVariant.primary,
-            isExpanded: true,
             onPressed: _onCompleteSetup,
           ),
         ],

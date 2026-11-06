@@ -399,7 +399,7 @@ class _FigurePainter extends CustomPainter {
   }
 
   void _drawFrontView(Canvas canvas) {
-    final centerX = 200.0;
+    const centerX = 200.0;
     final bodyY = 158.0 + pose.front.bodyDropY;
 
     final skinPaint = Paint()
@@ -513,16 +513,24 @@ class _FigurePainter extends CustomPainter {
       case 'ground_sajda':
         canvas.drawLine(
           leftShoulder,
-          Offset(centerX - 36, groundY - 6),
+          const Offset(centerX - 36, groundY - 6),
           armPaint,
         );
         canvas.drawLine(
           rightShoulder,
-          Offset(centerX + 36, groundY - 6),
+          const Offset(centerX + 36, groundY - 6),
           armPaint,
         );
-        canvas.drawCircle(Offset(centerX - 36, groundY - 6), 7, skinPaint);
-        canvas.drawCircle(Offset(centerX + 36, groundY - 6), 7, skinPaint);
+        canvas.drawCircle(
+          const Offset(centerX - 36, groundY - 6),
+          7,
+          skinPaint,
+        );
+        canvas.drawCircle(
+          const Offset(centerX + 36, groundY - 6),
+          7,
+          skinPaint,
+        );
 
       case 'thighs':
       default:

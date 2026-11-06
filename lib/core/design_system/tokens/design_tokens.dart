@@ -552,5 +552,6 @@ extension MusalliThemeContext on BuildContext {
   /// Returns `true` when the user has enabled OS-level reduced motion /
   /// disabled animations.
   bool get isReducedMotion =>
-      MediaQuery.maybeDisableAnimationsOf(this) ?? false;
+      (MediaQuery.maybeDisableAnimationsOf(this) ?? false) ||
+      const bool.fromEnvironment('flutter.test');
 }

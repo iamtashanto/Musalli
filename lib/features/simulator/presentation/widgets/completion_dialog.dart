@@ -174,8 +174,6 @@ class CompletionDialog extends StatelessWidget {
             GlassButton(
               label: 'অনুশীলন (কুইজ) করুন',
               icon: Icons.quiz_rounded,
-              variant: GlassButtonVariant.primary,
-              isExpanded: true,
               onPressed: () {
                 Navigator.of(context).pop();
                 onPracticeQuiz();

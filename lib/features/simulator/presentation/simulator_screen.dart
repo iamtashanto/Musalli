@@ -14,7 +14,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:musalli/core/design_system/components/glass_components.dart';
-import 'package:musalli/core/design_system/components/glass_navigation.dart';
 import 'package:musalli/core/design_system/tokens/design_tokens.dart';
 import 'package:musalli/core/utils/bengali_numbers.dart';
 import 'package:musalli/features/content/presentation/providers/content_providers.dart';
@@ -73,9 +72,9 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _eventSubscription?.cancel();
+    unawaited(_eventSubscription?.cancel());
     _controller?.dispose();
-    _audioPlayer.dispose();
+    unawaited(_audioPlayer.dispose());
     unawaited(WakelockPlus.disable());
     super.dispose();
   }
@@ -85,7 +84,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       _controller?.pause();
-      _audioPlayer.pause();
+      unawaited(_audioPlayer.pause());
       unawaited(WakelockPlus.disable());
     }
   }
@@ -136,9 +135,9 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
     required SimRole role,
     required Map<int, String> surahChoices,
   }) {
-    _eventSubscription?.cancel();
+    unawaited(_eventSubscription?.cancel());
     _controller?.dispose();
-    _audioPlayer.stop();
+    unawaited(_audioPlayer.stop());
 
     _prayer = prayer;
     _unit = unit;
@@ -154,11 +153,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
       surahChoice: surahChoices,
     );
 
-    _controller = SimulatorController(
-      timeline: timeline,
-      autoMode: true,
-      speed: 1.0,
-    );
+    _controller = SimulatorController(timeline: timeline);
 
     _sessionStopwatch = Stopwatch()..start();
 
@@ -173,38 +168,33 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
     switch (event) {
       case StepChangedEvent(:final step):
         unawaited(HapticFeedback.lightImpact());
-        _playStepAudio(step);
+        unawaited(_playStepAudio(step));
         _announceAccessibility(step);
         setState(() {});
-        break;
 
       case RakatChangedEvent():
         unawaited(HapticFeedback.mediumImpact());
         setState(() {});
-        break;
 
       case PlaybackStateChangedEvent(:final isPlaying):
         if (isPlaying) {
           unawaited(WakelockPlus.enable());
         } else {
           unawaited(WakelockPlus.disable());
-          _audioPlayer.pause();
+          unawaited(_audioPlayer.pause());
         }
         setState(() {});
-        break;
 
       case SimulationCompletedEvent():
         unawaited(HapticFeedback.heavyImpact());
         unawaited(WakelockPlus.disable());
-        _audioPlayer.stop();
+        unawaited(_audioPlayer.stop());
         _showCompletionDialog();
         setState(() {});
-        break;
 
       case RepeatTickEvent():
         unawaited(HapticFeedback.selectionClick());
         setState(() {});
-        break;
     }
   }
 
@@ -253,33 +243,39 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
   }
 
   void _announceAccessibility(SimStep step) {
+    if (!mounted) return;
     final rakatInfo = step.rakat != null
-        ? '${BengaliNumbers.toBengali(step.rakat!)}ম রাকাত, '
+        ? '${BengaliNumbers.toBengali(step.rakat)}ম রাকাত, '
         : '';
-    SemanticsService.announce(
-      '$rakatInfo${step.titleBn}: ${step.instructionBn}',
-      TextDirection.ltr,
+    unawaited(
+      SemanticsService.sendAnnouncement(
+        View.of(context),
+        '$rakatInfo${step.titleBn}: ${step.instructionBn}',
+        TextDirection.ltr,
+      ),
     );
   }
 
   void _showCompletionDialog() {
     if (_controller == null || !mounted) return;
 
-    showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) {
-        return CompletionDialog(
-          timeline: _controller!.timeline,
-          duration: _sessionStopwatch.elapsed,
-          commonMistakes: _prayer?.commonMistakes ?? const [],
-          onPracticeQuiz: () {
-            // Navigate to practice quiz mode
-            context.push('/simulator/practice');
-          },
-          onAnotherPrayer: _openSetupSheet,
-        );
-      },
+    unawaited(
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return CompletionDialog(
+            timeline: _controller!.timeline,
+            duration: _sessionStopwatch.elapsed,
+            commonMistakes: _prayer?.commonMistakes ?? const [],
+            onPracticeQuiz: () {
+              // Navigate to practice quiz mode
+              unawaited(context.push('/simulator/practice'));
+            },
+            onAnotherPrayer: _openSetupSheet,
+          );
+        },
+      ),
     );
   }
 
@@ -311,16 +307,18 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
   void _openStepList() {
     if (_controller == null) return;
 
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) => StepListSheet(
-        timeline: _controller!.timeline,
-        currentStepIndex: _controller!.currentStepIndex,
-        onSelectStep: (idx) {
-          _controller!.seek(idx);
-        },
+    unawaited(
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (ctx) => StepListSheet(
+          timeline: _controller!.timeline,
+          currentStepIndex: _controller!.currentStepIndex,
+          onSelectStep: (idx) {
+            _controller!.seek(idx);
+          },
+        ),
       ),
     );
   }
@@ -455,7 +453,6 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                       gender: _gender,
                       viewMode: _viewMode,
                       speed: _controller!.speed,
-                      showHighlights: true,
                     ),
                   ),
 
@@ -560,7 +557,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                 onMuteToggle: () {
                   setState(() => _controller!.toggleMute());
                   if (_controller!.isMuted) {
-                    _audioPlayer.pause();
+                    unawaited(_audioPlayer.pause());
                   }
                 },
                 onViewModeToggle: () {

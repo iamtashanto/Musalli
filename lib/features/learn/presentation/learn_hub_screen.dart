@@ -391,7 +391,9 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            Row(
+                                            Wrap(
+                                              crossAxisAlignment:
+                                                  WrapCrossAlignment.center,
                                               children: <Widget>[
                                                 Text(
                                                   p.nameBn,

@@ -230,9 +230,6 @@ class _RecitationPanelState extends ConsumerState<RecitationPanel> {
             const Divider(height: 16),
             ArabicBlock(
               data: resolvedText,
-              initialShowArabic: true,
-              initialShowUccharon: true,
-              initialShowBanglish: false,
               initialShowMeaning: _isExpanded,
               onPlayAudio: () {
                 if (resolvedText?.audioAsset != null &&

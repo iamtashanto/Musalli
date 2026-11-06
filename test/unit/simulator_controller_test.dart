@@ -14,10 +14,7 @@ void main() {
       const config = ContentSalahConfig(
         rakats: 2,
         qiratRakats: [1, 2],
-        firstSittingAfter: null,
         jahr: [1, 2],
-        sajdaCount: 2,
-        endsWithSalam: true,
       );
 
       timeline = buildTimeline(
@@ -28,12 +25,7 @@ void main() {
       );
 
       fakeClock = FakeSimulatorClock();
-      controller = SimulatorController(
-        timeline: timeline,
-        clock: fakeClock,
-        autoMode: true,
-        speed: 1.0,
-      );
+      controller = SimulatorController(timeline: timeline, clock: fakeClock);
     });
 
     tearDown(() {

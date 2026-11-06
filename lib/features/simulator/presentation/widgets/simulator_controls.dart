@@ -1,5 +1,5 @@
-/// Playback Controls Bar with morphing play/pause, prev/next, speed selector,
-/// auto/manual toggle, view switch, and step list sheet button.
+// Playback Controls Bar with morphing play/pause, prev/next, speed selector,
+// auto/manual toggle, view switch, and step list sheet button.
 
 import 'package:flutter/material.dart';
 import 'package:musalli/core/design_system/components/glass_components.dart';

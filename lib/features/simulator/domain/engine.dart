@@ -709,7 +709,7 @@ Timeline buildTimeline(
           instructionBn: gender == SimGender.male
               ? "'আল্লাহু আকবার' বলে শেষ বৈঠকে বসুন এবং আত্তাহিয়্যাতু পাঠ করুন।"
               : "'আল্লাহু আকবার' বলে উভয় পা ডান দিকে বের করে শেষ বৈঠকে বসুন এবং আত্তাহিয়্যাতু পাঠ করুন।",
-          instructionEn: 'Sit in final Qa\'dah and recite Tashahhud.',
+          instructionEn: "Sit in final Qa'dah and recite Tashahhud.",
           genderVariants: genderVariants,
         ),
       );

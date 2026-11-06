@@ -1,7 +1,5 @@
 // Namaj Simulator Domain Types (Pure Dart - No Flutter imports).
 
-import 'package:musalli/shared/content/salah_config.dart';
-
 /// All 16 liturgical postures recognized by the Namaj Simulator figure and engine.
 enum Posture {
   standing,

@@ -365,17 +365,12 @@ class _PrayerDetailScreenState extends ConsumerState<PrayerDetailScreen> {
                         SizedBox(height: tokens.spacing.lg),
 
                         // 6. Step-by-Step Guide
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'ধাপে ধাপে নামাজের নিয়ম (${activeUnit?.label ?? prayer.nameBn})',
-                              style: typography.titleMedium.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: colors.textPrimary,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          'ধাপে ধাপে নামাজের নিয়ম (${activeUnit?.label ?? prayer.nameBn})',
+                          style: typography.titleMedium.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: colors.textPrimary,
+                          ),
                         ),
                         SizedBox(height: tokens.spacing.sm),
 

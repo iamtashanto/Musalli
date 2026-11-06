@@ -1,8 +1,4 @@
-/// Namaj Simulator Controller & State Machine (Pure Dart - No Flutter imports).
-///
-/// Drives prayer playback, repeat progressions, auto/manual advances,
-/// speed scaling, and broadcasts discrete events. Uses an injectable clock
-/// interface for completely deterministic, isolated unit testing.
+// Namaj Simulator Controller & State Machine (Pure Dart - No Flutter imports).
 
 import 'dart:async';
 
@@ -120,10 +116,9 @@ class SimulatorController {
     required this.timeline,
     SimulatorClock? clock,
     bool autoMode = true,
-    double speed = 1.0,
+    this._speed = 1.0,
   }) : _clock = clock ?? DefaultSimulatorClock(),
-       _isAutoMode = autoMode,
-       _speed = speed {
+       _isAutoMode = autoMode {
     _currentRakat = timeline.isNotEmpty ? timeline[0].rakat : null;
   }
 
@@ -202,7 +197,7 @@ class SimulatorController {
   }
 
   /// Enables or disables automatic step advancement.
-  void setAutoMode(bool auto) {
+  void setAutoMode({required bool auto}) {
     if (_isAutoMode == auto) return;
     _isAutoMode = auto;
     if (!_isAutoMode) {
@@ -212,7 +207,7 @@ class SimulatorController {
     }
   }
 
-  void toggleAutoMode() => setAutoMode(!_isAutoMode);
+  void toggleAutoMode() => setAutoMode(auto: !_isAutoMode);
 
   /// Toggles mute state.
   void toggleMute() {
@@ -353,6 +348,6 @@ class SimulatorController {
   /// Releases resources.
   void dispose() {
     _cancelPendingTimer();
-    _eventsController.close();
+    unawaited(_eventsController.close());
   }
 }

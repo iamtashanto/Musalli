@@ -432,12 +432,14 @@ class GlassSegmentedControl<T> extends StatelessWidget {
       radius: tokens.radii.full,
       enableBlur: false,
       padding: EdgeInsets.all(tokens.spacing.xxs),
-      child: Row(
-        children: entries
-            .map((MapEntry<T, String> entry) {
-              final isSelected = entry.key == selectedValue;
-              return Expanded(
-                child: PressScaleContainer(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: entries
+              .map((MapEntry<T, String> entry) {
+                final isSelected = entry.key == selectedValue;
+                return PressScaleContainer(
                   onTap: () => onValueChanged(entry.key),
                   hapticSelectionClick: true,
                   semanticButton: true,
@@ -447,7 +449,7 @@ class GlassSegmentedControl<T> extends StatelessWidget {
                     curve: tokens.motion.emphasizedCurve,
                     padding: EdgeInsets.symmetric(
                       vertical: tokens.spacing.xs,
-                      horizontal: tokens.spacing.xs,
+                      horizontal: tokens.spacing.sm,
                     ),
                     decoration: BoxDecoration(
                       borderRadius: tokens.radii.borderFull,
@@ -468,10 +470,10 @@ class GlassSegmentedControl<T> extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-              );
-            })
-            .toList(growable: false),
+                );
+              })
+              .toList(growable: false),
+        ),
       ),
     );
   }

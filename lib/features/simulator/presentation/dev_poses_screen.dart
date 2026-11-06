@@ -1,4 +1,4 @@
-/// Dev Screen: Inspect and audit all 16 postures × gender × view angles.
+// Dev Screen: Inspect and audit all 16 postures × gender × view angles.
 
 import 'dart:async';
 
@@ -211,8 +211,6 @@ class _DevPosesScreenState extends State<DevPosesScreen> {
                         posture: _currentPosture,
                         gender: _gender,
                         viewMode: _viewMode,
-                        speed: 1.0,
-                        showHighlights: true,
                       ),
                     ),
                   ),

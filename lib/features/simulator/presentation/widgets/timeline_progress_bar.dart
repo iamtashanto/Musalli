@@ -1,4 +1,4 @@
-/// Segmented Timeline Progress Bar with Rakat Markers and Step Checkpoints.
+// Segmented Timeline Progress Bar with Rakat Markers and Step Checkpoints.
 
 import 'package:flutter/material.dart';
 import 'package:musalli/core/design_system/tokens/design_tokens.dart';

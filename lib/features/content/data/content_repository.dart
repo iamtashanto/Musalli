@@ -103,21 +103,21 @@ class ContentRepository {
 
   final AssetBundle _bundle;
 
-  List<ContentPrayerType>? _prayers;
-  List<ContentDua>? _duas;
-  List<ContentHadithItem>? _hadiths;
-  List<ContentRuling>? _rulings;
-  List<ContentSurah>? _surahs;
-  List<ContentTaharatSection>? _taharat;
-  List<ContentFaqItem>? _faqs;
-  List<ContentHistoryEra>? _history;
-  List<QuranSurahSummary>? _allSurahs;
-  List<ContentShikhunArticle>? _articles;
-  Map<String, List<String>>? _synonyms;
+  static List<ContentPrayerType>? _prayers;
+  static List<ContentDua>? _duas;
+  static List<ContentHadithItem>? _hadiths;
+  static List<ContentRuling>? _rulings;
+  static List<ContentSurah>? _surahs;
+  static List<ContentTaharatSection>? _taharat;
+  static List<ContentFaqItem>? _faqs;
+  static List<ContentHistoryEra>? _history;
+  static List<QuranSurahSummary>? _allSurahs;
+  static List<ContentShikhunArticle>? _articles;
+  static Map<String, List<String>>? _synonyms;
 
-  Map<String, ContentPrayerType>? _prayersBySlug;
-  Map<String, ContentRuling>? _rulingsBySlug;
-  Map<String, ContentTaharatSection>? _taharatBySlug;
+  static Map<String, ContentPrayerType>? _prayersBySlug;
+  static Map<String, ContentRuling>? _rulingsBySlug;
+  static Map<String, ContentTaharatSection>? _taharatBySlug;
 
   /// Loads all 29 prayers lazily.
   Future<List<ContentPrayerType>> getPrayers() async {
