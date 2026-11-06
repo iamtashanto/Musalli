@@ -20,6 +20,7 @@ class SimulatorFigure extends StatefulWidget {
   const SimulatorFigure({
     required this.posture,
     required this.gender,
+    this.postureMode = PostureMode.standing,
     this.viewMode = FigureViewMode.side,
     this.speed = 1.0,
     this.showHighlights = true,
@@ -29,6 +30,7 @@ class SimulatorFigure extends StatefulWidget {
 
   final Posture posture;
   final SimGender gender;
+  final PostureMode postureMode;
   final FigureViewMode viewMode;
   final double speed;
   final bool showHighlights;
@@ -49,7 +51,11 @@ class _SimulatorFigureState extends State<SimulatorFigure>
   @override
   void initState() {
     super.initState();
-    _targetPose = getJointPose(widget.posture, widget.gender);
+    _targetPose = getJointPose(
+      widget.posture,
+      widget.gender,
+      mode: widget.postureMode,
+    );
     _previousPose = _targetPose;
 
     _animController = AnimationController(
@@ -68,13 +74,18 @@ class _SimulatorFigureState extends State<SimulatorFigure>
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.posture != widget.posture ||
-        oldWidget.gender != widget.gender) {
+        oldWidget.gender != widget.gender ||
+        oldWidget.postureMode != widget.postureMode) {
       _previousPose = interpolatePose(
         _previousPose,
         _targetPose,
         _animController.value,
       );
-      _targetPose = getJointPose(widget.posture, widget.gender);
+      _targetPose = getJointPose(
+        widget.posture,
+        widget.gender,
+        mode: widget.postureMode,
+      );
 
       _animController.duration = _calculateDuration();
       _animController.forward(from: 0.0);
@@ -115,6 +126,7 @@ class _SimulatorFigureState extends State<SimulatorFigure>
             painter: _FigurePainter(
               pose: currentPose,
               gender: widget.gender,
+              postureMode: widget.postureMode,
               viewMode: widget.viewMode,
               posture: widget.posture,
               showHighlights: widget.showHighlights,
@@ -131,6 +143,7 @@ class _FigurePainter extends CustomPainter {
   _FigurePainter({
     required this.pose,
     required this.gender,
+    required this.postureMode,
     required this.viewMode,
     required this.posture,
     required this.showHighlights,
@@ -139,6 +152,7 @@ class _FigurePainter extends CustomPainter {
 
   final JointPose pose;
   final SimGender gender;
+  final PostureMode postureMode;
   final FigureViewMode viewMode;
   final Posture posture;
   final bool showHighlights;
@@ -162,19 +176,77 @@ class _FigurePainter extends CustomPainter {
     // 1. Draw Prayer Mat (Jaanamaj) & Qibla Direction
     _drawPrayerMat(canvas);
 
-    // 2. Draw Figure (Side or Front)
+    // 2. Draw Chair if in sittingChair mode
+    if (postureMode == PostureMode.sittingChair) {
+      _drawChair(canvas);
+    }
+
+    // 3. Draw Figure (Side or Front)
     if (viewMode == FigureViewMode.side) {
       _drawSideView(canvas);
     } else {
       _drawFrontView(canvas);
     }
 
-    // 3. Draw Highlights (7 Sajda Points / Raised Index Finger)
+    // 4. Draw Highlights (7 Sajda Points / Raised Index Finger)
     if (showHighlights) {
       _drawHighlights(canvas);
     }
 
     canvas.restore();
+  }
+
+  void _drawChair(Canvas canvas) {
+    final chairWood = Paint()
+      ..color = const Color(0xFF8D5B4C)
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 5.0;
+
+    final cushionPaint = Paint()
+      ..color = colors.primaryEmerald.withValues(alpha: 0.35)
+      ..style = PaintingStyle.fill;
+
+    if (viewMode == FigureViewMode.side) {
+      // Side view of the chair:
+      // Seat cushion (X: 185 to 255, Y: 198 to 204)
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          const Rect.fromLTRB(182, 196, 252, 206),
+          const Radius.circular(3),
+        ),
+        cushionPaint,
+      );
+
+      // Chair backrest (at the back of worshipper, X=248, from Y=125 down to Y=206)
+      canvas.drawLine(const Offset(248, 120), const Offset(248, 204), chairWood);
+      // Backrest slats
+      canvas.drawLine(const Offset(248, 130), const Offset(242, 130), chairWood);
+      canvas.drawLine(const Offset(248, 155), const Offset(242, 155), chairWood);
+
+      // Chair legs to ground
+      canvas.drawLine(const Offset(186, 206), const Offset(186, groundY), chairWood); // Front leg
+      canvas.drawLine(const Offset(248, 206), const Offset(248, groundY), chairWood); // Rear leg
+      // Stretcher between legs
+      canvas.drawLine(const Offset(186, groundY - 25), const Offset(248, groundY - 25), chairWood..strokeWidth = 3.5);
+    } else {
+      // Front view of the chair
+      const double cx = 200.0;
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          const Rect.fromLTRB(cx - 36, 196, cx + 36, 206),
+          const Radius.circular(3),
+        ),
+        cushionPaint,
+      );
+      // Legs
+      canvas.drawLine(const Offset(cx - 30, 206), const Offset(cx - 30, groundY), chairWood);
+      canvas.drawLine(const Offset(cx + 30, 206), const Offset(cx + 30, groundY), chairWood);
+      // Backrest frame
+      canvas.drawLine(const Offset(cx - 32, 120), const Offset(cx - 32, 200), chairWood);
+      canvas.drawLine(const Offset(cx + 32, 120), const Offset(cx + 32, 200), chairWood);
+      canvas.drawLine(const Offset(cx - 32, 125), const Offset(cx + 32, 125), chairWood);
+    }
   }
 
   void _drawPrayerMat(Canvas canvas) {
@@ -590,6 +662,7 @@ class _FigurePainter extends CustomPainter {
   bool shouldRepaint(covariant _FigurePainter oldDelegate) {
     return oldDelegate.pose != pose ||
         oldDelegate.viewMode != viewMode ||
+        oldDelegate.postureMode != postureMode ||
         oldDelegate.showHighlights != showHighlights ||
         oldDelegate.posture != posture;
   }

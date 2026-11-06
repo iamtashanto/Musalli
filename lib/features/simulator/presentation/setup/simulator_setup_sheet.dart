@@ -22,6 +22,7 @@ class SimulatorSetupConfig {
     required this.unit,
     required this.gender,
     required this.role,
+    this.postureMode = PostureMode.standing,
     required this.surahChoice,
   });
 
@@ -29,6 +30,7 @@ class SimulatorSetupConfig {
   final ContentRakatUnit unit;
   final SimGender gender;
   final SimRole role;
+  final PostureMode postureMode;
   final Map<int, String> surahChoice;
 }
 
@@ -38,6 +40,7 @@ class SimulatorSetupSheet extends ConsumerStatefulWidget {
     this.initialUnitIndex,
     this.initialGender,
     this.initialRole,
+    this.initialPostureMode,
     super.key,
   });
 
@@ -45,6 +48,7 @@ class SimulatorSetupSheet extends ConsumerStatefulWidget {
   final int? initialUnitIndex;
   final SimGender? initialGender;
   final SimRole? initialRole;
+  final PostureMode? initialPostureMode;
 
   @override
   ConsumerState<SimulatorSetupSheet> createState() =>
@@ -52,10 +56,11 @@ class SimulatorSetupSheet extends ConsumerStatefulWidget {
 }
 
 class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
-  int _currentStep = 0; // 0: Prayer, 1: Unit, 2: Gender, 3: Role, 4: Surahs
+  int _currentStep = 0; // 0: Prayer, 1: Unit, 2: Posture Mode, 3: Gender, 4: Role, 5: Surahs
 
   ContentPrayerType? _selectedPrayer;
   ContentRakatUnit? _selectedUnit;
+  PostureMode _selectedPostureMode = PostureMode.standing;
   SimGender _selectedGender = SimGender.male;
   SimRole _selectedRole = SimRole.alone;
   final Map<int, String> _surahChoices = {};
@@ -65,6 +70,9 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
   @override
   void initState() {
     super.initState();
+    if (widget.initialPostureMode != null) {
+      _selectedPostureMode = widget.initialPostureMode!;
+    }
     unawaited(_loadSavedPreferences());
   }
 
@@ -73,9 +81,20 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
       final prefs = await SharedPreferences.getInstance();
       final savedGenderStr = prefs.getString('sim_pref_gender');
       final savedRoleStr = prefs.getString('sim_pref_role');
+      final savedModeStr = prefs.getString('sim_pref_posture_mode');
 
       if (mounted) {
         setState(() {
+          if (widget.initialPostureMode != null) {
+            _selectedPostureMode = widget.initialPostureMode!;
+          } else if (savedModeStr != null) {
+            if (savedModeStr == 'sittingFloor') {
+              _selectedPostureMode = PostureMode.sittingFloor;
+            } else if (savedModeStr == 'sittingChair') {
+              _selectedPostureMode = PostureMode.sittingChair;
+            }
+          }
+
           if (widget.initialGender != null) {
             _selectedGender = widget.initialGender!;
           } else if (savedGenderStr == 'female') {
@@ -101,6 +120,7 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('sim_pref_gender', _selectedGender.name);
       await prefs.setString('sim_pref_role', _selectedRole.name);
+      await prefs.setString('sim_pref_posture_mode', _selectedPostureMode.name);
       if (_selectedPrayer != null) {
         await prefs.setString('sim_pref_last_prayer', _selectedPrayer!.slug);
       }
@@ -118,6 +138,7 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
         unit: _selectedUnit!,
         gender: _selectedGender,
         role: _selectedRole,
+        postureMode: _selectedPostureMode,
         surahChoice: _surahChoices,
       ),
     );
@@ -187,7 +208,7 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
                   ],
                 ),
                 Text(
-                  'ধাপ ${_currentStep + 1} / 5',
+                  'ধাপ ${_currentStep + 1} / 6',
                   style: typography.label.copyWith(
                     color: colors.textSecondary,
                     fontWeight: FontWeight.w600,
@@ -226,10 +247,12 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
                   case 1:
                     return _buildUnitStep();
                   case 2:
-                    return _buildGenderStep();
+                    return _buildPostureModeStep();
                   case 3:
-                    return _buildRoleStep();
+                    return _buildGenderStep();
                   case 4:
+                    return _buildRoleStep();
+                  case 5:
                   default:
                     return _buildSurahsStep();
                 }
@@ -248,13 +271,106 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
       case 1:
         return '২. রাকাত বা ইউনিট নির্বাচন';
       case 2:
-        return '৩. লিঙ্গ (পুরুষ / নারী)';
+        return '৩. নামাজের ধরন (দাঁড়িয়ে / মাটিতে বসে / চেয়ারে)';
       case 3:
-        return '৪. ভূমিকা (একাকী / ইমাম / মুক্তাদী)';
+        return '৪. লিঙ্গ (পুরুষ / নারী)';
       case 4:
+        return '৫. ভূমিকা (একাকী / ইমাম / মুক্তাদী)';
+      case 5:
       default:
-        return '৫. প্রতি রাকাতের সূরা নির্বাচন';
+        return '৬. প্রতি রাকাতের সূরা নির্বাচন';
     }
+  }
+
+  Widget _buildPostureModeStep() {
+    final tokens = context.tokens;
+    final colors = tokens.colors;
+    final typography = tokens.typography;
+
+    final modes = [
+      (
+        mode: PostureMode.standing,
+        icon: Icons.accessibility_new_rounded,
+        title: 'স্বাভাবিক দাঁড়িয়ে নামাজ (Standing)',
+        desc: 'দাঁড়াতে সক্ষমদের জন্য স্বাভাবিক কিয়াম, রুকু ও ভূমিতে সিজদা।',
+      ),
+      (
+        mode: PostureMode.sittingFloor,
+        icon: Icons.airline_seat_recline_normal_rounded,
+        title: 'মাটিতে বসে নামাজ (Sitting on Floor)',
+        desc: 'অসুস্থ বা দুর্বলদের জন্য মাটিতে বসে কিয়াম, ইশারায় রুকু ও সিজদা।',
+      ),
+      (
+        mode: PostureMode.sittingChair,
+        icon: Icons.chair_rounded,
+        title: 'চেয়ারে বসে নামাজ (Sitting on Chair)',
+        desc: 'মাটিতে বসতে অক্ষমদের জন্য চেয়ারে বসে ইশারায় রুকু ও সিজদা (মাথা বেশি ঝুঁকিয়ে)।',
+      ),
+    ];
+
+    return ListView.builder(
+      padding: EdgeInsets.all(tokens.spacing.md),
+      itemCount: modes.length,
+      itemBuilder: (context, index) {
+        final m = modes[index];
+        final isSelected = _selectedPostureMode == m.mode;
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: GlassCard(
+            onTap: () {
+              unawaited(HapticFeedback.selectionClick());
+              setState(() {
+                _selectedPostureMode = m.mode;
+                _currentStep = 3;
+              });
+            },
+            padding: EdgeInsets.all(tokens.spacing.md),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? colors.primaryEmerald.withValues(alpha: 0.18)
+                        : colors.textMuted.withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    m.icon,
+                    color: isSelected ? colors.primaryEmerald : colors.textPrimary,
+                    size: 26,
+                  ),
+                ),
+                SizedBox(width: tokens.spacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        m.title,
+                        style: typography.titleMedium.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? colors.primaryEmerald : colors.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        m.desc,
+                        style: typography.label.copyWith(
+                          color: colors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.arrow_forward_rounded, color: colors.primaryEmerald),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildPrayerStep(List<ContentPrayerType> prayers) {
@@ -420,7 +536,7 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
             onTap: () {
               setState(() {
                 _selectedGender = SimGender.male;
-                _currentStep = 3;
+                _currentStep = 4;
               });
             },
             padding: EdgeInsets.all(tokens.spacing.md),
@@ -467,7 +583,7 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
             onTap: () {
               setState(() {
                 _selectedGender = SimGender.female;
-                _currentStep = 3;
+                _currentStep = 4;
               });
             },
             padding: EdgeInsets.all(tokens.spacing.md),
@@ -550,7 +666,7 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
             onTap: () {
               setState(() {
                 _selectedRole = r.role;
-                _currentStep = 4;
+                _currentStep = 5;
               });
             },
             padding: EdgeInsets.all(tokens.spacing.md),

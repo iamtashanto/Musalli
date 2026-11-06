@@ -90,6 +90,38 @@ class JointPose {
 
   /// Front view parameters.
   final FrontPoseParams front;
+
+  JointPose copyWith({
+    double? hipX,
+    double? hipY,
+    double? torsoAngle,
+    double? headAngle,
+    double? upperArmAngle,
+    double? forearmAngle,
+    double? thighAngle,
+    double? shinAngle,
+    double? footAngle,
+    double? headTurn,
+    bool? fingerRaised,
+    bool? toesBent,
+    FrontPoseParams? front,
+  }) {
+    return JointPose(
+      hipX: hipX ?? this.hipX,
+      hipY: hipY ?? this.hipY,
+      torsoAngle: torsoAngle ?? this.torsoAngle,
+      headAngle: headAngle ?? this.headAngle,
+      upperArmAngle: upperArmAngle ?? this.upperArmAngle,
+      forearmAngle: forearmAngle ?? this.forearmAngle,
+      thighAngle: thighAngle ?? this.thighAngle,
+      shinAngle: shinAngle ?? this.shinAngle,
+      footAngle: footAngle ?? this.footAngle,
+      headTurn: headTurn ?? this.headTurn,
+      fingerRaised: fingerRaised ?? this.fingerRaised,
+      toesBent: toesBent ?? this.toesBent,
+      front: front ?? this.front,
+    );
+  }
 }
 
 /// Interpolates angular difference along the shortest circular path in degrees.

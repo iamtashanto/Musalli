@@ -642,10 +642,252 @@ const Map<Posture, JointPose> kFemalePoses = <Posture, JointPose>{
   ),
 };
 
-/// Resolves the canonical pose for a given posture and gender.
-JointPose getJointPose(Posture posture, SimGender gender) {
-  if (gender == SimGender.female) {
-    return kFemalePoses[posture] ?? kMalePoses[posture]!;
+/// Poses when sitting on the floor throughout the entire prayer.
+/// (Used for individuals who cannot stand due to weakness or medical conditions).
+JointPose _buildSittingFloorPose(JointPose basePose, Posture posture, SimGender gender) {
+  // If base posture was standing/qiyam/ruku, adapt it to sitting on floor
+  switch (posture) {
+    case Posture.standing:
+    case Posture.qawma:
+      return basePose.copyWith(
+        hipX: 256,
+        hipY: 228,
+        torsoAngle: 0,
+        headAngle: -10,
+        upperArmAngle: -166,
+        forearmAngle: -122,
+        thighAngle: -128,
+        shinAngle: -270,
+        footAngle: -180,
+        front: const FrontPoseParams(
+          bodyDropY: 68,
+          torsoScaleY: 1.0,
+          leftUpperArmAngle: 12,
+          rightUpperArmAngle: -12,
+          handsMode: 'thighs',
+        ),
+      );
+
+    case Posture.takbirHandsRaised:
+    case Posture.qunutTakbir:
+    case Posture.eidTakbirRaised:
+      return basePose.copyWith(
+        hipX: 256,
+        hipY: 228,
+        torsoAngle: 0,
+        headAngle: -10,
+        thighAngle: -128,
+        shinAngle: -270,
+        footAngle: -180,
+        front: FrontPoseParams(
+          bodyDropY: 68,
+          torsoScaleY: 1.0,
+          leftUpperArmAngle: gender == SimGender.female ? 36 : 42,
+          rightUpperArmAngle: gender == SimGender.female ? -36 : -42,
+          handsMode: gender == SimGender.female ? 'raised_shoulders' : 'raised_ears',
+        ),
+      );
+
+    case Posture.qiyamHandsFolded:
+    case Posture.janazaTakbir:
+      return basePose.copyWith(
+        hipX: 256,
+        hipY: 228,
+        torsoAngle: 0,
+        headAngle: -10,
+        thighAngle: -128,
+        shinAngle: -270,
+        footAngle: -180,
+        front: FrontPoseParams(
+          bodyDropY: 68,
+          torsoScaleY: 1.0,
+          leftUpperArmAngle: 24,
+          rightUpperArmAngle: -24,
+          handsMode: gender == SimGender.female ? 'folded_chest' : 'folded_navel',
+        ),
+      );
+
+    case Posture.ruku:
+      // Ruku gesture while sitting: bow head and upper torso forward (approx 35-40 deg)
+      return basePose.copyWith(
+        hipX: 256,
+        hipY: 228,
+        torsoAngle: -40,
+        headAngle: -45,
+        upperArmAngle: -165,
+        forearmAngle: -135,
+        thighAngle: -128,
+        shinAngle: -270,
+        footAngle: -180,
+        front: const FrontPoseParams(
+          bodyDropY: 68,
+          torsoScaleY: 0.72,
+          leftUpperArmAngle: 18,
+          rightUpperArmAngle: -18,
+          handsMode: 'knees',
+        ),
+      );
+
+    case Posture.sajda:
+    case Posture.jalsa:
+    case Posture.qada:
+    case Posture.tashahhudFingerRaised:
+    case Posture.salamRight:
+    case Posture.salamLeft:
+    case Posture.eidTakbirReleased:
+    case Posture.munajat:
+      // Sajda, jalsa, tashahhud, salam, etc. are already natural sitting postures
+      return basePose;
   }
-  return kMalePoses[posture]!;
+}
+
+/// Poses when sitting on a chair throughout the entire prayer.
+/// (Chair height puts hip at Y=196, thighs horizontal -90, shins straight down -180, feet flat on mat).
+JointPose _buildChairPose(JointPose basePose, Posture posture, SimGender gender) {
+  const double chairHipX = 236.0;
+  const double chairHipY = 194.0;
+  const double chairThighAngle = -90.0;
+  const double chairShinAngle = -180.0;
+  const double chairFootAngle = -90.0;
+
+  switch (posture) {
+    case Posture.standing:
+    case Posture.qawma:
+      return basePose.copyWith(
+        hipX: chairHipX,
+        hipY: chairHipY,
+        torsoAngle: 0,
+        headAngle: -8,
+        upperArmAngle: -168,
+        forearmAngle: -120,
+        thighAngle: chairThighAngle,
+        shinAngle: chairShinAngle,
+        footAngle: chairFootAngle,
+        front: const FrontPoseParams(
+          bodyDropY: 36,
+          torsoScaleY: 1.0,
+          leftUpperArmAngle: 12,
+          rightUpperArmAngle: -12,
+          handsMode: 'thighs',
+        ),
+      );
+
+    case Posture.takbirHandsRaised:
+    case Posture.qunutTakbir:
+    case Posture.eidTakbirRaised:
+      return basePose.copyWith(
+        hipX: chairHipX,
+        hipY: chairHipY,
+        torsoAngle: 0,
+        headAngle: -8,
+        thighAngle: chairThighAngle,
+        shinAngle: chairShinAngle,
+        footAngle: chairFootAngle,
+        front: FrontPoseParams(
+          bodyDropY: 36,
+          torsoScaleY: 1.0,
+          leftUpperArmAngle: gender == SimGender.female ? 36 : 42,
+          rightUpperArmAngle: gender == SimGender.female ? -36 : -42,
+          handsMode: gender == SimGender.female ? 'raised_shoulders' : 'raised_ears',
+        ),
+      );
+
+    case Posture.qiyamHandsFolded:
+    case Posture.janazaTakbir:
+      return basePose.copyWith(
+        hipX: chairHipX,
+        hipY: chairHipY,
+        torsoAngle: 0,
+        headAngle: -8,
+        thighAngle: chairThighAngle,
+        shinAngle: chairShinAngle,
+        footAngle: chairFootAngle,
+        front: FrontPoseParams(
+          bodyDropY: 36,
+          torsoScaleY: 1.0,
+          leftUpperArmAngle: 24,
+          rightUpperArmAngle: -24,
+          handsMode: gender == SimGender.female ? 'folded_chest' : 'folded_navel',
+        ),
+      );
+
+    case Posture.ruku:
+      // Chair Ruku: Slight bow (around -32 degrees torso tilt), hands on knees
+      return basePose.copyWith(
+        hipX: chairHipX,
+        hipY: chairHipY,
+        torsoAngle: -32,
+        headAngle: -40,
+        upperArmAngle: -160,
+        forearmAngle: -125,
+        thighAngle: chairThighAngle,
+        shinAngle: chairShinAngle,
+        footAngle: chairFootAngle,
+        front: const FrontPoseParams(
+          bodyDropY: 36,
+          torsoScaleY: 0.78,
+          leftUpperArmAngle: 16,
+          rightUpperArmAngle: -16,
+          handsMode: 'knees',
+        ),
+      );
+
+    case Posture.sajda:
+      // Chair Sajda: Deeper bow than ruku (around -58 degrees torso tilt)
+      // Per Hanafi fiqh: sajda gesture on chair must be visibly lower than ruku gesture
+      return basePose.copyWith(
+        hipX: chairHipX,
+        hipY: chairHipY,
+        torsoAngle: -58,
+        headAngle: -70,
+        upperArmAngle: -150,
+        forearmAngle: -115,
+        thighAngle: chairThighAngle,
+        shinAngle: chairShinAngle,
+        footAngle: chairFootAngle,
+        front: const FrontPoseParams(
+          bodyDropY: 36,
+          torsoScaleY: 0.55,
+          leftUpperArmAngle: 24,
+          rightUpperArmAngle: -24,
+          handsMode: 'knees',
+        ),
+      );
+
+    case Posture.jalsa:
+    case Posture.qada:
+    case Posture.tashahhudFingerRaised:
+    case Posture.salamRight:
+    case Posture.salamLeft:
+    case Posture.eidTakbirReleased:
+    case Posture.munajat:
+      return basePose.copyWith(
+        hipX: chairHipX,
+        hipY: chairHipY,
+        thighAngle: chairThighAngle,
+        shinAngle: chairShinAngle,
+        footAngle: chairFootAngle,
+        front: basePose.front,
+      );
+  }
+}
+
+/// Resolves the canonical pose for a given posture, gender, and posture execution mode.
+JointPose getJointPose(
+  Posture posture,
+  SimGender gender, {
+  PostureMode mode = PostureMode.standing,
+}) {
+  final basePose = gender == SimGender.female
+      ? (kFemalePoses[posture] ?? kMalePoses[posture]!)
+      : kMalePoses[posture]!;
+
+  switch (mode) {
+    case PostureMode.standing:
+      return basePose;
+    case PostureMode.sittingFloor:
+      return _buildSittingFloorPose(basePose, posture, gender);
+    case PostureMode.sittingChair:
+      return _buildChairPose(basePose, posture, gender);
+  }
 }

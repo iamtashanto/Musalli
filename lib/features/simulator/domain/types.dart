@@ -20,6 +20,13 @@ enum Posture {
   munajat,
 }
 
+/// Posture execution mode: standing, sitting on the floor, or sitting on a chair.
+enum PostureMode {
+  standing,
+  sittingFloor,
+  sittingChair,
+}
+
 /// Biological gender for posture differences in Hanafi fiqh.
 enum SimGender { male, female }
 

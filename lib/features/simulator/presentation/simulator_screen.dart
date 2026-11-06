@@ -36,6 +36,7 @@ class SimulatorScreen extends ConsumerStatefulWidget {
     this.initialUnitStatus,
     this.initialGenderStr,
     this.initialRoleStr,
+    this.initialPostureModeStr,
     super.key,
   });
 
@@ -43,6 +44,7 @@ class SimulatorScreen extends ConsumerStatefulWidget {
   final String? initialUnitStatus;
   final String? initialGenderStr;
   final String? initialRoleStr;
+  final String? initialPostureModeStr;
 
   @override
   ConsumerState<SimulatorScreen> createState() => _SimulatorScreenState();
@@ -58,6 +60,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
   ContentRakatUnit? _unit;
   SimGender _gender = SimGender.male;
   SimRole _role = SimRole.alone;
+  PostureMode _postureMode = PostureMode.standing;
 
   FigureViewMode _viewMode = FigureViewMode.side;
   Stopwatch _sessionStopwatch = Stopwatch();
@@ -119,11 +122,19 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
       role = SimRole.muqtadi;
     }
 
+    PostureMode postureMode = PostureMode.standing;
+    if (widget.initialPostureModeStr == 'sittingFloor') {
+      postureMode = PostureMode.sittingFloor;
+    } else if (widget.initialPostureModeStr == 'sittingChair') {
+      postureMode = PostureMode.sittingChair;
+    }
+
     _loadPrayer(
       prayer: prayer,
       unit: unit,
       gender: gender,
       role: role,
+      postureMode: postureMode,
       surahChoices: const {},
     );
   }
@@ -133,6 +144,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
     required ContentRakatUnit unit,
     required SimGender gender,
     required SimRole role,
+    PostureMode postureMode = PostureMode.standing,
     required Map<int, String> surahChoices,
   }) {
     unawaited(_eventSubscription?.cancel());
@@ -143,6 +155,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
     _unit = unit;
     _gender = gender;
     _role = role;
+    _postureMode = postureMode;
 
     final timeline = buildTimeline(
       unit.config,
@@ -292,6 +305,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
         initialPrayerSlug: _prayer?.slug,
         initialGender: _gender,
         initialRole: _role,
+        initialPostureMode: _postureMode,
       ),
     );
 
@@ -301,6 +315,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
         unit: result.unit,
         gender: result.gender,
         role: result.role,
+        postureMode: result.postureMode,
         surahChoices: result.surahChoice,
       );
     }
@@ -491,6 +506,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                     child: SimulatorFigure(
                       posture: currentStep.posture,
                       gender: _gender,
+                      postureMode: _postureMode,
                       viewMode: _viewMode,
                       speed: _controller!.speed,
                     ),

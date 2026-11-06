@@ -158,6 +158,7 @@ GoRouter appRouter(Ref ref) {
                     initialUnitStatus: state.uri.queryParameters['unit'],
                     initialGenderStr: state.uri.queryParameters['gender'],
                     initialRoleStr: state.uri.queryParameters['role'],
+                    initialPostureModeStr: state.uri.queryParameters['mode'],
                   );
                 },
                 routes: [
