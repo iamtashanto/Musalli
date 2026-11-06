@@ -127,10 +127,10 @@ void main() {
     });
 
     test(
-      'All 36 Duas have non-empty Arabic and authentic transliteration',
+      'All 37 Duas have non-empty Arabic and authentic transliteration',
       () async {
         final duas = await repository.getDuas();
-        expect(duas.length, 36);
+        expect(duas.length, 37);
 
         final seenIds = <String>{};
         for (final dua in duas) {

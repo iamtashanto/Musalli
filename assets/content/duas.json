@@ -624,5 +624,23 @@
       "grade": "sahih"
     },
     "reviewStatus": "verified"
+  },
+  {
+    "id": "iqamah",
+    "titleBn": "ইকামত (নামাজের পূর্বে)",
+    "titleEn": "Iqamah (Call to start prayer)",
+    "arabic": "الله أكبر الله أكبر ، أشهد أن لا إله إلا الله ، أشهد أن محمدا رسول الله ، حي على الصلاة ، حي على الفلاح ، قد قامت الصلاة قد قامت الصلاة ، الله أكبر الله أكبر ، لا إله إلا الله",
+    "uccharonBn": "আল্লাহু আকবার, আল্লাহু আকবার। আশহাদু আল্লা ইলাহা ইল্লাল্লাহ। আশহাদু আন্না মুহাম্মাদার রাসূলুল্লাহ। হাইয়্যা আলাস সালাহ। হাইয়্যা আলাল ফালাহ। কাদ কামাতিস সালাহ, কাদ কামাতিস সালাহ। আল্লাহু আকবার, আল্লাহু আকবার। লা ইলাহা ইল্লাল্লাহ।",
+    "banglish": "Allahu Akbar, Allahu Akbar. Ashhadu alla ilaha illallah. Ashhadu anna Muhammadar Rasulullah. Hayya alas-Salah. Hayya alal-Falah. Qad qamatis-Salah, Qad qamatis-Salah. Allahu Akbar, Allahu Akbar. La ilaha illallah.",
+    "meaningBn": "আল্লাহ সর্বশ্রেষ্ঠ, আল্লাহ সর্বশ্রেষ্ঠ। আমি সাক্ষ্য দিচ্ছি আল্লাহ ছাড়া কোনো মা'বুদ নেই। আমি সাক্ষ্য দিচ্ছি মুহাম্মাদ (সা.) আল্লাহর রাসূল। নামাজের জন্য আসুন। কল্যাণের জন্য আসুন। নামাজ শুরু হয়ে গেছে, নামাজ শুরু হয়ে গেছে। আল্লাহ সর্বশ্রেষ্ঠ, আল্লাহ সর্বশ্রেষ্ঠ। আল্লাহ ছাড়া কোনো মা'বুদ নেই।",
+    "audioSrc": "/audio/iqamah.mp3",
+    "category": "in-salah",
+    "reference": {
+      "type": "hadith",
+      "source": "সহীহ বুখারী ও মুসলিম",
+      "number": "",
+      "grade": "sahih"
+    },
+    "reviewStatus": "verified"
   }
 ]
