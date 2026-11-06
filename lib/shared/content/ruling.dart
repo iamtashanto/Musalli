@@ -30,3 +30,4 @@ abstract class ContentRuling with _$ContentRuling {
   factory ContentRuling.fromJson(Map<String, dynamic> json) =>
       _$ContentRulingFromJson(json);
 }
+

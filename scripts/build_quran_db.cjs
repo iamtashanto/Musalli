@@ -99,3 +99,4 @@ execSync(`sqlite3 "${dbPath}" < "${tmpSqlPath}"`);
 fs.unlinkSync(tmpSqlPath);
 
 console.log(`Successfully built ${dbPath} (${fs.statSync(dbPath).size} bytes)`);
+

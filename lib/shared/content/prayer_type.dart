@@ -96,3 +96,4 @@ abstract class ContentPrayerType with _$ContentPrayerType {
   factory ContentPrayerType.fromJson(Map<String, dynamic> json) =>
       _$ContentPrayerTypeFromJson(json);
 }
+

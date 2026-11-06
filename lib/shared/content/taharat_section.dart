@@ -78,3 +78,4 @@ abstract class ContentTaharatSection with _$ContentTaharatSection {
   factory ContentTaharatSection.fromJson(Map<String, dynamic> json) =>
       _$ContentTaharatSectionFromJson(json);
 }
+

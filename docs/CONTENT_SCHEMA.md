@@ -130,3 +130,4 @@ This ensures:
 3. Every Arabic text string is non-empty.
 4. Every prayer's `rakatUnits` sum equals its `totalRakats`.
 5. Every ruling has verified references or is flagged `needs-review`.
+

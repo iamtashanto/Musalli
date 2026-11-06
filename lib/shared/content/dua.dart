@@ -27,3 +27,4 @@ abstract class ContentDua with _$ContentDua {
   factory ContentDua.fromJson(Map<String, dynamic> json) =>
       _$ContentDuaFromJson(json);
 }
+

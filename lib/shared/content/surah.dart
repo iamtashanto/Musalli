@@ -56,3 +56,4 @@ abstract class QuranSurahSummary with _$QuranSurahSummary {
   factory QuranSurahSummary.fromJson(Map<String, dynamic> json) =>
       _$QuranSurahSummaryFromJson(json);
 }
+

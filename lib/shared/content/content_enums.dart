@@ -123,3 +123,4 @@ enum ContentRevelationType {
   @JsonValue('madani')
   madani,
 }
+

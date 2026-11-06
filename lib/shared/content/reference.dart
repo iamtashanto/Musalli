@@ -20,3 +20,4 @@ abstract class ContentReference with _$ContentReference {
   factory ContentReference.fromJson(Map<String, dynamic> json) =>
       _$ContentReferenceFromJson(json);
 }
+

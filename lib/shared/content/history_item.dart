@@ -36,3 +36,4 @@ abstract class ContentHistoryEra with _$ContentHistoryEra {
   factory ContentHistoryEra.fromJson(Map<String, dynamic> json) =>
       _$ContentHistoryEraFromJson(json);
 }
+

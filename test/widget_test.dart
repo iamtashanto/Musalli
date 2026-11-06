@@ -62,8 +62,9 @@ void main() {
       );
       container.read(appRouterProvider).go('musalli://namaj/fajr');
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 500));
-
+      await container.read(prayerBySlugProvider('fajr').future);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
       expect(find.text('ফজর'), findsWidgets);
       expect(find.textContaining('Fajr'), findsWidgets);
       expect(find.text('২ রাকাত সুন্নাত (মুয়াক্কাদাহ)'), findsOneWidget);
@@ -183,6 +184,8 @@ void main() {
 
       for (final slug in prayerSlugs) {
         container.read(appRouterProvider).go('/namaj/$slug');
+        await tester.pump();
+        await container.read(prayerBySlugProvider(slug).future);
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 150));
         expect(

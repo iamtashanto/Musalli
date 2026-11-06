@@ -1,8 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:isolate';
 
 import 'package:flutter/services.dart';
 import 'package:musalli/shared/content/content.dart';
+
+Future<T> _runCompute<T>(T Function() computation) {
+  if (const bool.fromEnvironment('flutter.test') ||
+      Platform.environment.containsKey('FLUTTER_TEST')) {
+    return Future.value(computation());
+  }
+  return Isolate.run(computation);
+}
 
 /// Top-level isolate worker functions for background deserialization.
 List<ContentPrayerType> _parsePrayers(String jsonString) {
@@ -114,7 +123,7 @@ class ContentRepository {
   Future<List<ContentPrayerType>> getPrayers() async {
     if (_prayers != null) return _prayers!;
     final jsonStr = await _bundle.loadString('assets/content/prayers.json');
-    _prayers = await Isolate.run(() => _parsePrayers(jsonStr));
+    _prayers = await _runCompute(() => _parsePrayers(jsonStr));
     _prayersBySlug = {for (final p in _prayers!) p.slug: p};
     return _prayers!;
   }
@@ -131,7 +140,7 @@ class ContentRepository {
   Future<List<ContentDua>> getDuas() async {
     if (_duas != null) return _duas!;
     final jsonStr = await _bundle.loadString('assets/content/duas.json');
-    _duas = await Isolate.run(() => _parseDuas(jsonStr));
+    _duas = await _runCompute(() => _parseDuas(jsonStr));
     return _duas!;
   }
 
@@ -139,7 +148,7 @@ class ContentRepository {
   Future<List<ContentHadithItem>> getHadiths() async {
     if (_hadiths != null) return _hadiths!;
     final jsonStr = await _bundle.loadString('assets/content/hadiths.json');
-    _hadiths = await Isolate.run(() => _parseHadiths(jsonStr));
+    _hadiths = await _runCompute(() => _parseHadiths(jsonStr));
     return _hadiths!;
   }
 
@@ -147,7 +156,7 @@ class ContentRepository {
   Future<List<ContentRuling>> getRulings() async {
     if (_rulings != null) return _rulings!;
     final jsonStr = await _bundle.loadString('assets/content/masail.json');
-    _rulings = await Isolate.run(() => _parseRulings(jsonStr));
+    _rulings = await _runCompute(() => _parseRulings(jsonStr));
     _rulingsBySlug = {for (final r in _rulings!) r.slug: r};
     return _rulings!;
   }
@@ -164,7 +173,7 @@ class ContentRepository {
   Future<List<ContentSurah>> getSurahs() async {
     if (_surahs != null) return _surahs!;
     final jsonStr = await _bundle.loadString('assets/content/surahs.json');
-    _surahs = await Isolate.run(() => _parseSurahs(jsonStr));
+    _surahs = await _runCompute(() => _parseSurahs(jsonStr));
     return _surahs!;
   }
 
@@ -172,7 +181,7 @@ class ContentRepository {
   Future<List<ContentTaharatSection>> getTaharatSections() async {
     if (_taharat != null) return _taharat!;
     final jsonStr = await _bundle.loadString('assets/content/taharat.json');
-    _taharat = await Isolate.run(() => _parseTaharat(jsonStr));
+    _taharat = await _runCompute(() => _parseTaharat(jsonStr));
     _taharatBySlug = {for (final t in _taharat!) t.slug: t};
     return _taharat!;
   }
@@ -189,7 +198,7 @@ class ContentRepository {
   Future<List<ContentFaqItem>> getFaqs() async {
     if (_faqs != null) return _faqs!;
     final jsonStr = await _bundle.loadString('assets/content/faq.json');
-    _faqs = await Isolate.run(() => _parseFaqs(jsonStr));
+    _faqs = await _runCompute(() => _parseFaqs(jsonStr));
     return _faqs!;
   }
 
@@ -197,7 +206,7 @@ class ContentRepository {
   Future<List<ContentHistoryEra>> getHistoryEras() async {
     if (_history != null) return _history!;
     final jsonStr = await _bundle.loadString('assets/content/history.json');
-    _history = await Isolate.run(() => _parseHistory(jsonStr));
+    _history = await _runCompute(() => _parseHistory(jsonStr));
     return _history!;
   }
 
@@ -207,7 +216,7 @@ class ContentRepository {
     final jsonStr = await _bundle.loadString(
       'assets/content/quran_surahs.json',
     );
-    _allSurahs = await Isolate.run(() => _parseAllSurahs(jsonStr));
+    _allSurahs = await _runCompute(() => _parseAllSurahs(jsonStr));
     return _allSurahs!;
   }
 
@@ -217,7 +226,7 @@ class ContentRepository {
     final jsonStr = await _bundle.loadString(
       'assets/content/shikhun_articles.json',
     );
-    _articles = await Isolate.run(() => _parseArticles(jsonStr));
+    _articles = await _runCompute(() => _parseArticles(jsonStr));
     return _articles!;
   }
 
@@ -227,7 +236,7 @@ class ContentRepository {
     final jsonStr = await _bundle.loadString(
       'assets/content/search_synonyms.json',
     );
-    _synonyms = await Isolate.run(() => _parseSynonyms(jsonStr));
+    _synonyms = await _runCompute(() => _parseSynonyms(jsonStr));
     return _synonyms!;
   }
 }

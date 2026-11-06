@@ -26,3 +26,4 @@ abstract class ContentHadithItem with _$ContentHadithItem {
   factory ContentHadithItem.fromJson(Map<String, dynamic> json) =>
       _$ContentHadithItemFromJson(json);
 }
+

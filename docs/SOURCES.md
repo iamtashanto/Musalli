@@ -57,3 +57,4 @@ Content follows the Hanafi school (*Madhab*) as practiced by orthodox scholarshi
 - **Source CDN**: MP3Quran.net (`https://server8.mp3quran.net/afs/`) / EveryAyah open API.
 - **License**: Freely redistributable Islamic audio for personal, educational, and devotional mobile apps with zero commercial restrictions.
 - **Download Management**: Musalli downloads and caches audio files per-surah on user demand into local app cache, allowing offline playback and disk reclamation (clear cache).
+

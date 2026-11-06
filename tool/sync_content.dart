@@ -189,3 +189,4 @@ void main() async {
   stdout.writeln('- History Eras: ${(files['history.json'] as List).length}');
   stdout.writeln('All assertions validated successfully.');
 }
+

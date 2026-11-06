@@ -18,3 +18,4 @@ abstract class ContentFaqItem with _$ContentFaqItem {
   factory ContentFaqItem.fromJson(Map<String, dynamic> json) =>
       _$ContentFaqItemFromJson(json);
 }
+

@@ -38,3 +38,4 @@ abstract class ContentShikhunArticle with _$ContentShikhunArticle {
   factory ContentShikhunArticle.fromJson(Map<String, dynamic> json) =>
       _$ContentShikhunArticleFromJson(json);
 }
+
