@@ -372,5 +372,46 @@ void main() {
         }
       }
     });
+
+    test('10. Combined timeline for full prayer executes all units continuously', () {
+      final file = File('assets/content/prayers.json');
+      final jsonStr = file.readAsStringSync();
+      final list = json.decode(jsonStr) as List<dynamic>;
+      final fajrJson = list.firstWhere(
+        (e) => (e as Map<String, dynamic>)['slug'] == 'fajr',
+      ) as Map<String, dynamic>;
+      final fajr = ContentPrayerType.fromJson(fajrJson);
+
+      expect(fajr.rakatUnits.length, 2); // 2 Sunnah + 2 Fard
+
+      final combined = buildCombinedTimeline(
+        fajr.rakatUnits,
+        gender: SimGender.male,
+        role: SimRole.alone,
+        prayerSlug: fajr.slug,
+        prayerNameBn: fajr.nameBn,
+      );
+
+      // Total rakats = 2 + 2 = 4
+      expect(combined.metadata.totalRakats, 4);
+      expect(combined.metadata.totalSteps, greaterThan(30));
+      expect(
+        combined.steps.where((s) => s.posture == Posture.ruku).length,
+        4,
+      );
+      expect(
+        combined.steps.where((s) => s.posture == Posture.sajda).length,
+        8,
+      );
+      // Both units have Salam
+      expect(
+        combined.steps.where((s) => s.posture == Posture.salamRight).length,
+        2,
+      );
+      expect(
+        combined.steps.where((s) => s.posture == Posture.salamLeft).length,
+        2,
+      );
+    });
   });
 }

@@ -20,6 +20,7 @@ class SimulatorSetupConfig {
   const SimulatorSetupConfig({
     required this.prayer,
     required this.unit,
+    this.selectedUnits,
     required this.gender,
     required this.role,
     this.postureMode = PostureMode.standing,
@@ -28,10 +29,13 @@ class SimulatorSetupConfig {
 
   final ContentPrayerType prayer;
   final ContentRakatUnit unit;
+  final List<ContentRakatUnit>? selectedUnits;
   final SimGender gender;
   final SimRole role;
   final PostureMode postureMode;
   final Map<int, String> surahChoice;
+
+  bool get isMultiUnit => selectedUnits != null && selectedUnits!.length > 1;
 }
 
 class SimulatorSetupSheet extends ConsumerStatefulWidget {
@@ -60,6 +64,8 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
 
   ContentPrayerType? _selectedPrayer;
   ContentRakatUnit? _selectedUnit;
+  final Set<int> _selectedUnitIndices = {};
+  bool _isFullPrayerSelected = false;
   PostureMode _selectedPostureMode = PostureMode.standing;
   SimGender _selectedGender = SimGender.male;
   SimRole _selectedRole = SimRole.alone;
@@ -128,14 +134,35 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
   }
 
   void _onCompleteSetup() {
-    if (_selectedPrayer == null || _selectedUnit == null) return;
+    if (_selectedPrayer == null) return;
     unawaited(HapticFeedback.mediumImpact());
     unawaited(_savePreferences());
+
+    final units = _selectedPrayer!.rakatUnits;
+    List<ContentRakatUnit> finalUnits = [];
+
+    if (_isFullPrayerSelected || _selectedUnitIndices.length > 1) {
+      if (_isFullPrayerSelected) {
+        finalUnits = List.from(units);
+      } else {
+        final sortedIndices = _selectedUnitIndices.toList()..sort();
+        finalUnits = sortedIndices.map((i) => units[i]).toList();
+      }
+    } else if (_selectedUnitIndices.length == 1) {
+      finalUnits = [units[_selectedUnitIndices.first]];
+    } else if (_selectedUnit != null) {
+      finalUnits = [_selectedUnit!];
+    } else if (units.isNotEmpty) {
+      finalUnits = [units.first];
+    }
+
+    final primaryUnit = finalUnits.isNotEmpty ? finalUnits.first : (_selectedUnit ?? units.first);
 
     Navigator.of(context).pop(
       SimulatorSetupConfig(
         prayer: _selectedPrayer!,
-        unit: _selectedUnit!,
+        unit: primaryUnit,
+        selectedUnits: finalUnits.length > 1 ? finalUnits : null,
         gender: _selectedGender,
         role: _selectedRole,
         postureMode: _selectedPostureMode,
@@ -473,53 +500,221 @@ class _SimulatorSetupSheetState extends ConsumerState<SimulatorSetupSheet> {
     final typography = tokens.typography;
 
     final units = _selectedPrayer?.rakatUnits ?? [];
+    final totalPrayerRakats = units.fold<int>(0, (sum, u) => sum + u.config.rakats);
 
-    return ListView.builder(
-      padding: EdgeInsets.all(tokens.spacing.md),
-      itemCount: units.length,
-      itemBuilder: (context, index) {
-        final u = units[index];
-        final isSelected = _selectedUnit == u;
-
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+    return Column(
+      children: [
+        // Full Prayer Shortcut Option Card
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            tokens.spacing.md,
+            tokens.spacing.md,
+            tokens.spacing.md,
+            tokens.spacing.xs,
+          ),
           child: GlassCard(
             onTap: () {
+              unawaited(HapticFeedback.selectionClick());
               setState(() {
-                _selectedUnit = u;
+                _isFullPrayerSelected = true;
+                _selectedUnitIndices.clear();
+                _selectedUnit = units.isNotEmpty ? units.first : null;
                 _currentStep = 2;
               });
             },
             padding: EdgeInsets.all(tokens.spacing.md),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      u.label,
-                      style: typography.titleMedium.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: isSelected
-                            ? colors.primaryEmerald
-                            : colors.textPrimary,
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: colors.primaryEmerald.withValues(alpha: 0.16),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.auto_awesome_rounded,
+                    color: colors.primaryEmerald,
+                    size: 24,
+                  ),
+                ),
+                SizedBox(width: tokens.spacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'সম্পূর্ণ ${_selectedPrayer?.nameBn ?? ''} নামাজ',
+                            style: typography.titleMedium.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colors.primaryEmerald,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: colors.primaryEmerald.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(tokens.radii.full),
+                            ),
+                            child: Text(
+                              'সবগুলো (${BengaliNumbers.toBengali(totalPrayerRakats)} রাকাত)',
+                              style: typography.label.copyWith(
+                                color: colors.primaryEmerald,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      u.status.name.toUpperCase(),
-                      style: typography.label.copyWith(
-                        color: colors.textSecondary,
+                      const SizedBox(height: 2),
+                      Text(
+                        'সুন্নাত, ফরজ ও ওয়াজিব সকল ইউনিট ধারাবাহিকভাবে পূর্ণাঙ্গ সিমুলেশন করুন।',
+                        style: typography.label.copyWith(
+                          color: colors.textSecondary,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Icon(Icons.arrow_forward_rounded, color: colors.primaryEmerald),
               ],
             ),
           ),
-        );
-      },
+        ),
+
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: tokens.spacing.md,
+            vertical: tokens.spacing.xs,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'অথবা নির্দিষ্ট ইউনিট নির্বাচন করুন (মাল্টি-সিলেক্ট সম্ভব):',
+                style: typography.label.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colors.textSecondary,
+                ),
+              ),
+              if (_selectedUnitIndices.isNotEmpty)
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _isFullPrayerSelected = false;
+                      _selectedUnit = units[_selectedUnitIndices.first];
+                      _currentStep = 2;
+                    });
+                  },
+                  child: Text(
+                    'পরবর্তী (${BengaliNumbers.toBengali(_selectedUnitIndices.length)}টি)',
+                    style: typography.label.copyWith(
+                      color: colors.primaryEmerald,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+
+        Expanded(
+          child: ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md),
+            itemCount: units.length,
+            itemBuilder: (context, index) {
+              final u = units[index];
+              final isChecked = _selectedUnitIndices.contains(index) ||
+                  (!_isFullPrayerSelected && _selectedUnitIndices.isEmpty && _selectedUnit == u);
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: GlassCard(
+                  onTap: () {
+                    unawaited(HapticFeedback.selectionClick());
+                    setState(() {
+                      _isFullPrayerSelected = false;
+                      if (_selectedUnitIndices.contains(index)) {
+                        _selectedUnitIndices.remove(index);
+                      } else {
+                        _selectedUnitIndices.add(index);
+                      }
+                      if (_selectedUnitIndices.isNotEmpty) {
+                        _selectedUnit = units[_selectedUnitIndices.first];
+                      } else {
+                        _selectedUnit = u;
+                      }
+                    });
+                  },
+                  padding: EdgeInsets.symmetric(
+                    horizontal: tokens.spacing.md,
+                    vertical: tokens.spacing.sm,
+                  ),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: isChecked,
+                        activeColor: colors.primaryEmerald,
+                        onChanged: (val) {
+                          unawaited(HapticFeedback.selectionClick());
+                          setState(() {
+                            _isFullPrayerSelected = false;
+                            if (val == true) {
+                              _selectedUnitIndices.add(index);
+                            } else {
+                              _selectedUnitIndices.remove(index);
+                            }
+                            if (_selectedUnitIndices.isNotEmpty) {
+                              _selectedUnit = units[_selectedUnitIndices.first];
+                            }
+                          });
+                        },
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              u.label,
+                              style: typography.titleMedium.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: isChecked
+                                    ? colors.primaryEmerald
+                                    : colors.textPrimary,
+                              ),
+                            ),
+                            Text(
+                              u.status.name.toUpperCase(),
+                              style: typography.label.copyWith(
+                                color: colors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.play_circle_outline_rounded),
+                        color: colors.primaryEmerald,
+                        tooltip: 'শুধুমাত্র এটি সিমুলেশন করুন',
+                        onPressed: () {
+                          setState(() {
+                            _isFullPrayerSelected = false;
+                            _selectedUnitIndices.clear();
+                            _selectedUnit = u;
+                            _currentStep = 2;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 

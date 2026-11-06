@@ -142,6 +142,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
   void _loadPrayer({
     required ContentPrayerType prayer,
     required ContentRakatUnit unit,
+    List<ContentRakatUnit>? multipleUnits,
     required SimGender gender,
     required SimRole role,
     PostureMode postureMode = PostureMode.standing,
@@ -157,14 +158,26 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
     _role = role;
     _postureMode = postureMode;
 
-    final timeline = buildTimeline(
-      unit.config,
-      gender: gender,
-      role: role,
-      prayerSlug: prayer.slug,
-      unitLabel: unit.label,
-      surahChoice: surahChoices,
-    );
+    final Timeline timeline;
+    if (multipleUnits != null && multipleUnits.length > 1) {
+      timeline = buildCombinedTimeline(
+        multipleUnits,
+        gender: gender,
+        role: role,
+        surahChoice: surahChoices,
+        prayerSlug: prayer.slug,
+        prayerNameBn: prayer.nameBn,
+      );
+    } else {
+      timeline = buildTimeline(
+        unit.config,
+        gender: gender,
+        role: role,
+        prayerSlug: prayer.slug,
+        unitLabel: unit.label,
+        surahChoice: surahChoices,
+      );
+    }
 
     _controller = SimulatorController(timeline: timeline);
 
@@ -313,6 +326,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
       _loadPrayer(
         prayer: result.prayer,
         unit: result.unit,
+        multipleUnits: result.selectedUnits,
         gender: result.gender,
         role: result.role,
         postureMode: result.postureMode,

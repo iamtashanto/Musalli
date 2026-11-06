@@ -4,7 +4,7 @@
 // [Timeline] of [SimStep] steps according to the authentic Hanafi school.
 
 import 'package:musalli/features/simulator/domain/types.dart';
-import 'package:musalli/shared/content/salah_config.dart';
+import 'package:musalli/shared/content/content.dart';
 
 /// Default beginner-friendly short surahs for each rakat.
 const Map<int, String> kDefaultSurahChoices = <int, String>{
@@ -811,6 +811,74 @@ Timeline buildTimeline(
       totalSteps: steps.length,
       totalTasbihCount: totalTasbihCount,
       estimatedDurationMs: estimatedDurationMs,
+      isJanaza: false,
+    ),
+  );
+}
+
+/// Combines multiple [ContentRakatUnit] timelines into a single continuous,
+/// multi-unit prayer simulation (e.g. 2 Rakat Sunnah followed by 2 Rakat Fard,
+/// or 4 Sunnah + 4 Fard + 2 Sunnah + 2 Nafl + 3 Witr).
+Timeline buildCombinedTimeline(
+  List<ContentRakatUnit> units, {
+  required SimGender gender,
+  required SimRole role,
+  Map<int, String>? surahChoice,
+  String? prayerSlug,
+  String? prayerNameBn,
+}) {
+  if (units.isEmpty) {
+    throw ArgumentError('Cannot build combined timeline from empty units list');
+  }
+
+  final allSteps = <SimStep>[];
+  var totalRakatsCombined = 0;
+  var totalTasbihCountCombined = 0;
+  var totalEstimatedDurationMs = 0;
+  final unitLabels = units.map((u) => u.label).join(' + ');
+
+  for (var uIdx = 0; uIdx < units.length; uIdx++) {
+    final unit = units[uIdx];
+    final isLastUnit = uIdx == units.length - 1;
+
+    // Only include closing Munajat at the very end of the final unit
+    final unitTimeline = buildTimeline(
+      unit.config,
+      gender: gender,
+      role: role,
+      surahChoice: surahChoice,
+      prayerSlug: prayerSlug,
+      unitLabel: unit.label,
+      includeMunajat: isLastUnit,
+    );
+
+    // Prefix step IDs to guarantee unique step keys across multiple units
+    for (final step in unitTimeline.steps) {
+      final enhancedInstruction = '【${unit.label}】 ${step.instructionBn}';
+      allSteps.add(
+        step.copyWith(
+          id: 'u${uIdx + 1}_${step.id}',
+          instructionBn: enhancedInstruction,
+        ),
+      );
+    }
+
+    totalRakatsCombined += unit.config.rakats;
+    totalTasbihCountCombined += unitTimeline.metadata.totalTasbihCount;
+    totalEstimatedDurationMs += unitTimeline.metadata.estimatedDurationMs;
+  }
+
+  return Timeline(
+    steps: allSteps,
+    metadata: TimelineMetadata(
+      totalRakats: totalRakatsCombined,
+      prayerSlug: prayerSlug,
+      unitLabel: unitLabels,
+      gender: gender,
+      role: role,
+      totalSteps: allSteps.length,
+      totalTasbihCount: totalTasbihCountCombined,
+      estimatedDurationMs: totalEstimatedDurationMs,
       isJanaza: false,
     ),
   );
