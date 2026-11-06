@@ -206,31 +206,35 @@ class _DuaDetailScreenState extends ConsumerState<DuaDetailScreen> {
                                   color: colors.textPrimary,
                                 ),
                               ),
-                              Row(
-                                children: [1, 3, 7, 33, 100].map((count) {
-                                  final isSelected = _targetRepeats == count;
-                                  return Padding(
-                                    padding: const EdgeInsets.only(left: 4),
-                                    child: ChoiceChip(
-                                      label: Text(
-                                        '${BengaliNumberFormatter.toBengali(count)}x',
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [1, 3, 7, 33, 100].map((count) {
+                                    final isSelected = _targetRepeats == count;
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 4),
+                                      child: ChoiceChip(
+                                        visualDensity: VisualDensity.compact,
+                                        label: Text(
+                                          '${BengaliNumberFormatter.toBengali(count)}x',
+                                        ),
+                                        selected: isSelected,
+                                        selectedColor: colors.primaryEmerald
+                                            .withValues(alpha: 0.25),
+                                        backgroundColor: colors.surfaceGlassTint,
+                                        labelStyle: typography.label.copyWith(
+                                          color: isSelected
+                                              ? colors.primaryEmerald
+                                              : colors.textSecondary,
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                        onSelected: (_) => _onSelectRepeat(count),
                                       ),
-                                      selected: isSelected,
-                                      selectedColor: colors.primaryEmerald
-                                          .withValues(alpha: 0.25),
-                                      backgroundColor: colors.surfaceGlassTint,
-                                      labelStyle: typography.label.copyWith(
-                                        color: isSelected
-                                            ? colors.primaryEmerald
-                                            : colors.textSecondary,
-                                        fontWeight: isSelected
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
-                                      ),
-                                      onSelected: (_) => _onSelectRepeat(count),
-                                    ),
-                                  );
-                                }).toList(),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
                             ],
                           ),
@@ -245,29 +249,33 @@ class _DuaDetailScreenState extends ConsumerState<DuaDetailScreen> {
                                   color: colors.textPrimary,
                                 ),
                               ),
-                              Row(
-                                children: [0.75, 1.0, 1.25, 1.5].map((spd) {
-                                  final isSelected = _playbackSpeed == spd;
-                                  return Padding(
-                                    padding: const EdgeInsets.only(left: 4),
-                                    child: ChoiceChip(
-                                      label: Text('${spd}x'),
-                                      selected: isSelected,
-                                      selectedColor: colors.primaryEmerald
-                                          .withValues(alpha: 0.25),
-                                      backgroundColor: colors.surfaceGlassTint,
-                                      labelStyle: typography.label.copyWith(
-                                        color: isSelected
-                                            ? colors.primaryEmerald
-                                            : colors.textSecondary,
-                                        fontWeight: isSelected
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [0.75, 1.0, 1.25, 1.5].map((spd) {
+                                    final isSelected = _playbackSpeed == spd;
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 4),
+                                      child: ChoiceChip(
+                                        visualDensity: VisualDensity.compact,
+                                        label: Text('${spd}x'),
+                                        selected: isSelected,
+                                        selectedColor: colors.primaryEmerald
+                                            .withValues(alpha: 0.25),
+                                        backgroundColor: colors.surfaceGlassTint,
+                                        labelStyle: typography.label.copyWith(
+                                          color: isSelected
+                                              ? colors.primaryEmerald
+                                              : colors.textSecondary,
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                        onSelected: (_) => _onSelectSpeed(spd),
                                       ),
-                                      onSelected: (_) => _onSelectSpeed(spd),
-                                    ),
-                                  );
-                                }).toList(),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
                             ],
                           ),

@@ -25,7 +25,7 @@ class MusalliTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: colorScheme,
-      fontFamily: 'HindSiliguri',
+      fontFamily: 'NotoSansBengali',
       scaffoldBackgroundColor: colors.backgroundEnd,
       extensions: <ThemeExtension<dynamic>>[tokens],
       appBarTheme: AppBarTheme(
@@ -71,7 +71,7 @@ class MusalliTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       colorScheme: colorScheme,
-      fontFamily: 'HindSiliguri',
+      fontFamily: 'NotoSansBengali',
       scaffoldBackgroundColor: colors.backgroundEnd,
       extensions: <ThemeExtension<dynamic>>[tokens],
       appBarTheme: AppBarTheme(

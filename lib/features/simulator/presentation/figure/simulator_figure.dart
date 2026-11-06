@@ -314,7 +314,7 @@ class _FigurePainter extends CustomPainter {
         color: colors.textSecondary.withValues(alpha: 0.75),
         fontSize: 10,
         fontWeight: FontWeight.w600,
-        fontFamily: 'HindSiliguri',
+        fontFamily: 'NotoSansBengali',
       ),
     );
     final textPainter = TextPainter(

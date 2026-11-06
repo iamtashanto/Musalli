@@ -234,7 +234,7 @@ class MusalliTypographyTokens {
     required Color textPrimary,
     required Color textSecondary,
   }) {
-    const banglaFamily = 'HindSiliguri';
+    const banglaFamily = 'NotoSansBengali';
     const arabicFamily = 'Amiri';
 
     return MusalliTypographyTokens(

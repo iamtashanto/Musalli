@@ -55,7 +55,7 @@ class BanglaErrorScreen extends StatelessWidget {
                         'দুঃখিত, একটি অপ্রত্যাশিত ত্রুটি ঘটেছে',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'HindSiliguri',
+                          fontFamily: 'NotoSansBengali',
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
@@ -66,7 +66,7 @@ class BanglaErrorScreen extends StatelessWidget {
                         'চিন্তার কারণ নেই — আপনার সংরক্ষিত নামাজ ট্র্যাকার, বুকমার্ক ও মুখস্থ সূরার সব তথ্য নিরাপদ আছে।',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'HindSiliguri',
+                          fontFamily: 'NotoSansBengali',
                           fontSize: 14,
                           height: 1.5,
                           color: Color(0xFFD1FAE5),
@@ -91,7 +91,7 @@ class BanglaErrorScreen extends StatelessWidget {
                           label: const Text(
                             'আবার চেষ্টা করুন',
                             style: TextStyle(
-                              fontFamily: 'HindSiliguri',
+                              fontFamily: 'NotoSansBengali',
                               fontWeight: FontWeight.w600,
                             ),
                           ),
