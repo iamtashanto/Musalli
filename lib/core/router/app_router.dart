@@ -11,14 +11,18 @@ import 'package:musalli/features/helpers/presentation/sajda_sahu_helper_screen.d
 import 'package:musalli/features/helpers/presentation/sick_prayer_helper_screen.dart';
 import 'package:musalli/features/history/presentation/history_screen.dart';
 import 'package:musalli/features/home/presentation/home_screen.dart';
+import 'package:musalli/features/kids/presentation/kids_hub_screen.dart';
 import 'package:musalli/features/learn/presentation/learn_hub_screen.dart';
 import 'package:musalli/features/masail/presentation/masail_detail_screen.dart';
 import 'package:musalli/features/prayer_detail/presentation/prayer_detail_screen.dart';
 import 'package:musalli/features/quran/presentation/quran_reader_screen.dart';
 import 'package:musalli/features/shell/presentation/placeholder_screens.dart';
 import 'package:musalli/features/simulator/presentation/dev_poses_screen.dart';
+import 'package:musalli/features/simulator/presentation/practice/practice_screen.dart';
 import 'package:musalli/features/simulator/presentation/simulator_screen.dart';
 import 'package:musalli/features/taharat/presentation/taharat_detail_screen.dart';
+import 'package:musalli/features/times/presentation/times_screen.dart';
+import 'package:musalli/features/wudu/presentation/wudu_simulator_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
@@ -144,6 +148,16 @@ GoRouter appRouter(Ref ref) {
                     initialRoleStr: state.uri.queryParameters['role'],
                   );
                 },
+                routes: [
+                  GoRoute(
+                    path: 'practice',
+                    builder: (BuildContext context, GoRouterState state) {
+                      final prayer =
+                          state.uri.queryParameters['prayer'] ?? 'fajr';
+                      return PracticeScreen(prayerSlug: prayer);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -155,7 +169,7 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: '/times',
                 builder: (BuildContext context, GoRouterState state) =>
-                    const TimesTabScreen(),
+                    const TimesScreen(),
               ),
             ],
           ),
@@ -308,6 +322,30 @@ GoRouter appRouter(Ref ref) {
           return MusalliPageTransitions.sharedAxisHorizontal(
             state: state,
             child: const HistoryScreen(),
+          );
+        },
+      ),
+
+      // Wudu Simulator route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/wudu/simulator',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const WuduSimulatorScreen(),
+          );
+        },
+      ),
+
+      // Gamified Kids Mode route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/kids',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const KidsHubScreen(),
           );
         },
       ),
