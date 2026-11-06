@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:musalli/core/design_system/motion/musalli_page_transitions.dart';
 import 'package:musalli/core/design_system/showcase/design_system_showcase_screen.dart';
 import 'package:musalli/core/router/main_shell_scaffold.dart';
+import 'package:musalli/features/home/presentation/home_screen.dart';
+import 'package:musalli/features/learn/presentation/learn_hub_screen.dart';
+import 'package:musalli/features/prayer_detail/presentation/prayer_detail_screen.dart';
 import 'package:musalli/features/shell/presentation/placeholder_screens.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -98,7 +101,7 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: '/',
                 builder: (BuildContext context, GoRouterState state) =>
-                    const HomeTabScreen(),
+                    const HomeScreen(),
               ),
             ],
           ),
@@ -110,7 +113,7 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: '/learn',
                 builder: (BuildContext context, GoRouterState state) =>
-                    const LearnTabScreen(),
+                    const LearnHubScreen(),
               ),
             ],
           ),
@@ -165,7 +168,7 @@ GoRouter appRouter(Ref ref) {
           final slug = state.pathParameters['slug'] ?? 'fajr';
           return MusalliPageTransitions.heroDetail(
             state: state,
-            child: PrayerDetailPlaceholderScreen(slug: slug),
+            child: PrayerDetailScreen(slug: slug),
           );
         },
       ),

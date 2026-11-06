@@ -46,7 +46,7 @@ QunutConfig? _qunutFromJson(dynamic val) {
   if (val == null || val == false) return null;
   if (val is Map<String, dynamic>) return QunutConfig.fromJson(val);
   if (val == true) {
-    return const QunutConfig(enabled: true, rakat: 3, position: 'before-ruku');
+    return const QunutConfig(enabled: true, rakat: 3);
   }
   return null;
 }

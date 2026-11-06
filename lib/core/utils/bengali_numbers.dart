@@ -43,6 +43,12 @@ class BengaliNumberFormatter {
     return formatString(raw, isBangla: isBangla);
   }
 
+  /// Convenience helper to convert numbers or strings to Bengali digits.
+  static String toBengali(dynamic value) {
+    if (value == null) return '';
+    return formatString(value.toString());
+  }
+
   /// Formats a [Duration] as `MM:SS` or `HH:MM:SS` in Bengali or ASCII digits.
   static String formatDuration(
     Duration duration, {

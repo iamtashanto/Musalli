@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:isolate';
+
 import 'package:flutter/services.dart';
 import 'package:musalli/shared/content/content.dart';
 
@@ -42,8 +43,9 @@ List<ContentSurah> _parseSurahs(String jsonString) {
 List<ContentTaharatSection> _parseTaharat(String jsonString) {
   final list = jsonDecode(jsonString) as List<dynamic>;
   return list
-      .map((item) =>
-          ContentTaharatSection.fromJson(item as Map<String, dynamic>))
+      .map(
+        (item) => ContentTaharatSection.fromJson(item as Map<String, dynamic>),
+      )
       .toList();
 }
 
@@ -72,14 +74,16 @@ List<ContentShikhunArticle> _parseArticles(String jsonString) {
   final list = jsonDecode(jsonString) as List<dynamic>;
   return list
       .map(
-          (item) => ContentShikhunArticle.fromJson(item as Map<String, dynamic>))
+        (item) => ContentShikhunArticle.fromJson(item as Map<String, dynamic>),
+      )
       .toList();
 }
 
 Map<String, List<String>> _parseSynonyms(String jsonString) {
   final map = jsonDecode(jsonString) as Map<String, dynamic>;
-  return map.map((key, value) =>
-      MapEntry(key.toLowerCase(), (value as List).cast<String>()));
+  return map.map(
+    (key, value) => MapEntry(key.toLowerCase(), (value as List).cast<String>()),
+  );
 }
 
 /// Offline Content Repository that lazily loads, background-deserializes in
@@ -200,8 +204,9 @@ class ContentRepository {
   /// Loads metadata for all 114 Quran Surahs.
   Future<List<QuranSurahSummary>> getAllSurahs() async {
     if (_allSurahs != null) return _allSurahs!;
-    final jsonStr =
-        await _bundle.loadString('assets/content/quran_surahs.json');
+    final jsonStr = await _bundle.loadString(
+      'assets/content/quran_surahs.json',
+    );
     _allSurahs = await Isolate.run(() => _parseAllSurahs(jsonStr));
     return _allSurahs!;
   }
@@ -209,8 +214,9 @@ class ContentRepository {
   /// Loads educational Shikhun articles.
   Future<List<ContentShikhunArticle>> getArticles() async {
     if (_articles != null) return _articles!;
-    final jsonStr =
-        await _bundle.loadString('assets/content/shikhun_articles.json');
+    final jsonStr = await _bundle.loadString(
+      'assets/content/shikhun_articles.json',
+    );
     _articles = await Isolate.run(() => _parseArticles(jsonStr));
     return _articles!;
   }
@@ -218,8 +224,9 @@ class ContentRepository {
   /// Loads search synonyms map.
   Future<Map<String, List<String>>> getSearchSynonyms() async {
     if (_synonyms != null) return _synonyms!;
-    final jsonStr =
-        await _bundle.loadString('assets/content/search_synonyms.json');
+    final jsonStr = await _bundle.loadString(
+      'assets/content/search_synonyms.json',
+    );
     _synonyms = await Isolate.run(() => _parseSynonyms(jsonStr));
     return _synonyms!;
   }

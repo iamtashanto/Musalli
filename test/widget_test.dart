@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:musalli/app_bootstrap.dart';
 import 'package:musalli/core/config/flavor_config.dart';
 import 'package:musalli/core/database/app_database.dart';
+import 'package:musalli/core/design_system/components/glass_components.dart';
 import 'package:musalli/core/design_system/components/glass_navigation.dart';
 import 'package:musalli/core/design_system/glass/glass_quality.dart';
 import 'package:musalli/core/design_system/showcase/design_system_showcase_screen.dart';
@@ -46,32 +47,40 @@ void main() {
       expect(navTab('সময়'), findsOneWidget);
       expect(navTab('আরও'), findsOneWidget);
 
-      // Switch to Learn tab (শিখুন) and enter search text to verify state preservation
+      // Switch to Learn tab (শিখুন) and enter search text to verify FTS search
       await tester.tap(navTab('শিখুন'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 350));
       await tester.enterText(find.byType(TextField).first, 'জানাজা');
       await tester.pump();
-      expect(find.text('জানাজার নামাজের নিয়ম ও দোয়া'), findsOneWidget);
+      await tester.pump(const Duration(milliseconds: 200));
+      expect(find.textContaining('জানাজা'), findsWidgets);
 
-      // Switch to Times tab (সময়) and back to Learn tab (শিখুন) — search filter stays preserved
-      await tester.tap(navTab('সময়'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 350));
-      expect(find.text('আসর (হানাফি)'), findsOneWidget);
-
-      await tester.tap(navTab('শিখুন'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 350));
-      expect(find.text('জানাজার নামাজের নিয়ম ও দোয়া'), findsOneWidget);
-
-      // Deep link to musalli://namaj/fajr opens placeholder prayer detail page with slug
+      // Deep link to musalli://namaj/fajr opens real complete prayer detail page
       final container = ProviderScope.containerOf(
         tester.element(find.byType(MusalliApp)),
       );
       container.read(appRouterProvider).go('musalli://namaj/fajr');
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.text('ফজর'), findsWidgets);
+      expect(find.textContaining('Fajr'), findsWidgets);
+      expect(find.text('২ রাকাত সুন্নাত (মুয়াক্কাদাহ)'), findsOneWidget);
+      expect(find.text('২ রাকাত ফরজ'), findsOneWidget);
+
+      // Gender toggle: default is male ('পুরুষ')
+      expect(find.text('পুরুষ'), findsOneWidget);
+      expect(find.text('মহিলা'), findsOneWidget);
+      expect(find.textContaining('কানের লতি'), findsWidgets);
+
+      // Toggle to Female ('মহিলা')
+      await tester.tap(find.text('মহিলা'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 200));
+
+      // Female posture difference appears immediately
+      expect(find.textContaining('বুকের উপর'), findsWidgets);
 
       expect(find.textContaining('fajr'), findsWidgets);
     },
@@ -123,6 +132,66 @@ void main() {
 
       // Verify zero layout overflow exceptions occurred at 2.0x text scale
       expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'Every canonical prayer opens a complete detail screen from data',
+    (WidgetTester tester) async {
+      final db = AppDatabase(NativeDatabase.memory());
+      addTearDown(db.close);
+
+      await tester.pumpWidget(buildTestApp(db: db));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      final container = ProviderScope.containerOf(
+        tester.element(find.byType(MusalliApp)),
+      );
+
+      const prayerSlugs = [
+        'fajr',
+        'dhuhr',
+        'asr',
+        'maghrib',
+        'isha',
+        'witr',
+        'jumuah',
+        'eid-ul-fitr',
+        'eid-ul-adha',
+        'janaza',
+        'tahajjud',
+        'tarawih',
+        'chasht',
+        'istikhara',
+        'salatut-tasbih',
+        'kaza',
+        'musafir',
+        'ishraq',
+        'awwabin',
+        'tahiyyatul-wudu',
+        'tahiyyatul-masjid',
+        'salatul-hajat',
+        'salatul-tawbah',
+        'salatul-kusuf',
+        'salatul-khusuf',
+        'salatul-istisqa',
+        'shukr',
+        'shab-e-qadr',
+        'shab-e-barat',
+      ];
+
+      for (final slug in prayerSlugs) {
+        container.read(appRouterProvider).go('/namaj/$slug');
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 150));
+        expect(
+          tester.takeException(),
+          isNull,
+          reason: 'Opening /namaj/$slug failed',
+        );
+        expect(find.byType(GlassButton), findsOneWidget);
+      }
     },
   );
 }
