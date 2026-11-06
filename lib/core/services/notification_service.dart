@@ -18,6 +18,25 @@ enum AdhanSoundType {
 }
 
 class PrayerNotificationConfig {
+
+  factory PrayerNotificationConfig.fromJson(Map<String, dynamic> map) {
+    return PrayerNotificationConfig(
+      fajrEnabled: map['fajr'] as bool? ?? true,
+      dhuhrEnabled: map['dhuhr'] as bool? ?? true,
+      asrEnabled: map['asr'] as bool? ?? true,
+      maghribEnabled: map['maghrib'] as bool? ?? true,
+      ishaEnabled: map['isha'] as bool? ?? true,
+      tahajjudEnabled: map['tahajjud'] as bool? ?? false,
+      preReminderMinutes: (map['preReminder'] as num?)?.toInt() ?? 15,
+      followUpEnabled: map['followUp'] as bool? ?? true,
+      jumuahReminderEnabled: map['jumuah'] as bool? ?? true,
+      soundType: AdhanSoundType.values.firstWhere(
+        (e) => e.name == map['soundType'],
+        orElse: () => AdhanSoundType.fullAdhan,
+      ),
+      ramadanSehriIftarEnabled: map['ramadan'] as bool? ?? true,
+    );
+  }
   const PrayerNotificationConfig({
     this.fajrEnabled = true,
     this.dhuhrEnabled = true,
@@ -85,25 +104,6 @@ class PrayerNotificationConfig {
     'soundType': soundType.name,
     'ramadan': ramadanSehriIftarEnabled,
   };
-
-  factory PrayerNotificationConfig.fromJson(Map<String, dynamic> map) {
-    return PrayerNotificationConfig(
-      fajrEnabled: map['fajr'] as bool? ?? true,
-      dhuhrEnabled: map['dhuhr'] as bool? ?? true,
-      asrEnabled: map['asr'] as bool? ?? true,
-      maghribEnabled: map['maghrib'] as bool? ?? true,
-      ishaEnabled: map['isha'] as bool? ?? true,
-      tahajjudEnabled: map['tahajjud'] as bool? ?? false,
-      preReminderMinutes: (map['preReminder'] as num?)?.toInt() ?? 15,
-      followUpEnabled: map['followUp'] as bool? ?? true,
-      jumuahReminderEnabled: map['jumuah'] as bool? ?? true,
-      soundType: AdhanSoundType.values.firstWhere(
-        (e) => e.name == map['soundType'],
-        orElse: () => AdhanSoundType.fullAdhan,
-      ),
-      ramadanSehriIftarEnabled: map['ramadan'] as bool? ?? true,
-    );
-  }
 
   static const PrayerNotificationConfig defaultSettings = PrayerNotificationConfig();
 }
@@ -265,8 +265,6 @@ class NotificationService {
           importance: Importance.max,
           priority: Priority.high,
           sound: RawResourceAndroidNotificationSound('adhan_short'),
-          playSound: true,
-          enableVibration: true,
         );
       case AdhanSoundType.shortBeep:
         androidDetails = const AndroidNotificationDetails(
@@ -275,15 +273,12 @@ class NotificationService {
           channelDescription: 'ওয়াক্তের মৃদু সংকেত।',
           importance: Importance.high,
           priority: Priority.high,
-          playSound: true,
         );
       case AdhanSoundType.vibrateOnly:
         androidDetails = const AndroidNotificationDetails(
           channelBeep,
           'ভাইব্রেশন',
           channelDescription: 'শব্দহীন শুধু কম্পন।',
-          importance: Importance.defaultImportance,
-          enableVibration: true,
           playSound: false,
         );
       case AdhanSoundType.silent:
@@ -315,8 +310,8 @@ class NotificationService {
       importance: Importance.high,
       priority: Priority.high,
       actions: <AndroidNotificationAction>[
-        AndroidNotificationAction(actionPrayed, 'পড়েছি ✅', showsUserInterface: false),
-        AndroidNotificationAction(actionLater, 'পরে পড়ব ⏳', showsUserInterface: false),
+        AndroidNotificationAction(actionPrayed, 'পড়েছি ✅'),
+        AndroidNotificationAction(actionLater, 'পরে পড়ব ⏳'),
       ],
     );
 

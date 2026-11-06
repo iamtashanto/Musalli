@@ -111,7 +111,7 @@ class MoreScreen extends ConsumerWidget {
             icon: Icons.near_me_rounded,
             title: 'কাছের মসজিদ খুঁজুন',
             subtitle: 'ম্যাপের মাধ্যমে আপনার অবস্থানের নিকটস্থ মসজিদসমূহ দেখুন',
-            onTap: () => MosqueFinderService.openNearbyMosques(),
+            onTap: MosqueFinderService.openNearbyMosques,
           ),
 
           SizedBox(height: tokens.spacing.lg),
@@ -196,7 +196,6 @@ class MoreScreen extends ConsumerWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: tokens.spacing.sm),
       child: GlassCard(
-        enableBlur: false,
         child: ListTile(
           leading: Container(
             padding: EdgeInsets.all(tokens.spacing.xs),
@@ -234,20 +233,20 @@ class MoreScreen extends ConsumerWidget {
             const Text('মুসল্লি (Musalli)'),
           ],
         ),
-        content: Column(
+        content: const Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('ভার্সন: ১.০.০ (রিলিজ)'),
-            const SizedBox(height: 8),
-            const Text(
+            Text('ভার্সন: ১.০.০ (রিলিজ)'),
+            SizedBox(height: 8),
+            Text(
               'মুসল্লি একটি ১০০% অফলাইন-ফার্স্ট, ট্র্যাকিংমুক্ত এবং বিজ্ঞাপনবিহীন ইসলামিক অ্যাপ। সমস্ত মাসআলা ও দোয়া নির্ভরযোগ্য কুরআন এবং সিহাহ সিত্তাহ হাদিস গ্রন্থসমূহ হতে সংকলিত।',
               style: TextStyle(height: 1.5),
             ),
-            const SizedBox(height: 12),
-            const Text('ওয়েব সংস্করণ: https://namajshikkha.tashanto.com'),
-            const SizedBox(height: 8),
-            const Text('ডেভেলপার: তৌহিদুল আলম শান্ত (TA Shanto)'),
+            SizedBox(height: 12),
+            Text('ওয়েব সংস্করণ: https://namajshikkha.tashanto.com'),
+            SizedBox(height: 8),
+            Text('ডেভেলপার: তৌহিদুল আলম শান্ত (TA Shanto)'),
           ],
         ),
         actions: [

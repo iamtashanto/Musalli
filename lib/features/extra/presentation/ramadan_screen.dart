@@ -218,7 +218,7 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
                 ),
                 SizedBox(height: tokens.spacing.xs),
                 Text(
-                  'আল্লাহুম্মা ইন্নাকা আফুওয়ুন তুহিব্বুল আফওয়া ফা\'ফু আন্নী।',
+                  "আল্লাহুম্মা ইন্নাকা আফুওয়ুন তুহিব্বুল আফওয়া ফা'ফু আন্নী।",
                   style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary, fontStyle: FontStyle.italic),
                 ),
                 SizedBox(height: tokens.spacing.xs),

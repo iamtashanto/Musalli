@@ -10,7 +10,7 @@ class QiblaCalculator {
   /// Calculates the Great-Circle bearing towards Kaaba from user lat/lng in degrees [0, 360).
   static double calculateBearing(double latitude, double longitude) {
     final phi1 = latitude * (math.pi / 180.0);
-    final phi2 = kaabaLatitude * (math.pi / 180.0);
+    const phi2 = kaabaLatitude * (math.pi / 180.0);
     final deltaLambda = (kaabaLongitude - longitude) * (math.pi / 180.0);
 
     final y = math.sin(deltaLambda);

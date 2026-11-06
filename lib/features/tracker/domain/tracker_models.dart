@@ -4,13 +4,33 @@ enum PrayerStatus {
   qaza('কাযা', '⏳', 0xFFF59E0B),
   missed('বাকি', '⭕', 0xFF94A3B8);
 
-  const PrayerStatus(this.labelBn, this.emoji, this.colorValue);
+  PrayerStatus(this.labelBn, this.emoji, this.colorValue);
   final String labelBn;
   final String emoji;
   final int colorValue;
 }
 
 class DayPrayerRecord {
+
+  factory DayPrayerRecord.fromJson(String dateStr, Map<String, dynamic> json) {
+    PrayerStatus parse(String? key) {
+      if (key == null) return PrayerStatus.missed;
+      return PrayerStatus.values.firstWhere(
+        (e) => e.name == key,
+        orElse: () => PrayerStatus.missed,
+      );
+    }
+
+    return DayPrayerRecord(
+      dateStr: dateStr,
+      fajr: parse(json['fajr'] as String?),
+      dhuhr: parse(json['dhuhr'] as String?),
+      asr: parse(json['asr'] as String?),
+      maghrib: parse(json['maghrib'] as String?),
+      isha: parse(json['isha'] as String?),
+      witr: parse(json['witr'] as String?),
+    );
+  }
   const DayPrayerRecord({
     required this.dateStr,
     required this.fajr,
@@ -50,26 +70,6 @@ class DayPrayerRecord {
     'witr': witr.name,
   };
 
-  factory DayPrayerRecord.fromJson(String dateStr, Map<String, dynamic> json) {
-    PrayerStatus parse(String? key) {
-      if (key == null) return PrayerStatus.missed;
-      return PrayerStatus.values.firstWhere(
-        (e) => e.name == key,
-        orElse: () => PrayerStatus.missed,
-      );
-    }
-
-    return DayPrayerRecord(
-      dateStr: dateStr,
-      fajr: parse(json['fajr'] as String?),
-      dhuhr: parse(json['dhuhr'] as String?),
-      asr: parse(json['asr'] as String?),
-      maghrib: parse(json['maghrib'] as String?),
-      isha: parse(json['isha'] as String?),
-      witr: parse(json['witr'] as String?),
-    );
-  }
-
   static DayPrayerRecord empty(String dateStr) => DayPrayerRecord(
     dateStr: dateStr,
     fajr: PrayerStatus.missed,
@@ -82,6 +82,17 @@ class DayPrayerRecord {
 }
 
 class QazaRecord {
+
+  factory QazaRecord.fromJson(Map<String, dynamic> json) {
+    return QazaRecord(
+      fajr: (json['fajr'] as num?)?.toInt() ?? 0,
+      dhuhr: (json['dhuhr'] as num?)?.toInt() ?? 0,
+      asr: (json['asr'] as num?)?.toInt() ?? 0,
+      maghrib: (json['maghrib'] as num?)?.toInt() ?? 0,
+      isha: (json['isha'] as num?)?.toInt() ?? 0,
+      witr: (json['witr'] as num?)?.toInt() ?? 0,
+    );
+  }
   const QazaRecord({
     this.fajr = 0,
     this.dhuhr = 0,
@@ -108,16 +119,5 @@ class QazaRecord {
     'isha': isha,
     'witr': witr,
   };
-
-  factory QazaRecord.fromJson(Map<String, dynamic> json) {
-    return QazaRecord(
-      fajr: (json['fajr'] as num?)?.toInt() ?? 0,
-      dhuhr: (json['dhuhr'] as num?)?.toInt() ?? 0,
-      asr: (json['asr'] as num?)?.toInt() ?? 0,
-      maghrib: (json['maghrib'] as num?)?.toInt() ?? 0,
-      isha: (json['isha'] as num?)?.toInt() ?? 0,
-      witr: (json['witr'] as num?)?.toInt() ?? 0,
-    );
-  }
 }
 

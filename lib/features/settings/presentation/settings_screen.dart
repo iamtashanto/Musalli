@@ -69,7 +69,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   subtitle: Text(themeMode == ThemeMode.dark ? 'ডার্ক গ্লাস' : 'লাইট গ্লাস'),
                   trailing: Switch(
                     value: themeMode == ThemeMode.dark,
-                    activeColor: tokens.colors.primaryEmerald,
+                    activeThumbColor: tokens.colors.primaryEmerald,
                     onChanged: (_) => ref.read(appThemeModeProvider.notifier).toggleLightDark(),
                   ),
                 ),
@@ -148,21 +148,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 SwitchListTile(
                   title: const Text('বাংলা উচ্চারণ (উচ্চারণ)'),
                   subtitle: const Text('বাংলা হরফে আরবি উচ্চারণ দেখান'),
-                  activeColor: tokens.colors.primaryEmerald,
+                  activeThumbColor: tokens.colors.primaryEmerald,
                   value: _showBanglaPronunciation,
                   onChanged: (val) => setState(() => _showBanglaPronunciation = val),
                 ),
                 SwitchListTile(
                   title: const Text('বাংলিশ (রোমান উচ্চারণ)'),
                   subtitle: const Text('ইংরেজি হরফে সঠিক উচ্চারণ নির্দেশিকা'),
-                  activeColor: tokens.colors.primaryEmerald,
+                  activeThumbColor: tokens.colors.primaryEmerald,
                   value: _showBanglish,
                   onChanged: (val) => setState(() => _showBanglish = val),
                 ),
                 SwitchListTile(
                   title: const Text('বাংলা অনুবাদ ও অর্থ'),
                   subtitle: const Text('প্রতিটি আয়াত ও দোয়ার বাংলা তরজমা'),
-                  activeColor: tokens.colors.primaryEmerald,
+                  activeThumbColor: tokens.colors.primaryEmerald,
                   value: _showBanglaMeaning,
                   onChanged: (val) => setState(() => _showBanglaMeaning = val),
                 ),
@@ -180,7 +180,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           SizedBox(height: tokens.spacing.sm),
 
           GlassCard(
-            enableBlur: false,
             child: ListTile(
               leading: const Icon(Icons.notifications_active_rounded),
               title: const Text('নামাজের অ্যালার্ট ও আজান কনফিগারেশন'),
@@ -200,7 +199,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           SizedBox(height: tokens.spacing.sm),
 
           GlassCard(
-            enableBlur: false,
             child: Column(
               children: [
                 ListTile(

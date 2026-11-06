@@ -21,7 +21,7 @@ class HifzPracticeScreen extends ConsumerStatefulWidget {
 
 class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
   HifzHideMode _hideMode = HifzHideMode.none;
-  int _repeatTarget = 3;
+  final int _repeatTarget = 3;
   bool _isAudioPlaying = false;
   AudioPlayer? _player;
   bool _revealed = false;
@@ -83,7 +83,6 @@ class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
         nameBn: 'সূরা ${BengaliNumbers.toBengali(widget.surahNumber)}',
         nameEn: 'Surah ${widget.surahNumber}',
         ayahCount: 7,
-        ayahs: const [],
       ),
     );
 
@@ -114,10 +113,12 @@ class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
                     selectedColor: const Color(0xFF10B981),
                     backgroundColor: colors.surfaceGlassTint,
                     onSelected: (val) {
-                      if (val) setState(() {
+                      if (val) {
+                        setState(() {
                         _hideMode = mode;
                         _revealed = false;
                       });
+                      }
                     },
                   ),
                 );

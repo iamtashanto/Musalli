@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musalli/core/design_system/components/glass_components.dart';
 import 'package:musalli/core/design_system/tokens/design_tokens.dart';
@@ -16,7 +15,7 @@ class _ZakatCalculatorScreenState extends ConsumerState<ZakatCalculatorScreen> {
   // Nisab defaults in BDT (indicative values based on 52.5 tola silver or 7.5 tola gold)
   // Silver Nisab ~ 595 grams * 180 BDT ~ 107,100 BDT
   // Gold Nisab ~ 87.48 grams * 11,500 BDT ~ 1,006,000 BDT
-  double _silverPricePerGram = 180.0;
+  final double _silverPricePerGram = 180.0;
   
   // Asset controllers
   final _cashController = TextEditingController();
@@ -268,7 +267,6 @@ class _ZakatCalculatorScreenState extends ConsumerState<ZakatCalculatorScreen> {
     return Padding(
       padding: EdgeInsets.only(bottom: tokens.spacing.sm),
       child: GlassCard(
-        enableBlur: false,
         padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md, vertical: tokens.spacing.xs),
         child: Row(
           children: [

@@ -4,11 +4,21 @@ enum HifzHideMode {
   firstLettersOnly('শুধু প্রথম অক্ষর'),
   fullyHidden('সম্পূর্ণ লুকানো (আত্মপরীক্ষা)');
 
-  const HifzHideMode(this.labelBn);
+  HifzHideMode(this.labelBn);
   final String labelBn;
 }
 
 class HifzItemRecord {
+
+  factory HifzItemRecord.fromJson(Map<String, dynamic> json) {
+    return HifzItemRecord(
+      surahNumber: (json['surah'] as num).toInt(),
+      intervalDays: (json['interval'] as num).toInt(),
+      lastReviewedAt: DateTime.parse(json['lastReviewed'] as String),
+      nextReviewDue: DateTime.parse(json['nextDue'] as String),
+      repetitionsCount: (json['reps'] as num).toInt(),
+    );
+  }
   const HifzItemRecord({
     required this.surahNumber,
     required this.intervalDays,
@@ -32,16 +42,6 @@ class HifzItemRecord {
     'nextDue': nextReviewDue.toIso8601String(),
     'reps': repetitionsCount,
   };
-
-  factory HifzItemRecord.fromJson(Map<String, dynamic> json) {
-    return HifzItemRecord(
-      surahNumber: (json['surah'] as num).toInt(),
-      intervalDays: (json['interval'] as num).toInt(),
-      lastReviewedAt: DateTime.parse(json['lastReviewed'] as String),
-      nextReviewDue: DateTime.parse(json['nextDue'] as String),
-      repetitionsCount: (json['reps'] as num).toInt(),
-    );
-  }
 
   static HifzItemRecord createNew(int surahNumber) {
     final now = DateTime.now();

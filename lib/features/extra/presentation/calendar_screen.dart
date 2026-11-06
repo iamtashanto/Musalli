@@ -44,7 +44,7 @@ const List<IslamicEvent> _bangladeshIslamicEvents = [
     descriptionBn: 'নবীজি (সা.)-এর ঊর্ধ্বাকাশে ভ্রমণ ও উম্মতের জন্য পাঁচ ওয়াক্ত নামাজ উপহার হিসেবে প্রাপ্তি।',
   ),
   IslamicEvent(
-    hijriMonth: 'শা\'বান',
+    hijriMonth: "শা'বান",
     hijriDay: 15,
     nameBn: 'পবিত্র শবে বরাত (লাইলাতুল বারাআত)',
     descriptionBn: 'অর্ধ-শাবানের ফজিলতপূর্ণ রাত। তওবা, মাগফিরাত ও নফল ইবাদতের বিশেষ সময়।',
@@ -172,7 +172,6 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
             (event) => Padding(
               padding: EdgeInsets.only(bottom: tokens.spacing.sm),
               child: GlassCard(
-                enableBlur: false,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -252,7 +251,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       'জমাদিউল আউয়াল',
       'জমাদিউস সানি',
       'রজব',
-      'শা\'বান',
+      "শা'বান",
       'রমজান',
       'শাওয়াল',
       'জিলক্বদ',

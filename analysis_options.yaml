@@ -1,6 +1,8 @@
 include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
+  errors:
+    deprecated_member_use: ignore
   exclude:
     - build/**
     - android/**
@@ -33,3 +35,5 @@ linter:
     prefer_constructors_over_static_methods: false
     sort_unnamed_constructors_first: false
     prefer_int_literals: false
+    discarded_futures: false
+    eol_at_end_of_file: false

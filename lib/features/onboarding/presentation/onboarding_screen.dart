@@ -330,7 +330,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     String description,
   ) {
     return GlassCard(
-      enableBlur: false,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -351,7 +350,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   title,
                   style: tokens.typography.titleMedium.copyWith(fontWeight: FontWeight.w700),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   description,
                   style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
