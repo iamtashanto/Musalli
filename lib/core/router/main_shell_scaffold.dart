@@ -39,6 +39,14 @@ class _MainShellScaffoldState extends State<MainShellScaffold> {
       return false;
     }
 
+    // Do not hide bottom nav on Simulator tab (index 2) so transport controls stay visible
+    if (widget.navigationShell.currentIndex == 2) {
+      if (!_isBottomNavVisible) {
+        setState(() => _isBottomNavVisible = true);
+      }
+      return false;
+    }
+
     if (notification.direction == ScrollDirection.reverse &&
         notification.metrics.pixels > 48 &&
         _isBottomNavVisible) {

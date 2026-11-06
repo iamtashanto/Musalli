@@ -57,6 +57,10 @@ class _RecitationPanelState extends ConsumerState<RecitationPanel> {
         // Look in Duas
         final matchedDua = duas.where((d) => d.id == id).firstOrNull;
         if (matchedDua != null) {
+          var audio = matchedDua.audioSrc ?? 'assets/audio/allahu-akbar.mp3';
+          if (audio.startsWith('/')) {
+            audio = 'assets$audio';
+          }
           resolvedText = FourLayerText(
             id: matchedDua.id,
             titleBn: matchedDua.titleBn,
@@ -66,7 +70,7 @@ class _RecitationPanelState extends ConsumerState<RecitationPanel> {
             banglish: matchedDua.banglish,
             meaningBn: matchedDua.meaningBn,
             meaningEn: matchedDua.meaningEn ?? '',
-            audioAsset: matchedDua.audioSrc ?? 'assets/audio/allahu-akbar.mp3',
+            audioAsset: audio,
           );
           break;
         }

@@ -229,6 +229,8 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
         if (recId == 'dua-7') assetPath = 'assets/audio/sajda-tasbih.mp3';
         if (recId == 'dua-qawmah') assetPath = 'assets/audio/qawmah.mp3';
         if (recId == 'dua-jalsah') assetPath = 'assets/audio/jalsah.mp3';
+        if (recId == 'taawwuz' || recId == 'dua-taawwuz') assetPath = 'assets/audio/taawwuz.mp3';
+        if (recId == 'tasmiyah' || recId == 'dua-tasmiyah') assetPath = 'assets/audio/tasmiyah.mp3';
         if (recId.startsWith('surah-')) {
           final surahNum = recId.replaceFirst('surah-', '');
           assetPath = 'assets/audio/surah-$surahNum.mp3';
@@ -366,53 +368,63 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // Back Button (if pushed) + Prayer Name & Unit Label
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (Navigator.of(context).canPop()) ...[
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back_ios_new_rounded,
-                                  size: 18,
-                                ),
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(
-                                  minWidth: 32,
-                                  minHeight: 32,
-                                ),
-                                color: colors.textPrimary,
-                                tooltip: 'ফিরে যান',
-                                onPressed: () {
-                                  unawaited(HapticFeedback.lightImpact());
-                                  Navigator.of(context).maybePop();
-                                },
-                              ),
-                              const SizedBox(width: 4),
-                            ],
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _prayer!.nameBn,
-                                  style: typography.titleLarge.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: colors.textPrimary,
+                        Expanded(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (Navigator.of(context).canPop()) ...[
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_back_ios_new_rounded,
+                                    size: 18,
                                   ),
-                                ),
-                                Text(
-                                  _unit!.label,
-                                  style: typography.label.copyWith(
-                                    color: colors.primaryEmerald,
-                                    fontWeight: FontWeight.w600,
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(
+                                    minWidth: 32,
+                                    minHeight: 32,
                                   ),
+                                  color: colors.textPrimary,
+                                  tooltip: 'ফিরে যান',
+                                  onPressed: () {
+                                    unawaited(HapticFeedback.lightImpact());
+                                    Navigator.of(context).maybePop();
+                                  },
                                 ),
+                                const SizedBox(width: 4),
                               ],
-                            ),
-                          ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _prayer!.nameBn,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: typography.titleMedium.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: colors.textPrimary,
+                                      ),
+                                    ),
+                                    Text(
+                                      _unit!.label,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: typography.label.copyWith(
+                                        color: colors.primaryEmerald,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        const SizedBox(width: 8),
 
                         // Rakat Badge & Setup Button
                         Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             if (currentRakat != null && totalRakats > 0)
                               Container(
@@ -555,7 +567,11 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                     onRepeatTick: () => _controller!.repeatTick(),
                     onPlayAudio: (asset) async {
                       try {
-                        await _audioPlayer.setAsset(asset);
+                        var path = asset;
+                        if (path.startsWith('/')) {
+                          path = 'assets$path';
+                        }
+                        await _audioPlayer.setAsset(path);
                         await _audioPlayer.play();
                       } catch (_) {}
                     },

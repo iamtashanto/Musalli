@@ -224,31 +224,37 @@ class _TrackerScreenState extends ConsumerState<TrackerScreen> with SingleTicker
       padding: EdgeInsets.only(bottom: tokens.spacing.xs),
       child: GlassCard(
         padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md, vertical: tokens.spacing.sm),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Text(name, style: typography.titleMedium),
-            ),
-            Wrap(
-              spacing: 6,
-              children: PrayerStatus.values.map((s) {
-                final isSelected = s == status;
-                return ChoiceChip(
-                  label: Text('${s.emoji} ${s.labelBn}', style: typography.label.copyWith(
-                    color: isSelected ? Colors.white : tokens.colors.textPrimary,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                  )),
-                  selected: isSelected,
-                  selectedColor: Color(s.colorValue),
-                  backgroundColor: tokens.colors.surfaceGlassTint,
-                  onSelected: (val) {
-                    if (val) {
-                      unawaited(HapticFeedback.lightImpact());
-                      repo.updatePrayerStatus(_selectedDate, key, s);
-                    }
-                  },
-                );
-              }).toList(),
+            Text(name, style: typography.titleMedium),
+            const SizedBox(height: 6),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: PrayerStatus.values.map((s) {
+                  final isSelected = s == status;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: ChoiceChip(
+                      visualDensity: VisualDensity.compact,
+                      label: Text('${s.emoji} ${s.labelBn}', style: typography.label.copyWith(
+                        color: isSelected ? Colors.white : tokens.colors.textPrimary,
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      )),
+                      selected: isSelected,
+                      selectedColor: Color(s.colorValue),
+                      backgroundColor: tokens.colors.surfaceGlassTint,
+                      onSelected: (val) {
+                        if (val) {
+                          unawaited(HapticFeedback.lightImpact());
+                          repo.updatePrayerStatus(_selectedDate, key, s);
+                        }
+                      },
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ],
         ),
