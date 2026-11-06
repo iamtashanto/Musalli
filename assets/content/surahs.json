@@ -1,0 +1,922 @@
+[
+  {
+    "id": "surah-1",
+    "number": 1,
+    "nameBn": "আল-ফাতিহা",
+    "nameAr": "الفاتحة",
+    "nameEn": "Al-Fatihah",
+    "ayahCount": 7,
+    "ayahs": [
+      {
+        "id": "surah-1-line-1",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ ﴿١﴾",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-1-line-2",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾",
+        "uccharonBn": "আলহামদু লিল্লাহি রাব্বিল আলামীন।",
+        "banglish": "Alhamdu lillahi Rabbil Alamin.",
+        "meaningBn": "সমস্ত প্রশংসা আল্লাহর জন্য, যিনি সমগ্র বিশ্বের প্রতিপালক।"
+      },
+      {
+        "id": "surah-1-line-3",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "الرَّحْمَـٰنِ الرَّحِيمِ ﴿٣﴾",
+        "uccharonBn": "আর রাহমানির রাহীম।",
+        "banglish": "Ar Rahmanir Rahim.",
+        "meaningBn": "যিনি পরম করুণাময়, অতি দয়ালু।"
+      },
+      {
+        "id": "surah-1-line-4",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "مَالِكِ يَوْمِ الدِّينِ ﴿٤﴾",
+        "uccharonBn": "মালিকি ইয়াওমিদ্দীন।",
+        "banglish": "Maliki Yawmid-Din.",
+        "meaningBn": "বিচার দিবসের মালিক।"
+      },
+      {
+        "id": "surah-1-line-5",
+        "titleBn": "আয়াত ৫",
+        "titleEn": "Ayah 5",
+        "arabic": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾",
+        "uccharonBn": "ইয়্যাকা না'বুদু ওয়া ইয়্যাকা নাস্তাঈন।",
+        "banglish": "Iyyaka Na'budu Wa Iyyaka Nasta'in.",
+        "meaningBn": "আমরা শুধু তোমারই ইবাদত করি এবং শুধু তোমারই কাছে সাহায্য চাই।"
+      },
+      {
+        "id": "surah-1-line-6",
+        "titleBn": "আয়াত ৬",
+        "titleEn": "Ayah 6",
+        "arabic": "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٦﴾",
+        "uccharonBn": "ইহদিনাস সিরাতাল মুস্তাকীম।",
+        "banglish": "Ihdinas Siratal Mustaqim.",
+        "meaningBn": "আমাদেরকে সরল সঠিক পথ দেখাও।"
+      },
+      {
+        "id": "surah-1-line-7",
+        "titleBn": "আয়াত ৭",
+        "titleEn": "Ayah 7",
+        "arabic": "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٧﴾",
+        "uccharonBn": "সিরাতাল্লাযীনা আন'আমতা আলাইহিম, গাইরিল মাগদূবি আলাইহিম ওয়ালাদ্দোয়াল্লীন।",
+        "banglish": "Siratal Ladhina An'amta Alaihim, Ghairil Maghdubi Alaihim Walad-Dwallin.",
+        "meaningBn": "তাদের পথ, যাদের তুমি অনুগ্রহ করেছ, তাদের পথ নয় যারা তোমার ক্রোধের শিকার এবং পথভ্রষ্ট।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/001.mp3",
+    "revelation": "makki",
+    "fazilat": {
+      "textBn": "সূরা আল-ফাতিহা হলো উম্মুল কুরআন এবং সর্বাধিক বরকতময় ও রোগমুক্তির সূরা।",
+      "reference": {
+        "type": "hadith",
+        "source": "সহীহ বুখারী",
+        "number": "৫০৬",
+        "grade": "sahih"
+      }
+    }
+  },
+  {
+    "id": "surah-105",
+    "number": 105,
+    "nameBn": "আল-ফীল",
+    "nameAr": "الفيل",
+    "nameEn": "Al-Fil",
+    "ayahCount": 5,
+    "ayahs": [
+      {
+        "id": "surah-105-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-105-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ ﴿١﴾",
+        "uccharonBn": "আলাম তারা কাইফা ফা'আলা রাব্বুকা বি আসহাবিল ফীল।",
+        "banglish": "Alam Tara Kaifa Fa'ala Rabbuka Bi Ashabil Fil.",
+        "meaningBn": "আপনি কি দেখেননি আপনার রব হাতিওয়ালাদের সাথে কী আচরণ করেছেন?"
+      },
+      {
+        "id": "surah-105-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ ﴿٢﴾",
+        "uccharonBn": "আলাম ইয়াজ'আল কাইদাহুম ফী তাদলীল।",
+        "banglish": "Alam Yaj'al Kaidahum Fi Tadlil.",
+        "meaningBn": "তিনি কি তাদের চক্রান্ত নস্যাৎ করে দেননি?"
+      },
+      {
+        "id": "surah-105-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ ﴿٣﴾",
+        "uccharonBn": "ওয়া আরসালা আলাইহিম তাইরান আবাবীল।",
+        "banglish": "Wa Arsala Alaihim Tairan Ababil.",
+        "meaningBn": "তিনি তাদের ওপর ঝাঁকে ঝাঁকে পাখি প্রেরণ করেছিলেন।"
+      },
+      {
+        "id": "surah-105-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ ﴿٤﴾",
+        "uccharonBn": "তারমীহিম বিহিজারাতিন মিন সিজ্জীল।",
+        "banglish": "Tarmihim Bihijaratim Min Sijjil.",
+        "meaningBn": "যারা তাদের ওপর পোড়ামাটির পাথর নিক্ষেপ করছিল।"
+      },
+      {
+        "id": "surah-105-line-6",
+        "titleBn": "আয়াত ৫",
+        "titleEn": "Ayah 5",
+        "arabic": "فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ ﴿٥﴾",
+        "uccharonBn": "ফাজায়ালাহুম কাআসফিম মা'কূল।",
+        "banglish": "Faja'alahum Ka'asfim Ma'kul.",
+        "meaningBn": "অতঃপর তিনি তাদের ভক্ষিত তৃণসদৃশ করে দিলেন।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/105.mp3",
+    "revelation": "makki"
+  },
+  {
+    "id": "surah-106",
+    "number": 106,
+    "nameBn": "কুরাইশ",
+    "nameAr": "قريش",
+    "nameEn": "Quraish",
+    "ayahCount": 4,
+    "ayahs": [
+      {
+        "id": "surah-106-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-106-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "لِإِيلَافِ قُرَيْشٍ ﴿١﴾",
+        "uccharonBn": "লিঈলাফি কুরাইশ।",
+        "banglish": "Li Ilafi Quraish.",
+        "meaningBn": "কুরাইশের আসক্তির কারণে।"
+      },
+      {
+        "id": "surah-106-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ﴿٢﴾",
+        "uccharonBn": "ঈলাফিহিম রিহলাতাস সিতা-ই ওয়াস সাইফ।",
+        "banglish": "Ilafihim Rihlatash Shitai Was Saif.",
+        "meaningBn": "শীত ও গ্রীষ্মকালীন সফরের প্রতি তাদের আসক্তির কারণে।"
+      },
+      {
+        "id": "surah-106-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "فَلْيَعْبُدُوا رَبَّ هَـٰذَا الْبَيْتِ ﴿٣﴾",
+        "uccharonBn": "ফালইয়াবুদূ রাব্বা হাযাল বাইত।",
+        "banglish": "Fal Ya'budu Rabba Hadhal Bait.",
+        "meaningBn": "অতএব তারা যেন ইবাদত করে এই ঘরের (কাবা) রবের।"
+      },
+      {
+        "id": "surah-106-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ ﴿٤﴾",
+        "uccharonBn": "আল্লাযী আতআমাহুম মিন জূইঁও ওয়া আমানাহুম মিন খাওফ।",
+        "banglish": "Alladhi At'amahum Min Ju'in Wa Amanahum Min Khauf.",
+        "meaningBn": "যিনি তাদের ক্ষুধায় আহার দিয়েছেন এবং ভয় থেকে নিরাপদ করেছেন।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/106.mp3",
+    "revelation": "makki"
+  },
+  {
+    "id": "surah-107",
+    "number": 107,
+    "nameBn": "আল-মাউন",
+    "nameAr": "الماعون",
+    "nameEn": "Al-Ma'un",
+    "ayahCount": 7,
+    "ayahs": [
+      {
+        "id": "surah-107-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-107-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ ﴿١﴾",
+        "uccharonBn": "আরাআইতাল্লাযী ইউকাযযিবু বিদ্দ্বীন।",
+        "banglish": "Araaital Ladhi Yukadhdzibu Biddin.",
+        "meaningBn": "আপনি কি তাকে দেখেছেন যে বিচার দিবসকে অস্বীকার করে?"
+      },
+      {
+        "id": "surah-107-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "فَذَٰلِكَ الَّذِي يَدُعُّ الْيَتِيمَ ﴿٢﴾",
+        "uccharonBn": "ফাযালিকাল্লাযী ইয়াদু'উল ইয়াতীম।",
+        "banglish": "Fadhalikal Ladhi Yadu'ul Yatim.",
+        "meaningBn": "সে তো সেই ব্যক্তি যে এতিমকে রূঢ়ভাবে তাড়িয়ে দেয়।"
+      },
+      {
+        "id": "surah-107-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "وَلَا يَحُضُّ عَلَىٰ طَعَامِ الْمِسْكِينِ ﴿٣﴾",
+        "uccharonBn": "ওয়ালা ইয়াহুদ্দু আলা তা'আমিল মিসকীন।",
+        "banglish": "Wa La Yahuddu Ala Ta'amil Miskin.",
+        "meaningBn": "এবং মিসকিনকে অন্নদানে উৎসাহিত করে না।"
+      },
+      {
+        "id": "surah-107-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "فَوَيْلٌ لِّلْمُصَلِّينَ ﴿٤﴾",
+        "uccharonBn": "ফাওয়াইলুল লিল মুসল্লীন।",
+        "banglish": "Fa Waylul Lil Musallin.",
+        "meaningBn": "অতএব সেই নামাজীদের জন্য দুর্ভোগ,"
+      },
+      {
+        "id": "surah-107-line-6",
+        "titleBn": "আয়াত ৫",
+        "titleEn": "Ayah 5",
+        "arabic": "الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ ﴿٥﴾",
+        "uccharonBn": "আল্লাযীনা হুম আন সালাতিহিম সাহূন।",
+        "banglish": "Alladhina Hum An Salatihim Sahun.",
+        "meaningBn": "যারা নিজেদের নামাজে অমনোনযোগী,"
+      },
+      {
+        "id": "surah-107-line-7",
+        "titleBn": "আয়াত ৬",
+        "titleEn": "Ayah 6",
+        "arabic": "الَّذِينَ هُمْ يُرَاءُونَ ﴿٦﴾",
+        "uccharonBn": "আল্লাযীনা হুম ইউরাঊন।",
+        "banglish": "Alladhina Hum Yura'un.",
+        "meaningBn": "যারা লোক দেখানো কাজ করে,"
+      },
+      {
+        "id": "surah-107-line-8",
+        "titleBn": "আয়াত ৭",
+        "titleEn": "Ayah 7",
+        "arabic": "وَيَمْنَعُونَ الْمَاعُونَ ﴿٧﴾",
+        "uccharonBn": "ওয়া ইয়ামনাউনাল মাঊন।",
+        "banglish": "Wa Yamna'unal Ma'un.",
+        "meaningBn": "এবং নিত্যপ্রয়োজনীয় ছোটখাটো সাহায্য দানে বিরত থাকে।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/107.mp3",
+    "revelation": "makki"
+  },
+  {
+    "id": "surah-108",
+    "number": 108,
+    "nameBn": "আল-কাউসার",
+    "nameAr": "الكوثر",
+    "nameEn": "Al-Kawthar",
+    "ayahCount": 3,
+    "ayahs": [
+      {
+        "id": "surah-108-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-108-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ ﴿١﴾",
+        "uccharonBn": "ইন্না আ'তাইনাকাল কাউসার।",
+        "banglish": "Inna A'tainakal Kauthar.",
+        "meaningBn": "নিশ্চয়ই আমি আপনাকে কাউসার দান করেছি।"
+      },
+      {
+        "id": "surah-108-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾",
+        "uccharonBn": "ফাসাল্লি লিরাব্বিকা ওয়ানহার।",
+        "banglish": "Fasalli Lirabbika Wanhar.",
+        "meaningBn": "অতএব আপনার রবের উদ্দেশ্যে নামাজ পড়ুন এবং কুরবানী করুন।"
+      },
+      {
+        "id": "surah-108-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ ﴿٣﴾",
+        "uccharonBn": "ইন্না শানিআকা হুয়াল আবতার।",
+        "banglish": "Inna Shani'aka Huwal Abtar.",
+        "meaningBn": "নিশ্চয়ই আপনার প্রতি বিদ্বেষ পোষণকারীই নির্বংশ।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/108.mp3",
+    "revelation": "makki",
+    "fazilat": {
+      "textBn": "সূরা কাউসার হলো কুরআনের সবচেয়ে সংক্ষিপ্ত সূরা যা রাসূলুল্লাহ (সা.)-এর সুমহান মর্যাদা ঘোষণা করে।",
+      "reference": {
+        "type": "hadith",
+        "source": "সহীহ মুসলিম",
+        "number": "৪০০",
+        "grade": "sahih"
+      }
+    }
+  },
+  {
+    "id": "surah-109",
+    "number": 109,
+    "nameBn": "আল-কাফিরুন",
+    "nameAr": "الكافرون",
+    "nameEn": "Al-Kafirun",
+    "ayahCount": 6,
+    "ayahs": [
+      {
+        "id": "surah-109-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-109-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "قُلْ يَا أَيُّهَا الْكَافِرُونَ ﴿١﴾",
+        "uccharonBn": "কুল ইয়া আইয়্যুহাল কাফিরূন।",
+        "banglish": "Qul Ya Ayyuhal Kafirun.",
+        "meaningBn": "বলুন, হে কাফিররা!"
+      },
+      {
+        "id": "surah-109-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "لَا أَعْبُدُ مَا تَعْبُدُونَ ﴿٢﴾",
+        "uccharonBn": "লা আ'বুদু মা তা'বুদূন।",
+        "banglish": "La A'budu Ma Ta'budun.",
+        "meaningBn": "আমি তার ইবাদত করি না যার ইবাদত তোমরা কর।"
+      },
+      {
+        "id": "surah-109-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ﴿٣﴾",
+        "uccharonBn": "ওয়ালা আনতুম আবিদূনা মা আ'বুদ।",
+        "banglish": "Wa La Antum Abiduna Ma A'bud.",
+        "meaningBn": "এবং তোমরাও তাঁর ইবাদতকারী নও যার ইবাদত আমি করি।"
+      },
+      {
+        "id": "surah-109-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ ﴿٤﴾",
+        "uccharonBn": "ওয়ালা আনা আবিদুম মা আবাত্তুম।",
+        "banglish": "Wa La Ana Abidum Ma Abadtum.",
+        "meaningBn": "এবং আমি তার ইবাদতকারী হব না যার ইবাদত তোমরা করেছ।"
+      },
+      {
+        "id": "surah-109-line-6",
+        "titleBn": "আয়াত ৫",
+        "titleEn": "Ayah 5",
+        "arabic": "وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ﴿٥﴾",
+        "uccharonBn": "ওয়ালা আনতুম আবিদূনা মা আ'বুদ।",
+        "banglish": "Wa La Antum Abiduna Ma A'bud.",
+        "meaningBn": "এবং তোমরাও তাঁর ইবাদতকারী হবে না যার ইবাদত আমি করি।"
+      },
+      {
+        "id": "surah-109-line-7",
+        "titleBn": "আয়াত ৬",
+        "titleEn": "Ayah 6",
+        "arabic": "لَكُمْ دِينُكُمْ وَلِيَ دِينِ ﴿٦﴾",
+        "uccharonBn": "লাকুম দীনুকুম ওয়ালিয়া দীন।",
+        "banglish": "Lakum Dinukum Waliya Din.",
+        "meaningBn": "তোমাদের দ্বীন তোমাদের জন্য এবং আমার দ্বীন আমার জন্য।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/109.mp3",
+    "revelation": "makki"
+  },
+  {
+    "id": "surah-110",
+    "number": 110,
+    "nameBn": "আন-নাসর",
+    "nameAr": "النصر",
+    "nameEn": "An-Nasr",
+    "ayahCount": 3,
+    "ayahs": [
+      {
+        "id": "surah-110-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-110-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ ﴿١﴾",
+        "uccharonBn": "ইযা জা-আ নাসরুল্লাহি ওয়াল ফাতহ।",
+        "banglish": "Idha Ja'a Nasrullahi Wal Fath.",
+        "meaningBn": "যখন আল্লাহর সাহায্য ও বিজয় আসবে।"
+      },
+      {
+        "id": "surah-110-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا ﴿٢﴾",
+        "uccharonBn": "ওয়া রাআইতান নাসা ইয়াদখুলূনা ফী দীনিল্লাহি আফওয়াজা।",
+        "banglish": "Wa Ra'aitan Nasa Yadkhuluna Fi Dinillahi Afwaja.",
+        "meaningBn": "এবং আপনি মানুষকে দলে দলে আল্লাহর দ্বীনে প্রবেশ করতে দেখবেন।"
+      },
+      {
+        "id": "surah-110-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ ۚ إِنَّهُ كَانَ تَوَّابًا ﴿٣﴾",
+        "uccharonBn": "ফাসাব্বিহ বিহামদি রাব্বিকা ওয়াসতাগফিরহু, ইন্নাহু কানা তাওয়্যাবা।",
+        "banglish": "Fasabbih Bihamdi Rabbika Wastaghfirh, Innahu Kana Tawwaba.",
+        "meaningBn": "তখন আপনি আপনার রবের প্রশংসাসহ পবিত্রতা ঘোষণা করুন এবং তাঁর কাছে ক্ষমা প্রার্থনা করুন। নিশ্চয়ই তিনি তওবা কবুলকারী।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/110.mp3",
+    "revelation": "madani"
+  },
+  {
+    "id": "surah-111",
+    "number": 111,
+    "nameBn": "আল-লাহাব",
+    "nameAr": "المسد",
+    "nameEn": "Al-Lahab",
+    "ayahCount": 5,
+    "ayahs": [
+      {
+        "id": "surah-111-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-111-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "تَبَّتْ يَدَا أَبِي لَهَبٍ وَتَبَّ ﴿١﴾",
+        "uccharonBn": "তাব্বাত ইয়াদা আবী লাহাবিওঁ ওয়াতাব।",
+        "banglish": "Tabbat Yada Abi Lahabiw Wa Tabb.",
+        "meaningBn": "ধ্বংস হয়েছে আবু লাহাবের দুই হাত এবং সে নিজেও ধ্বংস হয়েছে।"
+      },
+      {
+        "id": "surah-111-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "مَا أَغْنَىٰ عَنْهُ مَالُهُ وَمَا كَسَبَ ﴿٢﴾",
+        "uccharonBn": "মা আগনা আনহু মালুহু ওয়ামা কাসাব।",
+        "banglish": "Ma Aghna Anhu Maluhu Wa Ma Kasab.",
+        "meaningBn": "তার ধনসম্পদ ও যা সে উপার্জন করেছে তা তার কোনো কাজে আসেনি।"
+      },
+      {
+        "id": "surah-111-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "سَيَصْلَىٰ نَارًا ذَاتَ لَهَبٍ ﴿٣﴾",
+        "uccharonBn": "সাইয়াসলা নারান যাতা লাহাব।",
+        "banglish": "Sayasla Naran Dhata Lahab.",
+        "meaningBn": "অচিরেই সে লেলিহান আগুনে প্রবেশ করবে।"
+      },
+      {
+        "id": "surah-111-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "وَامْرَأَتُهُ حَمَّالَةَ الْحَطَبِ ﴿٤﴾",
+        "uccharonBn": "ওয়ামরাআতুহু হাম্মালাতাল হাতাব।",
+        "banglish": "Wamra'atuhu Hammalatal Hatab.",
+        "meaningBn": "এবং তার স্ত্রীও, যে জ্বালানি কাঠ বহনকারিণী।"
+      },
+      {
+        "id": "surah-111-line-6",
+        "titleBn": "আয়াত ৫",
+        "titleEn": "Ayah 5",
+        "arabic": "فِي جِيدِهَا حَبْلٌ مِّن مَّسَدٍ ﴿٥﴾",
+        "uccharonBn": "ফী জীদিহা হাবলুম মিম মাসাদ।",
+        "banglish": "Fi Jidiha Hablum Mim Masad.",
+        "meaningBn": "তার গলায় থাকবে পাকানো দড়ি।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/111.mp3",
+    "revelation": "makki"
+  },
+  {
+    "id": "surah-112",
+    "number": 112,
+    "nameBn": "আল-ইখলাস",
+    "nameAr": "الإخلاص",
+    "nameEn": "Al-Ikhlas",
+    "ayahCount": 4,
+    "ayahs": [
+      {
+        "id": "surah-112-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-112-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾",
+        "uccharonBn": "কুল হুওয়াল্লাহু আহাদ।",
+        "banglish": "Qul Huwal-lahu Ahad.",
+        "meaningBn": "বলুন, তিনি আল্লাহ, এক-অদ্বিতীয়।"
+      },
+      {
+        "id": "surah-112-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "اللَّهُ الصَّمَدُ ﴿٢﴾",
+        "uccharonBn": "আল্লাহুস সামাদ।",
+        "banglish": "Allahus Samad.",
+        "meaningBn": "আল্লাহ কারো মুখাপেক্ষী নন, সকলেই তাঁর মুখাপেক্ষী।"
+      },
+      {
+        "id": "surah-112-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾",
+        "uccharonBn": "লাম ইয়ালিদ ওয়া লাম ইউলাদ।",
+        "banglish": "Lam Yalid Wa Lam Yulad.",
+        "meaningBn": "তিনি কাউকে জন্ম দেননি এবং তাঁকেও জন্ম দেওয়া হয়নি।"
+      },
+      {
+        "id": "surah-112-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿٤﴾",
+        "uccharonBn": "ওয়া লাম ইয়াকুল্লাহু কুফুওয়ান আহাদ।",
+        "banglish": "Wa Lam Yakul-lahu Kufuwan Ahad.",
+        "meaningBn": "এবং তাঁর সমতুল্য কেউ নেই।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/112.mp3",
+    "revelation": "makki",
+    "fazilat": {
+      "textBn": "সূরা আল-ইখলাস পাঠ করলে সমগ্র কুরআনের এক-তৃতীয়াংশ পাঠের সমান সওয়াব লাভ হয়।",
+      "reference": {
+        "type": "hadith",
+        "source": "সহীহ বুখারী",
+        "number": "৫০১৫",
+        "grade": "sahih"
+      }
+    }
+  },
+  {
+    "id": "surah-113",
+    "number": 113,
+    "nameBn": "আল-ফালাক",
+    "nameAr": "الفلق",
+    "nameEn": "Al-Falaq",
+    "ayahCount": 5,
+    "ayahs": [
+      {
+        "id": "surah-113-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-113-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾",
+        "uccharonBn": "কুল আঊযু বিরাব্বিল ফালাক।",
+        "banglish": "Qul A'udhu Birabbil Falaq.",
+        "meaningBn": "বলুন, আমি ভোরের রবের আশ্রয় প্রার্থনা করি।"
+      },
+      {
+        "id": "surah-113-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "مِن شَرِّ مَا خَلَقَ ﴿٢﴾",
+        "uccharonBn": "মিন শাররি মা খালাক।",
+        "banglish": "Min Sharri Ma Khalaq.",
+        "meaningBn": "তিনি যা সৃষ্টি করেছেন তার অনিষ্ট থেকে।"
+      },
+      {
+        "id": "surah-113-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾",
+        "uccharonBn": "ওয়া মিন শাররি গাসিকিন ইযা ওয়াকাব।",
+        "banglish": "Wa Min Sharri Ghasiqin Idha Waqab.",
+        "meaningBn": "এবং রাতের অন্ধকারের অনিষ্ট থেকে যখন তা গভীর হয়।"
+      },
+      {
+        "id": "surah-113-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾",
+        "uccharonBn": "ওয়া মিন শাররিন নাফফাসাতি ফিল উকাদ।",
+        "banglish": "Wa Min Sharrin Naffasati Fil Uqad.",
+        "meaningBn": "এবং গ্রন্থিতে ফুঁৎকারকারিণীদের অনিষ্ট থেকে।"
+      },
+      {
+        "id": "surah-113-line-6",
+        "titleBn": "আয়াত ৫",
+        "titleEn": "Ayah 5",
+        "arabic": "وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",
+        "uccharonBn": "ওয়া মিন শাররি হাসিদিন ইযা হাসাদ।",
+        "banglish": "Wa Min Sharri Hasidin Idha Hasad.",
+        "meaningBn": "এবং হিংসুকের অনিষ্ট থেকে যখন সে হিংসা করে।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/113.mp3",
+    "revelation": "makki",
+    "fazilat": {
+      "textBn": "মুআউবিযাতাইন (ফালাক ও নাস) সর্বপ্রকার অনিষ্ট ও জাদু-টোনা থেকে রক্ষার সর্বোত্তম মাধ্যম।",
+      "reference": {
+        "type": "hadith",
+        "source": "সুনানে আবু দাউদ",
+        "number": "১৪৬৩",
+        "grade": "sahih"
+      }
+    }
+  },
+  {
+    "id": "surah-114",
+    "number": 114,
+    "nameBn": "আন-নাস",
+    "nameAr": "الناس",
+    "nameEn": "An-Nas",
+    "ayahCount": 6,
+    "ayahs": [
+      {
+        "id": "surah-114-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-114-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾",
+        "uccharonBn": "কুল আঊযু বিরাব্বিন নাস।",
+        "banglish": "Qul A'udhu Birabbin Nas.",
+        "meaningBn": "বলুন, আমি মানুষের রবের আশ্রয় প্রার্থনা করি।"
+      },
+      {
+        "id": "surah-114-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "مَلِكِ النَّاسِ ﴿٢﴾",
+        "uccharonBn": "মালিকিন নাস।",
+        "banglish": "Malikin Nas.",
+        "meaningBn": "মানুষের অধিপতির।"
+      },
+      {
+        "id": "surah-114-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "إِلَـٰهِ النَّاسِ ﴿٣﴾",
+        "uccharonBn": "ইলাহিন নাস।",
+        "banglish": "Ilahin Nas.",
+        "meaningBn": "মানুষের ইলাহের।"
+      },
+      {
+        "id": "surah-114-line-5",
+        "titleBn": "আয়াত ৪",
+        "titleEn": "Ayah 4",
+        "arabic": "مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾",
+        "uccharonBn": "মিন শাররিল ওয়াসওয়াসিল খান্নাস।",
+        "banglish": "Min Sharril Waswasil Khannas.",
+        "meaningBn": "সেই কুমন্ত্রণাদাতার অনিষ্ট থেকে, যে গোপনে কুমন্ত্রণা দেয়।"
+      },
+      {
+        "id": "surah-114-line-6",
+        "titleBn": "আয়াত ৫",
+        "titleEn": "Ayah 5",
+        "arabic": "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾",
+        "uccharonBn": "আল্লাযী ইউওয়াসউইসু ফী সুদূরিন নাস।",
+        "banglish": "Alladhi Yuwaswisu Fi Sudurin Nas.",
+        "meaningBn": "যে মানুষের অন্তরে কুমন্ত্রণা দেয়।"
+      },
+      {
+        "id": "surah-114-line-7",
+        "titleBn": "আয়াত ৬",
+        "titleEn": "Ayah 6",
+        "arabic": "مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾",
+        "uccharonBn": "মিনাল জিন্নাতি ওয়ান নাস।",
+        "banglish": "Minal Jinnati Wan Nas.",
+        "meaningBn": "জিন ও মানুষের মধ্য থেকে।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/114.mp3",
+    "revelation": "makki",
+    "fazilat": {
+      "textBn": "মানুষ ও জিনের যাবতীয় গোপন কুমন্ত্রণা থেকে মুক্তির জন্য অন্যতম সেরা রক্ষাকবচ।",
+      "reference": {
+        "type": "hadith",
+        "source": "সুনানে তিরমিযী",
+        "number": "২০৫৮",
+        "grade": "sahih"
+      }
+    }
+  },
+  {
+    "id": "surah-103",
+    "number": 103,
+    "nameBn": "আল-আসর",
+    "nameAr": "العصر",
+    "nameEn": "Al-Asr",
+    "ayahCount": 3,
+    "ayahs": [
+      {
+        "id": "surah-103-line-1",
+        "titleBn": "বিসমিল্লাহ",
+        "titleEn": "Bismillah",
+        "arabic": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+        "uccharonBn": "বিসমিল্লাহির রাহমানির রাহীম।",
+        "banglish": "Bismillahir Rahmanir Rahim.",
+        "meaningBn": "পরম করুণাময় অতি দয়ালু আল্লাহর নামে।"
+      },
+      {
+        "id": "surah-103-line-2",
+        "titleBn": "আয়াত ১",
+        "titleEn": "Ayah 1",
+        "arabic": "وَالْعَصْرِ ﴿١﴾",
+        "uccharonBn": "ওয়াল আসর।",
+        "banglish": "Wal Asr.",
+        "meaningBn": "কসম সময়ের।"
+      },
+      {
+        "id": "surah-103-line-3",
+        "titleBn": "আয়াত ২",
+        "titleEn": "Ayah 2",
+        "arabic": "إِنَّ الْإِنسَانَ لَفِي خُسْرٍ ﴿٢﴾",
+        "uccharonBn": "ইন্নাল ইনসানা লাফী খুসর।",
+        "banglish": "Innal Insana Lafi Khusr.",
+        "meaningBn": "নিশ্চয়ই মানুষ ক্ষতির মধ্যে আছে।"
+      },
+      {
+        "id": "surah-103-line-4",
+        "titleBn": "আয়াত ৩",
+        "titleEn": "Ayah 3",
+        "arabic": "إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ ﴿٣﴾",
+        "uccharonBn": "ইল্লাল্লাযীনা আমানূ ওয়া আমিলুস সালিহাতি ওয়া তাওয়াসাও বিলহাক্কি ওয়া তাওয়াসাও বিস সাবর।",
+        "banglish": "Illal-ladhina Amanu Wa Amilus Salihati Wa Tawasau Bil-Haqqi Wa Tawasau Bis-Sabr.",
+        "meaningBn": "তবে তারা ছাড়া যারা ঈমান এনেছে, সৎকর্ম করেছে, পরস্পরকে সত্যের উপদেশ দিয়েছে এবং পরস্পরকে ধৈর্যের উপদেশ দিয়েছে।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/103.mp3",
+    "revelation": "makki",
+    "fazilat": {
+      "textBn": "ইমাম শাফেয়ী (রহ.) বলেছেন: মানুষ যদি কেবল এই একটি সূরা নিয়ে চিন্তা করত, তবে তাই তাদের হেদায়েতের জন্য যথেষ্ট হতো।",
+      "reference": {
+        "type": "fiqh",
+        "source": "তাফসীরে ইবনে কাসীর",
+        "number": "সূরা আসর ভূমিকা"
+      }
+    }
+  },
+  {
+    "id": "ayatul-kursi",
+    "number": 255,
+    "nameBn": "আয়াতুল কুরসী",
+    "nameAr": "آية الكرسي",
+    "nameEn": "Ayatul Kursi",
+    "ayahCount": 9,
+    "ayahs": [
+      {
+        "id": "ayatul-kursi-1",
+        "titleBn": "অংশ ১",
+        "titleEn": "Part 1",
+        "arabic": "اللَّهُ لَا إِلَـٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
+        "uccharonBn": "আল্লাহু লা ইলাহা ইল্লা হুওয়াল হাইয়্যুল ক্বাইয়্যুম।",
+        "banglish": "Allahu la ilaha illa huwal hayyul qayyum.",
+        "meaningBn": "আল্লাহ, তিনি ব্যতীত অন্য কোনো সত্য উপাস্য নেই, তিনি চিরঞ্জীব, সর্বসত্তার ধারক।"
+      },
+      {
+        "id": "ayatul-kursi-2",
+        "titleBn": "অংশ ২",
+        "titleEn": "Part 2",
+        "arabic": "لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ",
+        "uccharonBn": "লা তা'খুযুহূ সিনাতুঁও ওয়ালা নাওম।",
+        "banglish": "La ta'khudhuhu sinatuw wala nawm.",
+        "meaningBn": "তন্দ্রা ও নিদ্রা তাঁকে স্পর্শ করে না।"
+      },
+      {
+        "id": "ayatul-kursi-3",
+        "titleBn": "অংশ ৩",
+        "titleEn": "Part 3",
+        "arabic": "لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ",
+        "uccharonBn": "লাহূ মা ফিস সামাওয়াতি ওয়ামা ফিল আরদ।",
+        "banglish": "Lahu ma fis samawati wama fil ard.",
+        "meaningBn": "আকাশমণ্ডলী ও পৃথিবীতে যা কিছু আছে সবকিছু একমাত্র তাঁরই মালিকানাধীন।"
+      },
+      {
+        "id": "ayatul-kursi-4",
+        "titleBn": "অংশ ৪",
+        "titleEn": "Part 4",
+        "arabic": "مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ",
+        "uccharonBn": "মান যাল্লাযী ইয়াশফা'উ ইনদাহূ ইল্লা বি-ইযনিহ্।",
+        "banglish": "Man dhalladhi yashfa'u 'indahu illa bi-idhnih.",
+        "meaningBn": "কে আছে যে তাঁর অনুমতি ব্যতীত তাঁর নিকট সুপারিশ করবে?"
+      },
+      {
+        "id": "ayatul-kursi-5",
+        "titleBn": "অংশ ৫",
+        "titleEn": "Part 5",
+        "arabic": "يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ",
+        "uccharonBn": "ইয়া'লামু মা বাইনা আইদীহিম ওয়ামা খালফাহুম।",
+        "banglish": "Ya'lamu ma bayna aydihim wama khalfahum.",
+        "meaningBn": "তাদের সম্মুখে ও পশ্চাতে যা কিছু আছে তিনি সবকিছুই জানেন।"
+      },
+      {
+        "id": "ayatul-kursi-6",
+        "titleBn": "অংশ ৬",
+        "titleEn": "Part 6",
+        "arabic": "وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ",
+        "uccharonBn": "ওয়ালা ইউহীতূনা বিশাইয়িম মিন 'ইলমিহী ইল্লা বিমা শা-আ।",
+        "banglish": "Wala yuhituna bishay'im min 'ilmihi illa bima sha'.",
+        "meaningBn": "এবং তিনি যতটুকু ইচ্ছা করেন তা ব্যতীত তাঁর জ্ঞানের কোনো কিছুই তারা পরিবেষ্টন করতে পারে না।"
+      },
+      {
+        "id": "ayatul-kursi-7",
+        "titleBn": "অংশ ৭",
+        "titleEn": "Part 7",
+        "arabic": "وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ",
+        "uccharonBn": "ওয়াসি'আ কুরসিইয়্যুহুস সামাওয়াতি ওয়াল আরদ।",
+        "banglish": "Wasi'a kursiyyuhus samawati wal ard.",
+        "meaningBn": "তাঁর কুরসী সমস্ত আকাশমণ্ডলী ও পৃথিবীকে পরিব্যাপ্ত করে রেখেছে।"
+      },
+      {
+        "id": "ayatul-kursi-8",
+        "titleBn": "অংশ ৮",
+        "titleEn": "Part 8",
+        "arabic": "وَلَا يَئُودُهُ حِفْظُهُمَا",
+        "uccharonBn": "ওয়ালা ইয়াউদুহূ হিফযুহুমা।",
+        "banglish": "Wala ya'uduhu hifzuhuma.",
+        "meaningBn": "আর এ দুটির রক্ষণাবেক্ষণ তাঁকে বিন্দুমাত্র ক্লান্ত করে না।"
+      },
+      {
+        "id": "ayatul-kursi-9",
+        "titleBn": "অংশ ৯",
+        "titleEn": "Part 9",
+        "arabic": "وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+        "uccharonBn": "ওয়াহুয়াল 'আলিয়্যুল 'আজীম।",
+        "banglish": "Wa huwal 'aliyyul 'adheem.",
+        "meaningBn": "তিনি সুউচ্চ, সর্বশ্রেষ্ঠ ও মহান।"
+      }
+    ],
+    "audioSrc": "https://server8.mp3quran.net/afs/002.mp3",
+    "revelation": "madani",
+    "fazilat": {
+      "textBn": "রাসূলুল্লাহ (সা.) বলেছেন: যে ব্যক্তি প্রত্যেক ফরজ নামাজের পর আয়াতুল কুরসী পাঠ করবে, তার জান্নাতে প্রবেশের পথে মৃত্যু ছাড়া আর কোনো বাধা থাকবে না।",
+      "reference": {
+        "type": "hadith",
+        "source": "সুনানে নাসাঈ (আমালুল ইয়াওমি ওয়াল লাইলাহ)",
+        "number": "১০০",
+        "grade": "sahih"
+      }
+    }
+  }
+]
