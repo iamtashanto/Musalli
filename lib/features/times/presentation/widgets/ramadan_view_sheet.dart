@@ -43,40 +43,47 @@ class RamadanViewSheet extends StatelessWidget {
       );
     });
 
-    return Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.9,
-      ),
-      padding: EdgeInsets.all(tokens.spacing.md),
-      decoration: BoxDecoration(
-        color: colors.backgroundMiddle,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.nightlight_round, color: colors.goldAccent),
-                  const SizedBox(width: 8),
-                  Text(
-                    'মাহে রমজান সময়সূচি',
-                    style: typography.titleLarge.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colors.textPrimary,
+    return SafeArea(
+      top: false,
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.82,
+        ),
+        padding: EdgeInsets.fromLTRB(
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.lg + 56, // Extra clearance for floating bottom bar if open
+        ),
+        decoration: BoxDecoration(
+          color: colors.backgroundMiddle,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.nightlight_round, color: colors.goldAccent),
+                    const SizedBox(width: 8),
+                    Text(
+                      'মাহে রমজান সময়সূচি',
+                      style: typography.titleLarge.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colors.textPrimary,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              IconButton(
-                icon: const Icon(Icons.close_rounded),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-          ),
+                  ],
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close_rounded),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
 
           SizedBox(height: tokens.spacing.sm),
 
@@ -257,6 +264,7 @@ class RamadanViewSheet extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }

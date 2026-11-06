@@ -27,18 +27,25 @@ class MonthlyCalendarSheet extends StatelessWidget {
     final monthName = BanglaIslamicDateFormatter.formatGregorianBangla(now)
         .split(' ')[2];
 
-    return Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.9,
-      ),
-      padding: EdgeInsets.all(tokens.spacing.md),
-      decoration: BoxDecoration(
-        color: colors.backgroundMiddle,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+    return SafeArea(
+      top: false,
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.82,
+        ),
+        padding: EdgeInsets.fromLTRB(
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.lg + 56, // Clearance above floating bottom nav
+        ),
+        decoration: BoxDecoration(
+          color: colors.backgroundMiddle,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -136,8 +143,9 @@ class MonthlyCalendarSheet extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class _HeaderCell extends StatelessWidget {

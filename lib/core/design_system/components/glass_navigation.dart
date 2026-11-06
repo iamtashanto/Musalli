@@ -211,6 +211,7 @@ class GlassSliverAppBar extends StatelessWidget {
     this.subtitle,
     this.actions,
     this.leading,
+    this.showBackButton = true,
     this.expandedHeight = 136,
     super.key,
   });
@@ -227,6 +228,9 @@ class GlassSliverAppBar extends StatelessWidget {
   /// Optional leading widget.
   final Widget? leading;
 
+  /// Whether to automatically show a back button when a navigator can pop.
+  final bool showBackButton;
+
   /// Expanded height before collapsing.
   final double expandedHeight;
 
@@ -238,13 +242,30 @@ class GlassSliverAppBar extends StatelessWidget {
     final adjustedExpandedHeight =
         expandedHeight + ((textScale - 1.0).clamp(0.0, 1.0) * 44.0);
 
+    Widget? effectiveLeading = leading;
+    if (effectiveLeading == null && showBackButton) {
+      final modalRoute = ModalRoute.of(context);
+      final canPop = (modalRoute?.canPop ?? false) || Navigator.of(context).canPop();
+      if (canPop) {
+        effectiveLeading = IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+          tooltip: 'ফিরে যান',
+          color: colors.textPrimary,
+          onPressed: () {
+            unawaited(HapticFeedback.lightImpact());
+            Navigator.of(context).maybePop();
+          },
+        );
+      }
+    }
+
     return SliverPersistentHeader(
       pinned: true,
       delegate: _GlassSliverAppBarDelegate(
         title: title,
         subtitle: subtitle,
         actions: actions,
-        leading: leading,
+        leading: effectiveLeading,
         minExtentHeight: 68 + MediaQuery.paddingOf(context).top,
         maxExtentHeight:
             adjustedExpandedHeight + MediaQuery.paddingOf(context).top,

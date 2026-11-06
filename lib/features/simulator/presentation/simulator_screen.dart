@@ -345,18 +345,19 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: <Widget>[
             // 1. Top Glass App Bar
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: tokens.spacing.md,
-                vertical: tokens.spacing.xs,
+                vertical: tokens.spacing.xxs,
               ),
               child: GlassCard(
                 padding: EdgeInsets.symmetric(
                   horizontal: tokens.spacing.md,
-                  vertical: tokens.spacing.sm,
+                  vertical: tokens.spacing.xs,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -364,23 +365,48 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Prayer Name & Unit Label
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        // Back Button (if pushed) + Prayer Name & Unit Label
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              _prayer!.nameBn,
-                              style: typography.titleLarge.copyWith(
-                                fontWeight: FontWeight.bold,
+                            if (Navigator.of(context).canPop()) ...[
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_back_ios_new_rounded,
+                                  size: 18,
+                                ),
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
                                 color: colors.textPrimary,
+                                tooltip: 'ফিরে যান',
+                                onPressed: () {
+                                  unawaited(HapticFeedback.lightImpact());
+                                  Navigator.of(context).maybePop();
+                                },
                               ),
-                            ),
-                            Text(
-                              _unit!.label,
-                              style: typography.label.copyWith(
-                                color: colors.primaryEmerald,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              const SizedBox(width: 4),
+                            ],
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _prayer!.nameBn,
+                                  style: typography.titleLarge.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: colors.textPrimary,
+                                  ),
+                                ),
+                                Text(
+                                  _unit!.label,
+                                  style: typography.label.copyWith(
+                                    color: colors.primaryEmerald,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -516,23 +542,29 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
               ),
             ),
 
-            // 3. Recitation & Instructions Panel
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md),
-              child: RecitationPanel(
-                step: currentStep,
-                currentRepeat: _controller!.currentRepeat,
-                onRepeatTick: () => _controller!.repeatTick(),
-                onPlayAudio: (asset) async {
-                  try {
-                    await _audioPlayer.setAsset(asset);
-                    await _audioPlayer.play();
-                  } catch (_) {}
-                },
+            // 3. Recitation & Instructions Panel (Constrained scrollable to avoid bottom overflow)
+            Flexible(
+              flex: 6,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: RecitationPanel(
+                    step: currentStep,
+                    currentRepeat: _controller!.currentRepeat,
+                    onRepeatTick: () => _controller!.repeatTick(),
+                    onPlayAudio: (asset) async {
+                      try {
+                        await _audioPlayer.setAsset(asset);
+                        await _audioPlayer.play();
+                      } catch (_) {}
+                    },
+                  ),
+                ),
               ),
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
 
             // 4. Playback Controls Bar
             Padding(
@@ -540,7 +572,7 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
                 tokens.spacing.md,
                 0,
                 tokens.spacing.md,
-                tokens.spacing.sm,
+                tokens.spacing.xs,
               ),
               child: SimulatorControls(
                 isPlaying: _controller!.isPlaying,

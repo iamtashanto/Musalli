@@ -58,7 +58,7 @@ class SimulatorControls extends StatelessWidget {
     return GlassCard(
       padding: EdgeInsets.symmetric(
         horizontal: tokens.spacing.md,
-        vertical: tokens.spacing.sm,
+        vertical: tokens.spacing.xs,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -71,7 +71,7 @@ class SimulatorControls extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.replay_rounded),
                 color: colors.textSecondary,
-                iconSize: 24,
+                iconSize: 22,
                 tooltip: 'ধাপটি পুনরায় চালান',
                 onPressed: onReplayStep,
               ),
@@ -80,7 +80,7 @@ class SimulatorControls extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.skip_previous_rounded),
                 color: colors.textPrimary,
-                iconSize: 32,
+                iconSize: 28,
                 tooltip: 'পূর্ববর্তী ধাপ',
                 onPressed: onPrevious,
               ),
@@ -89,8 +89,8 @@ class SimulatorControls extends StatelessWidget {
               GestureDetector(
                 onTap: onPlayPause,
                 child: Container(
-                  width: 58,
-                  height: 58,
+                  width: 50,
+                  height: 50,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [colors.primaryEmerald, colors.tealDeep],
@@ -101,8 +101,8 @@ class SimulatorControls extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: colors.primaryEmerald.withValues(alpha: 0.35),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -117,7 +117,7 @@ class SimulatorControls extends StatelessWidget {
                             : Icons.play_arrow_rounded,
                         key: ValueKey<bool>(isPlaying),
                         color: Colors.white,
-                        size: 34,
+                        size: 30,
                       ),
                     ),
                   ),
@@ -128,7 +128,7 @@ class SimulatorControls extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.skip_next_rounded),
                 color: colors.textPrimary,
-                iconSize: 32,
+                iconSize: 28,
                 tooltip: 'পরবর্তী ধাপ',
                 onPressed: onNext,
               ),
@@ -137,15 +137,15 @@ class SimulatorControls extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.format_list_bulleted_rounded),
                 color: colors.textSecondary,
-                iconSize: 24,
+                iconSize: 22,
                 tooltip: 'সকল ধাপের তালিকা',
                 onPressed: onOpenStepList,
               ),
             ],
           ),
 
-          const SizedBox(height: 6),
-          const Divider(height: 12),
+          const SizedBox(height: 4),
+          const Divider(height: 8),
 
           // Secondary Preferences Bar (Speed, Auto/Manual, View Switch, Mute)
           Row(

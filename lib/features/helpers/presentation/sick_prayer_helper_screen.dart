@@ -70,11 +70,15 @@ class _SickPrayerHelperScreenState extends State<SickPrayerHelperScreen> {
             title: 'আমি কীভাবে নামাজ পড়ব?',
             leading: _history.length > 1 || _currentResult != null
                 ? IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_rounded),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
                     tooltip: 'পূর্ববর্তী ধাপ',
                     onPressed: _onBack,
                   )
-                : null,
+                : IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+                    tooltip: 'ফিরে যান',
+                    onPressed: () => Navigator.of(context).maybePop(),
+                  ),
             actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.refresh_rounded),

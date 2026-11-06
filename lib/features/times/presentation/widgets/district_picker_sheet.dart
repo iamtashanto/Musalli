@@ -107,19 +107,26 @@ class _DistrictPickerSheetState extends ConsumerState<DistrictPickerSheet> {
 
     final locationsAsync = ref.watch(allLocationsProvider);
 
-    return Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.85,
-      ),
-      padding: EdgeInsets.all(tokens.spacing.md),
-      decoration: BoxDecoration(
-        color: colors.backgroundMiddle,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+    return SafeArea(
+      top: false,
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.82,
+        ),
+        padding: EdgeInsets.fromLTRB(
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.lg + 56, // Clearance above floating bottom nav
+        ),
+        decoration: BoxDecoration(
+          color: colors.backgroundMiddle,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           // Drag handle
           Center(
             child: Container(
@@ -277,6 +284,7 @@ class _DistrictPickerSheetState extends ConsumerState<DistrictPickerSheet> {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }

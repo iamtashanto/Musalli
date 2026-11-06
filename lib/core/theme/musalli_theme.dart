@@ -36,6 +36,12 @@ class MusalliTheme {
         titleTextStyle: tokens.typography.titleLarge,
         iconTheme: IconThemeData(color: colors.textPrimary),
       ),
+      actionIconTheme: ActionIconThemeData(
+        backButtonIconBuilder: (BuildContext context) => const Icon(
+          Icons.arrow_back_ios_new_rounded,
+          size: 20,
+        ),
+      ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: <TargetPlatform, PageTransitionsBuilder>{
           TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
@@ -75,6 +81,12 @@ class MusalliTheme {
         centerTitle: false,
         titleTextStyle: tokens.typography.titleLarge,
         iconTheme: IconThemeData(color: colors.textPrimary),
+      ),
+      actionIconTheme: ActionIconThemeData(
+        backButtonIconBuilder: (BuildContext context) => const Icon(
+          Icons.arrow_back_ios_new_rounded,
+          size: 20,
+        ),
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: <TargetPlatform, PageTransitionsBuilder>{
