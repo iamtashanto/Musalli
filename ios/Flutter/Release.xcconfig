@@ -1,1 +1,4 @@
 #include "Generated.xcconfig"
+APP_DISPLAY_NAME = মুসল্লি
+PRODUCT_BUNDLE_IDENTIFIER = com.tashanto.musalli
+IPHONEOS_DEPLOYMENT_TARGET = 13.0

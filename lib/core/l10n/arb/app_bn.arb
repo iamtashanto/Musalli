@@ -1,0 +1,25 @@
+{
+  "@@locale": "bn",
+  "appTitle": "মুসল্লি — নামাজ শিক্ষা",
+  "appSubtitle": "সহীহ কুরআন, হাদিস ও হানাফি ফিকহ ভিত্তিক অফলাইন নামাজ গাইড",
+  "tabHome": "হোম",
+  "tabLearn": "শিখুন",
+  "tabSimulator": "সিমুলেটর",
+  "tabTimes": "সময়",
+  "tabMore": "আরও",
+  "hanafiBadge": "হানাফি ফিকহ • বাংলাদেশ",
+  "designSystemShowcaseTitle": "ডিজাইন সিস্টেম শোকেস (Dev)",
+  "errorScreenTitle": "দুঃখিত, একটি অপ্রত্যাশিত ত্রুটি ঘটেছে",
+  "errorScreenMessage": "চিন্তার কারণ নেই, আপনার সংরক্ষিত নামাজ ট্র্যাকার ও মুখস্থ সূরার তথ্য নিরাপদ আছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
+  "retryButton": "আবার চেষ্টা করুন",
+  "prayerDetailTitle": "নামাজের বিস্তারিত গাইড",
+  "simulatorQuickStart": "সিমুলেটর চালু করুন",
+  "glassQualityLabel": "গ্লাস ইফেক্ট মান (Glass Quality)",
+  "glassQualityHigh": "উচ্চ (High Blur)",
+  "glassQualityMedium": "মাঝারি (Medium Blur)",
+  "glassQualityLow": "কম র‍্যাম মোড (No Blur)",
+  "themeModeLabel": "থিম মোড",
+  "languageLabel": "ভাষা (Language)",
+  "searchPlaceholder": "নামাজ, সূরা, দোয়া বা মাসআলা খুঁজুন..."
+}
+

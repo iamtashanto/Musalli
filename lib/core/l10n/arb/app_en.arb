@@ -1,0 +1,25 @@
+{
+  "@@locale": "en",
+  "appTitle": "Musalli — Salah Learning",
+  "appSubtitle": "Offline Salah guide based on Quran, Sahih Hadith & Hanafi Fiqh",
+  "tabHome": "Home",
+  "tabLearn": "Learn",
+  "tabSimulator": "Simulator",
+  "tabTimes": "Times",
+  "tabMore": "More",
+  "hanafiBadge": "Hanafi Fiqh • Bangladesh",
+  "designSystemShowcaseTitle": "Design System Showcase (Dev)",
+  "errorScreenTitle": "Something went wrong",
+  "errorScreenMessage": "Don't worry, your saved prayer tracker and hifz progress are safe on your device. Please try again.",
+  "retryButton": "Try Again",
+  "prayerDetailTitle": "Prayer Detail Guide",
+  "simulatorQuickStart": "Start Simulator",
+  "glassQualityLabel": "Glass Effect Quality",
+  "glassQualityHigh": "High (Full Blur)",
+  "glassQualityMedium": "Medium (Balanced Blur)",
+  "glassQualityLow": "Low RAM Mode (No Blur)",
+  "themeModeLabel": "Theme Mode",
+  "languageLabel": "Language (ভাষা)",
+  "searchPlaceholder": "Search prayers, surahs, duas or masail..."
+}
+
