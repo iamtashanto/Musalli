@@ -347,7 +347,7 @@ class _AdhkarScreenState extends ConsumerState<AdhkarScreen>
                     ),
                     child: Text(
                       'ফজিলত: ${item.fazilatBn!}',
-                      style: tokens.typography.bodySmall.copyWith(
+                      style: tokens.typography.label.copyWith(
                         color: tokens.colors.primaryEmerald,
                       ),
                     ),

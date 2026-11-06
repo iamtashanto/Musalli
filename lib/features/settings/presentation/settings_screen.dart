@@ -93,7 +93,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       SizedBox(height: tokens.spacing.xs),
                       Text(
                         'কম র‍্যামের ফোনে মসৃণ অভিজ্ঞতার জন্য Low বা Medium নির্বাচন করুন।',
-                        style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                        style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                       ),
                       SizedBox(height: tokens.spacing.sm),
                       GlassSegmentedControl<GlassQuality>(

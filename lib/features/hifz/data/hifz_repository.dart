@@ -42,3 +42,4 @@ class HifzRepository {
     return all.map((e) => e.surahNumber).toList();
   }
 }
+

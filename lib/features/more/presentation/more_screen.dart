@@ -169,7 +169,7 @@ class MoreScreen extends ConsumerWidget {
                     SizedBox(height: tokens.spacing.xs),
                     Text(
                       'tashanto.com • namajshikkha.tashanto.com',
-                      style: tokens.typography.bodySmall.copyWith(
+                      style: tokens.typography.label.copyWith(
                         color: tokens.colors.primaryEmerald,
                         decoration: TextDecoration.underline,
                       ),
@@ -208,11 +208,11 @@ class MoreScreen extends ConsumerWidget {
           ),
           title: Text(
             title,
-            style: tokens.typography.titleSmall.copyWith(fontWeight: FontWeight.w700),
+            style: tokens.typography.titleMedium.copyWith(fontWeight: FontWeight.w700),
           ),
           subtitle: Text(
             subtitle,
-            style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+            style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
           ),
           trailing: const Icon(Icons.chevron_right_rounded),
           onTap: onTap,

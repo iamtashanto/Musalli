@@ -287,3 +287,4 @@ class _TrackerScreenState extends ConsumerState<TrackerScreen> with SingleTicker
     );
   }
 }
+

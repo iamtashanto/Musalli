@@ -22,3 +22,4 @@ class QiblaCalculator {
     return (qiblaDeg + 360.0) % 360.0;
   }
 }
+

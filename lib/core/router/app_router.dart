@@ -29,7 +29,6 @@ import 'package:musalli/features/learn/presentation/learn_hub_screen.dart';
 import 'package:musalli/features/masail/presentation/masail_detail_screen.dart';
 import 'package:musalli/features/prayer_detail/presentation/prayer_detail_screen.dart';
 import 'package:musalli/features/quran/presentation/quran_reader_screen.dart';
-import 'package:musalli/features/shell/presentation/placeholder_screens.dart';
 import 'package:musalli/features/simulator/presentation/dev_poses_screen.dart';
 import 'package:musalli/features/simulator/presentation/practice/practice_screen.dart';
 import 'package:musalli/features/simulator/presentation/simulator_screen.dart';
@@ -368,7 +367,7 @@ GoRouter appRouter(Ref ref) {
         parentNavigatorKey: _rootNavigatorKey,
         path: '/onboarding',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MusalliPageTransitions.fadeThrough(
+          return MusalliPageTransitions.sharedAxisHorizontal(
             state: state,
             child: const OnboardingScreen(),
           );

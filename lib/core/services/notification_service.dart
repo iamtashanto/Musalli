@@ -12,7 +12,7 @@ enum AdhanSoundType {
   vibrateOnly('শুধু ভাইব্রেশন', null),
   silent('নীরব', null);
 
-  const AdhanSoundType(this.labelBn, this.soundResource);
+  AdhanSoundType(this.labelBn, this.soundResource);
   final String labelBn;
   final String? soundResource;
 }
@@ -43,6 +43,34 @@ class PrayerNotificationConfig {
   final bool jumuahReminderEnabled;
   final AdhanSoundType soundType;
   final bool ramadanSehriIftarEnabled;
+
+  PrayerNotificationConfig copyWith({
+    bool? fajrEnabled,
+    bool? dhuhrEnabled,
+    bool? asrEnabled,
+    bool? maghribEnabled,
+    bool? ishaEnabled,
+    bool? tahajjudEnabled,
+    int? preReminderMinutes,
+    bool? followUpEnabled,
+    bool? jumuahReminderEnabled,
+    AdhanSoundType? soundType,
+    bool? ramadanSehriIftarEnabled,
+  }) {
+    return PrayerNotificationConfig(
+      fajrEnabled: fajrEnabled ?? this.fajrEnabled,
+      dhuhrEnabled: dhuhrEnabled ?? this.dhuhrEnabled,
+      asrEnabled: asrEnabled ?? this.asrEnabled,
+      maghribEnabled: maghribEnabled ?? this.maghribEnabled,
+      ishaEnabled: ishaEnabled ?? this.ishaEnabled,
+      tahajjudEnabled: tahajjudEnabled ?? this.tahajjudEnabled,
+      preReminderMinutes: preReminderMinutes ?? this.preReminderMinutes,
+      followUpEnabled: followUpEnabled ?? this.followUpEnabled,
+      jumuahReminderEnabled: jumuahReminderEnabled ?? this.jumuahReminderEnabled,
+      soundType: soundType ?? this.soundType,
+      ramadanSehriIftarEnabled: ramadanSehriIftarEnabled ?? this.ramadanSehriIftarEnabled,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     'fajr': fajrEnabled,
@@ -117,7 +145,7 @@ class NotificationService {
     );
 
     await _notifications.initialize(
-      initSettings,
+      settings: initSettings,
       onDidReceiveNotificationResponse: (response) async {
         if (response.actionId == actionPrayed) {
           final payload = response.payload;
@@ -182,11 +210,11 @@ class NotificationService {
 
         // 1. Exact Waqt Adhan Notification
         await _notifications.zonedSchedule(
-          notificationId++,
-          '${waqt.nameBn} নামাজের ওয়াক্ত হয়েছে',
-          'হাইয়া আলাস সালাহ — নামাজের দিকে আসুন।',
-          tzTime,
-          _buildNotificationDetails(config.soundType, isAdhan: true),
+          id: notificationId++,
+          title: '${waqt.nameBn} নামাজের ওয়াক্ত হয়েছে',
+          body: 'হাইয়া আলাস সালাহ — নামাজের দিকে আসুন।',
+          scheduledDate: tzTime,
+          notificationDetails: _buildNotificationDetails(config.soundType, isAdhan: true),
           androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         );
 
@@ -195,11 +223,11 @@ class NotificationService {
           final followUpTime = tzTime.add(const Duration(minutes: 30));
           if (followUpTime.isAfter(tz.TZDateTime.now(tz.local))) {
             await _notifications.zonedSchedule(
-              notificationId++,
-              'নামাজ পড়েছেন কি?',
-              '${waqt.nameBn} নামাজ আদায় সম্পন্ন করে থাকলে মার্ক করুন।',
-              followUpTime,
-              _buildFollowUpDetails(waqt.slug),
+              id: notificationId++,
+              title: 'নামাজ পড়েছেন কি?',
+              body: '${waqt.nameBn} নামাজ আদায় সম্পন্ন করে থাকলে মার্ক করুন।',
+              scheduledDate: followUpTime,
+              notificationDetails: _buildFollowUpDetails(waqt.slug),
               androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
               payload: waqt.slug,
             );
@@ -213,11 +241,11 @@ class NotificationService {
         if (jumuahTime.isAfter(now)) {
           final tzJumuah = tz.TZDateTime.from(jumuahTime, tz.local);
           await _notifications.zonedSchedule(
-            notificationId++,
-            'জুমুআর বরকতময় দিন 🕌',
-            'আজ সূরা কাহাফ পাঠ ও দ্রুত মসজিদে যাওয়ার সুন্নাত স্মরণ করুন।',
-            tzJumuah,
-            _buildNotificationDetails(AdhanSoundType.shortBeep, isAdhan: false),
+            id: notificationId++,
+            title: 'জুমুআর বরকতময় দিন 🕌',
+            body: 'আজ সূরা কাহাফ পাঠ ও দ্রুত মসজিদে যাওয়ার সুন্নাত স্মরণ করুন।',
+            scheduledDate: tzJumuah,
+            notificationDetails: _buildNotificationDetails(AdhanSoundType.shortBeep, isAdhan: false),
             androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
           );
         }
@@ -303,10 +331,10 @@ class NotificationService {
     if (!_initialized) await initialize();
 
     await _notifications.show(
-      999,
-      'পরীক্ষামূলক আযান নোটিফিকেশন 📢',
-      'আপনার ডিভাইসে নামাজের নোটিফিকেশন সফলভাবে সক্রিয় রয়েছে!',
-      _buildNotificationDetails(soundType, isAdhan: true),
+      id: 999,
+      title: 'পরীক্ষামূলক আযান নোটিফিকেশন 📢',
+      body: 'আপনার ডিভাইসে নামাজের নোটিফিকেশন সফলভাবে সক্রিয় রয়েছে!',
+      notificationDetails: _buildNotificationDetails(soundType, isAdhan: true),
     );
   }
 }

@@ -55,8 +55,8 @@ class _QiblaScreenState extends ConsumerState<QiblaScreen> {
     final typography = tokens.typography;
 
     final settings = ref.watch(prayerTimesSettingsProvider).value;
-    final lat = settings?.location.latitude ?? 23.8103;
-    final lng = settings?.location.longitude ?? 90.4125;
+    final lat = settings?.location.lat ?? 23.8103;
+    final lng = settings?.location.lng ?? 90.4125;
     final qiblaBearing = QiblaCalculator.calculateBearing(lat, lng);
 
     final diff = ((qiblaBearing - _heading + 540) % 360) - 180;
@@ -85,7 +85,7 @@ class _QiblaScreenState extends ConsumerState<QiblaScreen> {
             ),
             SizedBox(height: tokens.spacing.xs),
             Text(
-              isAligned ? '✨ সঠিক কিবলামুখী হয়েছেন!' : 'ডিভাইসটি ঘুরিয়ে সবুজ কা'বা চিহ্নের সাথে মিলান',
+              isAligned ? '✨ সঠিক কিবলামুখী হয়েছেন!' : "ডিভাইসটি ঘুরিয়ে সবুজ কা'বা চিহ্নের সাথে মিলান",
               style: typography.bodyMedium.copyWith(
                 color: isAligned ? const Color(0xFF10B981) : colors.textSecondary,
                 fontWeight: isAligned ? FontWeight.bold : FontWeight.normal,

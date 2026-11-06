@@ -38,7 +38,7 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
   @override
   Widget build(BuildContext context) {
     final tokens = context.tokens;
-    final prayerScheduleAsync = ref.watch(todayPrayerTimesProvider);
+    final schedule = ref.watch(todayScheduleProvider);
 
     return Scaffold(
       backgroundColor: tokens.colors.backgroundStart,
@@ -54,10 +54,8 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
         padding: EdgeInsets.all(tokens.spacing.md),
         children: [
           // Sehri & Iftar Live Banner
-          prayerScheduleAsync.when(
-            data: (schedule) {
-              if (schedule == null) return const SizedBox.shrink();
-
+          Builder(
+            builder: (context) {
               final fajr = schedule.fajr;
               // Sehri ends 5 minutes before Fajr as safety precaution (Imsak)
               final sehriEnd = fajr.subtract(const Duration(minutes: 5));
@@ -118,7 +116,7 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
                           children: [
                             Text(
                               'আজকের সাহরি শেষ',
-                              style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                              style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                             ),
                             SizedBox(height: tokens.spacing.xs),
                             Text(
@@ -136,7 +134,7 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
                           children: [
                             Text(
                               'আজকের ইফতার',
-                              style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                              style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                             ),
                             SizedBox(height: tokens.spacing.xs),
                             Text(
@@ -154,8 +152,6 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
                 ),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (_, __) => const SizedBox.shrink(),
           ),
 
           SizedBox(height: tokens.spacing.lg),
@@ -174,7 +170,7 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
               children: [
                 Text(
                   'ইফতারের দোয়া',
-                  style: tokens.typography.titleSmall.copyWith(
+                  style: tokens.typography.titleMedium.copyWith(
                     color: tokens.colors.primaryEmerald,
                     fontWeight: FontWeight.w700,
                   ),
@@ -189,12 +185,12 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
                 SizedBox(height: tokens.spacing.xs),
                 Text(
                   'জাহাবাজ জামা-উ, ওয়াবতাল্লাতিল উরূকু, ওয়া ছাবাতাল আজরু ইনশাআল্লাহ।',
-                  style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary, fontStyle: FontStyle.italic),
+                  style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary, fontStyle: FontStyle.italic),
                 ),
                 SizedBox(height: tokens.spacing.xs),
                 Text(
                   'অর্থ: পিপাসা দূরীভূত হয়েছে, শিরা-উপশিরা সিক্ত হয়েছে এবং ইনশাআল্লাহ প্রতিদান নিশ্চিত হয়েছে। (আবু দাউদ ২৩৫৭)',
-                  style: tokens.typography.bodySmall,
+                  style: tokens.typography.bodyMedium,
                 ),
               ],
             ),
@@ -208,7 +204,7 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
               children: [
                 Text(
                   'লাইলাতুল কদরের দোয়া',
-                  style: tokens.typography.titleSmall.copyWith(
+                  style: tokens.typography.titleMedium.copyWith(
                     color: tokens.colors.primaryEmerald,
                     fontWeight: FontWeight.w700,
                   ),
@@ -223,12 +219,12 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
                 SizedBox(height: tokens.spacing.xs),
                 Text(
                   'আল্লাহুম্মা ইন্নাকা আফুওয়ুন তুহিব্বুল আফওয়া ফা\'ফু আন্নী।',
-                  style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary, fontStyle: FontStyle.italic),
+                  style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary, fontStyle: FontStyle.italic),
                 ),
                 SizedBox(height: tokens.spacing.xs),
                 Text(
                   'অর্থ: হে আল্লাহ! নিশ্চয় আপনি ক্ষমাশীল, আপনি ক্ষমা করতে ভালোবাসেন। অতএব আমাকে ক্ষমা করে দিন। (তিরমিজি ৩৫১৩)',
-                  style: tokens.typography.bodySmall,
+                  style: tokens.typography.bodyMedium,
                 ),
               ],
             ),
@@ -244,7 +240,7 @@ class _RamadanScreenState extends ConsumerState<RamadanScreen> {
           SizedBox(height: tokens.spacing.xs),
           Text(
             'প্রতিটি দিনে ট্যাপ করে রোজা ও তারাবীহ আদায় চিহ্নিত করুন',
-            style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+            style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
           ),
           SizedBox(height: tokens.spacing.md),
 

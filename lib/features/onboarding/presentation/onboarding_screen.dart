@@ -132,7 +132,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             title: Text('পুরুষদের জন্য', style: tokens.typography.titleMedium),
                             subtitle: Text(
                               'তাকবীরে তাহরীমায় কান পর্যন্ত হাত তোলা, নাভির নিচে হাত বাঁধা, সিজদায় ফাঁকা রাখা।',
-                              style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                              style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                             ),
                             onChanged: (val) => setState(() => _selectedGender = val!),
                           ),
@@ -147,7 +147,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             title: Text('নারীদের জন্য', style: tokens.typography.titleMedium),
                             subtitle: Text(
                               'কাঁধ পর্যন্ত হাত তোলা, বুকের ওপর হাত বাঁধা, রুকু ও সিজদায় সংকুচিত হয়ে থাকা।',
-                              style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                              style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                             ),
                             onChanged: (val) => setState(() => _selectedGender = val!),
                           ),
@@ -172,7 +172,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             title: Text('হানাফি মাজহাব (বাংলাদেশ ডিফল্ট)', style: tokens.typography.titleMedium),
                             subtitle: Text(
                               'আসর দুই মিথলে (ছায়া দ্বিগুণ হলে শুরু), করাচি ইসলামিক বিশ্ববিদ্যালয় পদ্ধতি।',
-                              style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                              style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                             ),
                             onChanged: (val) => setState(() => _selectedMadhab = val!),
                           ),
@@ -187,7 +187,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             title: Text('শাফেঈ / মালেকী / হাম্বলী', style: tokens.typography.titleMedium),
                             subtitle: Text(
                               'আসর এক মিথলে (ছায়া সমপরিমাণ হলে শুরু)।',
-                              style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                              style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                             ),
                             onChanged: (val) => setState(() => _selectedMadhab = val!),
                           ),
@@ -210,7 +210,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             children: [
                               Text(
                                 'নোটিফিকেশন সুবিধা:',
-                                style: tokens.typography.titleSmall.copyWith(fontWeight: FontWeight.w700),
+                                style: tokens.typography.titleMedium.copyWith(fontWeight: FontWeight.w700),
                               ),
                               SizedBox(height: tokens.spacing.xs),
                               Text(
@@ -349,12 +349,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               children: [
                 Text(
                   title,
-                  style: tokens.typography.titleSmall.copyWith(fontWeight: FontWeight.w700),
+                  style: tokens.typography.titleMedium.copyWith(fontWeight: FontWeight.w700),
                 ),
                 SizedBox(height: 2),
                 Text(
                   description,
-                  style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary),
+                  style: tokens.typography.label.copyWith(color: tokens.colors.textSecondary),
                 ),
               ],
             ),

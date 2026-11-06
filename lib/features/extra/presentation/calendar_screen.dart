@@ -138,7 +138,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   children: [
                     Text(
                       'চাঁদ দেখা সমন্বয়:',
-                      style: tokens.typography.bodySmall.copyWith(fontWeight: FontWeight.w600),
+                      style: tokens.typography.label.copyWith(fontWeight: FontWeight.w600),
                     ),
                     SizedBox(width: tokens.spacing.sm),
                     IconButton(
@@ -182,7 +182,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         Expanded(
                           child: Text(
                             event.nameBn,
-                            style: tokens.typography.titleSmall.copyWith(
+                            style: tokens.typography.titleMedium.copyWith(
                               fontWeight: FontWeight.w700,
                               color: tokens.colors.primaryEmerald,
                             ),

@@ -175,7 +175,7 @@ class _ZakatCalculatorScreenState extends ConsumerState<ZakatCalculatorScreen> {
                       SizedBox(height: tokens.spacing.xs),
                       Text(
                         'মোট যাকাতযোগ্য সম্পদ: ৳ ${BengaliNumberFormatter.toBengali(_netZakatableWealth.toStringAsFixed(0))}',
-                        style: tokens.typography.bodySmall.copyWith(
+                        style: tokens.typography.label.copyWith(
                           color: tokens.colors.textSecondary,
                         ),
                       ),
@@ -245,14 +245,14 @@ class _ZakatCalculatorScreenState extends ConsumerState<ZakatCalculatorScreen> {
               children: [
                 Text(
                   '💡 যাকাত সম্পর্কিত আবশ্যকীয় নিয়মাবলি:',
-                  style: tokens.typography.titleSmall.copyWith(fontWeight: FontWeight.w700),
+                  style: tokens.typography.titleMedium.copyWith(fontWeight: FontWeight.w700),
                 ),
                 SizedBox(height: tokens.spacing.xs),
                 Text(
                   '• নিসাব পরিমাণ সম্পদের মালিকানা পূর্ণ এক চন্দ্রবছর (হিজরি বর্ষ) স্থায়ী হলে তার ওপর ২.৫% যাকাত আবশ্যক হয়।\n'
                   '• মৌলিক মানবিক প্রয়োজন (যেমন থাকার বাড়ি, পরনের কাপড়, নিত্য ব্যবহার্য আসবাব ও গাড়ি) যাকাতমুক্ত।\n'
                   '• জটিল কোনো শরয়ি মাসআলায় স্থানীয় বিজ্ঞ মুফতির পরামর্শ নিন।',
-                  style: tokens.typography.bodySmall.copyWith(color: tokens.colors.textSecondary, height: 1.5),
+                  style: tokens.typography.bodyMedium.copyWith(color: tokens.colors.textSecondary, height: 1.5),
                 ),
               ],
             ),

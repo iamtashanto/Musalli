@@ -41,3 +41,4 @@ class WidgetSyncService {
     return '${BengaliNumbers.toBengali(h)}:$m';
   }
 }
+

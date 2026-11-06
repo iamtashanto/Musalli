@@ -22,7 +22,6 @@ class HifzPracticeScreen extends ConsumerStatefulWidget {
 class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
   HifzHideMode _hideMode = HifzHideMode.none;
   int _repeatTarget = 3;
-  int _currentRepeat = 0;
   bool _isAudioPlaying = false;
   AudioPlayer? _player;
   bool _revealed = false;
@@ -74,8 +73,8 @@ class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
     final colors = tokens.colors;
     final typography = tokens.typography;
 
-    final allSurahs = ref.watch(allSurahsListProvider).value ?? [];
-    final surah = allSurahs.firstWhere(
+    final detailedSurahs = ref.watch(surahsListProvider).value ?? [];
+    final surah = detailedSurahs.firstWhere(
       (s) => s.number == widget.surahNumber,
       orElse: () => ContentSurah(
         id: 'surah-${widget.surahNumber}',
@@ -84,8 +83,7 @@ class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
         nameBn: 'সূরা ${BengaliNumbers.toBengali(widget.surahNumber)}',
         nameEn: 'Surah ${widget.surahNumber}',
         ayahCount: 7,
-        revelationType: 'meccan',
-        verses: const [],
+        ayahs: const [],
       ),
     );
 
@@ -130,7 +128,9 @@ class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
           SizedBox(height: tokens.spacing.md),
 
           // Ayahs Display
-          ...surah.verses.map((ayah) {
+          ...surah.ayahs.asMap().entries.map((entry) {
+            final index = entry.key + 1;
+            final ayah = entry.value;
             return Padding(
               padding: EdgeInsets.only(bottom: tokens.spacing.sm),
               child: GestureDetector(
@@ -152,7 +152,7 @@ class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
                               color: const Color(0xFF10B981).withValues(alpha: 0.15),
                               borderRadius: tokens.radii.borderSm,
                             ),
-                            child: Text('আয়াত ${BengaliNumbers.toBengali(ayah.numberInSurah)}', style: typography.label.copyWith(color: const Color(0xFF10B981))),
+                            child: Text('আয়াত ${BengaliNumbers.toBengali(index)}', style: typography.label.copyWith(color: const Color(0xFF10B981))),
                           ),
                           if (_hideMode != HifzHideMode.none)
                             Text(_revealed ? 'লুকান 👁️' : 'দেখুন 🙈', style: typography.label),
@@ -160,13 +160,13 @@ class _HifzPracticeScreenState extends ConsumerState<HifzPracticeScreen> {
                       ),
                       SizedBox(height: tokens.spacing.sm),
                       Text(
-                        _formatHiddenArabic(ayah.textAr),
+                        _formatHiddenArabic(ayah.arabic),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.right,
                         style: typography.arabicLarge.copyWith(color: colors.textPrimary),
                       ),
                       SizedBox(height: tokens.spacing.xs),
-                      Text(ayah.textBn, style: typography.bodyMedium),
+                      Text(ayah.meaningBn, style: typography.bodyMedium),
                     ],
                   ),
                 ),
