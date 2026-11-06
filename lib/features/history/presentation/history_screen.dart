@@ -88,50 +88,51 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                   ],
                 ),
 
-              SizedBox(height: tokens.spacing.sm),
+                SizedBox(height: tokens.spacing.sm),
 
-              Text(
-                event.titleBn,
-                style: typography.titleLarge.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colors.textPrimary,
+                Text(
+                  event.titleBn,
+                  style: typography.titleLarge.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colors.textPrimary,
+                  ),
                 ),
-              ),
 
-              SizedBox(height: tokens.spacing.sm),
+                SizedBox(height: tokens.spacing.sm),
 
-              Text(
-                event.descriptionBn,
-                style: typography.bodyMedium.copyWith(
-                  color: colors.textPrimary,
-                  height: 1.5,
+                Text(
+                  event.descriptionBn,
+                  style: typography.bodyMedium.copyWith(
+                    color: colors.textPrimary,
+                    height: 1.5,
+                  ),
                 ),
-              ),
 
-              if (event.significanceBn != null &&
-                  event.significanceBn!.isNotEmpty) ...[
+                if (event.significanceBn != null &&
+                    event.significanceBn!.isNotEmpty) ...[
+                  SizedBox(height: tokens.spacing.md),
+                  Callout(
+                    title: 'ঐতিহাসিক গুরুত্ব ও তাৎপর্য',
+                    message: event.significanceBn!,
+                    variant: CalloutVariant.reference,
+                  ),
+                ],
+
+                SizedBox(height: tokens.spacing.lg),
+
+                GlassButton(
+                  label: 'বন্ধ করুন',
+                  variant: GlassButtonVariant.secondary,
+                  isExpanded: true,
+                  onPressed: () => Navigator.of(ctx).pop(),
+                ),
+
                 SizedBox(height: tokens.spacing.md),
-                Callout(
-                  title: 'ঐতিহাসিক গুরুত্ব ও তাৎপর্য',
-                  message: event.significanceBn!,
-                  variant: CalloutVariant.reference,
-                ),
               ],
-
-              SizedBox(height: tokens.spacing.lg),
-
-              GlassButton(
-                label: 'বন্ধ করুন',
-                variant: GlassButtonVariant.secondary,
-                isExpanded: true,
-                onPressed: () => Navigator.of(ctx).pop(),
-              ),
-
-              SizedBox(height: tokens.spacing.md),
-            ],
-          ),
-        );
-      },
+            ),
+          );
+        },
+      ),
     );
   }
 

@@ -16,6 +16,8 @@ import 'package:musalli/features/masail/presentation/masail_detail_screen.dart';
 import 'package:musalli/features/prayer_detail/presentation/prayer_detail_screen.dart';
 import 'package:musalli/features/quran/presentation/quran_reader_screen.dart';
 import 'package:musalli/features/shell/presentation/placeholder_screens.dart';
+import 'package:musalli/features/simulator/presentation/dev_poses_screen.dart';
+import 'package:musalli/features/simulator/presentation/simulator_screen.dart';
 import 'package:musalli/features/taharat/presentation/taharat_detail_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -135,9 +137,11 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: '/simulator',
                 builder: (BuildContext context, GoRouterState state) {
-                  return SimulatorTabScreen(
+                  return SimulatorScreen(
                     initialPrayerSlug: state.uri.queryParameters['prayer'],
-                    initialUnitId: state.uri.queryParameters['unit'],
+                    initialUnitStatus: state.uri.queryParameters['unit'],
+                    initialGenderStr: state.uri.queryParameters['gender'],
+                    initialRoleStr: state.uri.queryParameters['role'],
                   );
                 },
               ),
@@ -316,6 +320,18 @@ GoRouter appRouter(Ref ref) {
           return MusalliPageTransitions.sharedAxisHorizontal(
             state: state,
             child: const DesignSystemShowcaseScreen(),
+          );
+        },
+      ),
+
+      // Dev-only 2D Figure Poses Inspector route
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: '/dev/poses',
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MusalliPageTransitions.sharedAxisHorizontal(
+            state: state,
+            child: const DevPosesScreen(),
           );
         },
       ),

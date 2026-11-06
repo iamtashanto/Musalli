@@ -88,3 +88,6 @@ class BengaliNumberFormatter {
     return buffer.toString();
   }
 }
+
+/// Backward compatible alias for [BengaliNumberFormatter].
+typedef BengaliNumbers = BengaliNumberFormatter;

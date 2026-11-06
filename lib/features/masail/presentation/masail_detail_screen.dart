@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musalli/core/design_system/components/content_components.dart';
 import 'package:musalli/core/design_system/components/glass_components.dart';
@@ -17,8 +14,8 @@ class MasailDetailScreen extends ConsumerWidget {
   final String slug;
 
   static const List<Map<String, String>> _sajdaTilawatAyahs = [
-    {'surah': 'সূরা আল-আ\'রাফ', 'ayah': 'আয়াত ২০৬', 'juz': 'পারা ৯'},
-    {'surah': 'সূরা আর-রা\'দ', 'ayah': 'আয়াত ১৫', 'juz': 'পারা ১৩'},
+    {'surah': "সূরা আল-আ'রাফ", 'ayah': 'আয়াত ২০৬', 'juz': 'পারা ৯'},
+    {'surah': "সূরা আর-রা'দ", 'ayah': 'আয়াত ১৫', 'juz': 'পারা ১৩'},
     {'surah': 'সূরা আন-নাহল', 'ayah': 'আয়াত ৪৯-৫০', 'juz': 'পারা ১৪'},
     {'surah': 'সূরা বনী ইসরাঈল', 'ayah': 'আয়াত ১০৯', 'juz': 'পারা ১৫'},
     {'surah': 'সূরা মারইয়াম', 'ayah': 'আয়াত ৫৮', 'juz': 'পারা ১৬'},
@@ -237,65 +234,7 @@ class MasailDetailScreen extends ConsumerWidget {
                       SizedBox(height: tokens.spacing.md),
                     ],
 
-                    // 4. Practical Examples
-                    if (ruling.examples.isNotEmpty) ...[
-                      Text(
-                        'বাস্তব উদাহরণ ও প্রয়োগ',
-                        style: typography.titleMedium.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: colors.textPrimary,
-                        ),
-                      ),
-                      SizedBox(height: tokens.spacing.xs),
-                      ...ruling.examples.map((ex) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: GlassCard(
-                            padding: EdgeInsets.all(tokens.spacing.md),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'উদাহরণ: ${ex.scenarioBn}',
-                                  style: typography.bodyMedium.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: colors.textPrimary,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 3,
-                                        right: 6,
-                                      ),
-                                      child: Icon(
-                                        Icons.arrow_right_alt_rounded,
-                                        color: colors.primaryEmerald,
-                                        size: 18,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'সমাধান: ${ex.rulingBn}',
-                                        style: typography.bodyMedium.copyWith(
-                                          color: colors.textSecondary,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                      SizedBox(height: tokens.spacing.md),
-                    ],
-
-                    // 5. Gender Differences (Men / Women notes)
+                    // 4. Gender Differences (Men / Women notes)
                     if (ruling.genderDifferences != null &&
                         (ruling.genderDifferences!.male.isNotEmpty ||
                             ruling.genderDifferences!.female.isNotEmpty)) ...[
@@ -340,7 +279,9 @@ class MasailDetailScreen extends ConsumerWidget {
                               const Divider(height: 20),
                             ],
                             if (ruling
-                                .genderDifferences!.female.isNotEmpty) ...[
+                                .genderDifferences!
+                                .female
+                                .isNotEmpty) ...[
                               Row(
                                 children: <Widget>[
                                   Icon(

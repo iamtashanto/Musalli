@@ -36,7 +36,7 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
   @override
   void initState() {
     super.initState();
-    _saveLastRead();
+    unawaited(_saveLastRead());
   }
 
   @override

@@ -1,0 +1,581 @@
+// Namaj Simulator Flagship Screen.
+//
+// Combines the deterministic domain engine, the 2D articulated animated figure,
+// ArabicBlock with word/line highlight synced to audio, circular repeat counter,
+// full transport controls, keep-awake (wakelock_plus), interruption handling,
+// and TalkBack announcements.
+
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:musalli/core/design_system/components/glass_components.dart';
+import 'package:musalli/core/design_system/components/glass_navigation.dart';
+import 'package:musalli/core/design_system/tokens/design_tokens.dart';
+import 'package:musalli/core/utils/bengali_numbers.dart';
+import 'package:musalli/features/content/presentation/providers/content_providers.dart';
+import 'package:musalli/features/simulator/domain/engine.dart';
+import 'package:musalli/features/simulator/domain/simulator_controller.dart';
+import 'package:musalli/features/simulator/domain/types.dart';
+import 'package:musalli/features/simulator/presentation/figure/simulator_figure.dart';
+import 'package:musalli/features/simulator/presentation/setup/simulator_setup_sheet.dart';
+import 'package:musalli/features/simulator/presentation/widgets/completion_dialog.dart';
+import 'package:musalli/features/simulator/presentation/widgets/recitation_panel.dart';
+import 'package:musalli/features/simulator/presentation/widgets/simulator_controls.dart';
+import 'package:musalli/features/simulator/presentation/widgets/step_list_sheet.dart';
+import 'package:musalli/features/simulator/presentation/widgets/timeline_progress_bar.dart';
+import 'package:musalli/shared/content/content.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
+
+class SimulatorScreen extends ConsumerStatefulWidget {
+  const SimulatorScreen({
+    this.initialPrayerSlug,
+    this.initialUnitStatus,
+    this.initialGenderStr,
+    this.initialRoleStr,
+    super.key,
+  });
+
+  final String? initialPrayerSlug;
+  final String? initialUnitStatus;
+  final String? initialGenderStr;
+  final String? initialRoleStr;
+
+  @override
+  ConsumerState<SimulatorScreen> createState() => _SimulatorScreenState();
+}
+
+class _SimulatorScreenState extends ConsumerState<SimulatorScreen>
+    with WidgetsBindingObserver {
+  SimulatorController? _controller;
+  StreamSubscription<SimulatorEvent>? _eventSubscription;
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  ContentPrayerType? _prayer;
+  ContentRakatUnit? _unit;
+  SimGender _gender = SimGender.male;
+  SimRole _role = SimRole.alone;
+
+  FigureViewMode _viewMode = FigureViewMode.side;
+  Stopwatch _sessionStopwatch = Stopwatch();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(_initSimulator());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _eventSubscription?.cancel();
+    _controller?.dispose();
+    _audioPlayer.dispose();
+    unawaited(WakelockPlus.disable());
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
+      _controller?.pause();
+      _audioPlayer.pause();
+      unawaited(WakelockPlus.disable());
+    }
+  }
+
+  Future<void> _initSimulator() async {
+    final prayers = await ref.read(prayersListProvider.future);
+    if (prayers.isEmpty) return;
+
+    // Resolve prayer by slug or default to Fajr
+    final prayerSlug = widget.initialPrayerSlug ?? 'fajr';
+    final prayer =
+        prayers.where((p) => p.slug == prayerSlug).firstOrNull ?? prayers.first;
+
+    // Resolve unit or default to first unit (or Fard if available)
+    ContentRakatUnit unit = prayer.rakatUnits.first;
+    if (widget.initialUnitStatus != null) {
+      final matched = prayer.rakatUnits
+          .where((u) => u.status.name == widget.initialUnitStatus)
+          .firstOrNull;
+      if (matched != null) unit = matched;
+    }
+
+    SimGender gender = SimGender.male;
+    if (widget.initialGenderStr == 'female') {
+      gender = SimGender.female;
+    }
+
+    SimRole role = SimRole.alone;
+    if (widget.initialRoleStr == 'imam') {
+      role = SimRole.imam;
+    } else if (widget.initialRoleStr == 'muqtadi') {
+      role = SimRole.muqtadi;
+    }
+
+    _loadPrayer(
+      prayer: prayer,
+      unit: unit,
+      gender: gender,
+      role: role,
+      surahChoices: const {},
+    );
+  }
+
+  void _loadPrayer({
+    required ContentPrayerType prayer,
+    required ContentRakatUnit unit,
+    required SimGender gender,
+    required SimRole role,
+    required Map<int, String> surahChoices,
+  }) {
+    _eventSubscription?.cancel();
+    _controller?.dispose();
+    _audioPlayer.stop();
+
+    _prayer = prayer;
+    _unit = unit;
+    _gender = gender;
+    _role = role;
+
+    final timeline = buildTimeline(
+      unit.config,
+      gender: gender,
+      role: role,
+      prayerSlug: prayer.slug,
+      unitLabel: unit.label,
+      surahChoice: surahChoices,
+    );
+
+    _controller = SimulatorController(
+      timeline: timeline,
+      autoMode: true,
+      speed: 1.0,
+    );
+
+    _sessionStopwatch = Stopwatch()..start();
+
+    _eventSubscription = _controller!.events.listen(_onSimulatorEvent);
+
+    if (mounted) setState(() {});
+  }
+
+  void _onSimulatorEvent(SimulatorEvent event) {
+    if (!mounted) return;
+
+    switch (event) {
+      case StepChangedEvent(:final step):
+        unawaited(HapticFeedback.lightImpact());
+        _playStepAudio(step);
+        _announceAccessibility(step);
+        setState(() {});
+        break;
+
+      case RakatChangedEvent():
+        unawaited(HapticFeedback.mediumImpact());
+        setState(() {});
+        break;
+
+      case PlaybackStateChangedEvent(:final isPlaying):
+        if (isPlaying) {
+          unawaited(WakelockPlus.enable());
+        } else {
+          unawaited(WakelockPlus.disable());
+          _audioPlayer.pause();
+        }
+        setState(() {});
+        break;
+
+      case SimulationCompletedEvent():
+        unawaited(HapticFeedback.heavyImpact());
+        unawaited(WakelockPlus.disable());
+        _audioPlayer.stop();
+        _showCompletionDialog();
+        setState(() {});
+        break;
+
+      case RepeatTickEvent():
+        unawaited(HapticFeedback.selectionClick());
+        setState(() {});
+        break;
+    }
+  }
+
+  Future<void> _playStepAudio(SimStep step) async {
+    if (_controller?.isMuted == true) return;
+
+    try {
+      // Priority 1: Spoken takbir (e.g. Allahu Akbar)
+      if (step.spokenTakbir != null) {
+        final takbirAsset = step.spokenTakbir!.contains('সামি')
+            ? 'assets/audio/qawmah.mp3'
+            : step.spokenTakbir!.contains('সালাম')
+            ? 'assets/audio/salam.mp3'
+            : 'assets/audio/allahu-akbar.mp3';
+
+        await _audioPlayer.setAsset(takbirAsset);
+        await _audioPlayer.play();
+        return;
+      }
+
+      // Priority 2: Recitation audio if step has recitation IDs
+      if (step.recitationIds.isNotEmpty) {
+        final recId = step.recitationIds.first;
+        String? assetPath;
+
+        if (recId == 'dua-1') assetPath = 'assets/audio/sana.mp3';
+        if (recId == 'dua-2') assetPath = 'assets/audio/tashahhud.mp3';
+        if (recId == 'dua-3') assetPath = 'assets/audio/durood.mp3';
+        if (recId == 'dua-4') assetPath = 'assets/audio/dua-masura.mp3';
+        if (recId == 'dua-5') assetPath = 'assets/audio/qunut.mp3';
+        if (recId == 'dua-6') assetPath = 'assets/audio/ruku-tasbih.mp3';
+        if (recId == 'dua-7') assetPath = 'assets/audio/sajda-tasbih.mp3';
+        if (recId == 'dua-qawmah') assetPath = 'assets/audio/qawmah.mp3';
+        if (recId == 'dua-jalsah') assetPath = 'assets/audio/jalsah.mp3';
+        if (recId.startsWith('surah-')) {
+          final surahNum = recId.replaceFirst('surah-', '');
+          assetPath = 'assets/audio/surah-$surahNum.mp3';
+        }
+
+        if (assetPath != null) {
+          await _audioPlayer.setAsset(assetPath);
+          await _audioPlayer.play();
+        }
+      }
+    } catch (_) {}
+  }
+
+  void _announceAccessibility(SimStep step) {
+    final rakatInfo = step.rakat != null
+        ? '${BengaliNumbers.toBengali(step.rakat!)}ম রাকাত, '
+        : '';
+    SemanticsService.announce(
+      '$rakatInfo${step.titleBn}: ${step.instructionBn}',
+      TextDirection.ltr,
+    );
+  }
+
+  void _showCompletionDialog() {
+    if (_controller == null || !mounted) return;
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        return CompletionDialog(
+          timeline: _controller!.timeline,
+          duration: _sessionStopwatch.elapsed,
+          commonMistakes: _prayer?.commonMistakes ?? const [],
+          onPracticeQuiz: () {
+            // Navigate to practice quiz mode
+            context.push('/simulator/practice');
+          },
+          onAnotherPrayer: _openSetupSheet,
+        );
+      },
+    );
+  }
+
+  Future<void> _openSetupSheet() async {
+    _controller?.pause();
+
+    final result = await showModalBottomSheet<SimulatorSetupConfig>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => SimulatorSetupSheet(
+        initialPrayerSlug: _prayer?.slug,
+        initialGender: _gender,
+        initialRole: _role,
+      ),
+    );
+
+    if (result != null && mounted) {
+      _loadPrayer(
+        prayer: result.prayer,
+        unit: result.unit,
+        gender: result.gender,
+        role: result.role,
+        surahChoices: result.surahChoice,
+      );
+    }
+  }
+
+  void _openStepList() {
+    if (_controller == null) return;
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => StepListSheet(
+        timeline: _controller!.timeline,
+        currentStepIndex: _controller!.currentStepIndex,
+        onSelectStep: (idx) {
+          _controller!.seek(idx);
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final colors = tokens.colors;
+    final typography = tokens.typography;
+
+    if (_controller == null || _prayer == null || _unit == null) {
+      return Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: CircularProgressIndicator(color: colors.primaryEmerald),
+        ),
+      );
+    }
+
+    final currentStep = _controller!.currentStep ?? _controller!.timeline[0];
+    final currentRakat = _controller!.currentRakat;
+    final totalRakats = _controller!.timeline.metadata.totalRakats;
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            // 1. Top Glass App Bar
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: tokens.spacing.md,
+                vertical: tokens.spacing.xs,
+              ),
+              child: GlassCard(
+                padding: EdgeInsets.symmetric(
+                  horizontal: tokens.spacing.md,
+                  vertical: tokens.spacing.sm,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Prayer Name & Unit Label
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _prayer!.nameBn,
+                              style: typography.titleLarge.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: colors.textPrimary,
+                              ),
+                            ),
+                            Text(
+                              _unit!.label,
+                              style: typography.label.copyWith(
+                                color: colors.primaryEmerald,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Rakat Badge & Setup Button
+                        Row(
+                          children: [
+                            if (currentRakat != null && totalRakats > 0)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: colors.primaryEmerald.withValues(
+                                    alpha: 0.12,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    tokens.radii.full,
+                                  ),
+                                  border: Border.all(
+                                    color: colors.primaryEmerald.withValues(
+                                      alpha: 0.3,
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  'রাকাত ${BengaliNumbers.toBengali(currentRakat)}/${BengaliNumbers.toBengali(totalRakats)}',
+                                  style: typography.label.copyWith(
+                                    color: colors.primaryEmerald,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            const SizedBox(width: 8),
+                            IconButton(
+                              icon: const Icon(Icons.tune_rounded),
+                              color: colors.textSecondary,
+                              tooltip: 'নামাজ পরিবর্তন ও সেটিংস',
+                              onPressed: _openSetupSheet,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    // Timeline Progress Bar
+                    TimelineProgressBar(
+                      timeline: _controller!.timeline,
+                      currentStepIndex: _controller!.currentStepIndex,
+                      onSeekStep: (idx) => _controller!.seek(idx),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // 2. Center Stage (Figure + Camera Switch Pill)
+            Expanded(
+              flex: 5,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Center Figure
+                  Center(
+                    child: SimulatorFigure(
+                      posture: currentStep.posture,
+                      gender: _gender,
+                      viewMode: _viewMode,
+                      speed: _controller!.speed,
+                      showHighlights: true,
+                    ),
+                  ),
+
+                  // Floating Camera Angle Switcher (Top Right of Stage)
+                  Positioned(
+                    top: 8,
+                    right: 16,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _viewMode = _viewMode == FigureViewMode.side
+                              ? FigureViewMode.front
+                              : FigureViewMode.side;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colors.surfaceLowRamFallback.withValues(
+                            alpha: 0.85,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            tokens.radii.full,
+                          ),
+                          border: Border.all(color: colors.borderSubtle),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.05),
+                              blurRadius: 4,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.switch_camera_rounded,
+                              size: 14,
+                              color: colors.primaryEmerald,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              _viewMode == FigureViewMode.side
+                                  ? 'পার্শ্ব দৃশ্য'
+                                  : 'সম্মুখ দৃশ্য',
+                              style: typography.label.copyWith(
+                                color: colors.primaryEmerald,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // 3. Recitation & Instructions Panel
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md),
+              child: RecitationPanel(
+                step: currentStep,
+                currentRepeat: _controller!.currentRepeat,
+                onRepeatTick: () => _controller!.repeatTick(),
+                onPlayAudio: (asset) async {
+                  try {
+                    await _audioPlayer.setAsset(asset);
+                    await _audioPlayer.play();
+                  } catch (_) {}
+                },
+              ),
+            ),
+
+            const SizedBox(height: 8),
+
+            // 4. Playback Controls Bar
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                tokens.spacing.md,
+                0,
+                tokens.spacing.md,
+                tokens.spacing.sm,
+              ),
+              child: SimulatorControls(
+                isPlaying: _controller!.isPlaying,
+                isAutoMode: _controller!.isAutoMode,
+                speed: _controller!.speed,
+                isMuted: _controller!.isMuted,
+                viewMode: _viewMode,
+                onPlayPause: () => _controller!.togglePlayPause(),
+                onNext: () => _controller!.next(),
+                onPrevious: () => _controller!.previous(),
+                onReplayStep: () => _controller!.replayStep(),
+                onSpeedChanged: (s) => _controller!.setSpeed(s),
+                onAutoModeToggle: () => _controller!.toggleAutoMode(),
+                onMuteToggle: () {
+                  setState(() => _controller!.toggleMute());
+                  if (_controller!.isMuted) {
+                    _audioPlayer.pause();
+                  }
+                },
+                onViewModeToggle: () {
+                  setState(() {
+                    _viewMode = _viewMode == FigureViewMode.side
+                        ? FigureViewMode.front
+                        : FigureViewMode.side;
+                  });
+                },
+                onOpenStepList: _openStepList,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -684,7 +684,7 @@ class _LearnHubScreenState extends ConsumerState<LearnHubScreen> {
                                             ),
                                           ),
                                           child: Text(
-                                            d.category,
+                                            d.category.name,
                                             style: typography.label.copyWith(
                                               color: colors.primaryEmerald,
                                             ),

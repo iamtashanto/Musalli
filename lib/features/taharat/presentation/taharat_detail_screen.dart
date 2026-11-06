@@ -40,7 +40,7 @@ class _TaharatDetailScreenState extends ConsumerState<TaharatDetailScreen> {
 
   void _onResetChecklist() {
     unawaited(HapticFeedback.mediumImpact());
-    setState(() => _completedSteps.clear());
+    setState(_completedSteps.clear);
   }
 
   @override
@@ -469,17 +469,17 @@ class _TaharatDetailScreenState extends ConsumerState<TaharatDetailScreen> {
                     // 7. Duas (ArabicBlock)
                     if (widget.slug == 'wudu') ...[
                       Text(
-                        'অযুর দু\'আসমূহ',
+                        "অযুর দু'আসমূহ",
                         style: typography.titleMedium.copyWith(
                           fontWeight: FontWeight.bold,
                           color: colors.textPrimary,
                         ),
                       ),
                       SizedBox(height: tokens.spacing.xs),
-                      ArabicBlock(
-                        data: const FourLayerText(
+                      const ArabicBlock(
+                        data: FourLayerText(
                           id: 'wudu-before',
-                          titleBn: 'অযুর শুরুর দু\'আ',
+                          titleBn: "অযুর শুরুর দু'আ",
                           titleEn: 'Dua before Wudu',
                           arabic: 'بِسْمِ اللَّهِ وَالْحَمْدُ لِلَّهِ',
                           uccharonBn: 'বিসমিল্লাহি ওয়াল হামদুলিল্লাহ।',
@@ -490,10 +490,10 @@ class _TaharatDetailScreenState extends ConsumerState<TaharatDetailScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      ArabicBlock(
-                        data: const FourLayerText(
+                      const ArabicBlock(
+                        data: FourLayerText(
                           id: 'wudu-after',
-                          titleBn: 'অযুর শেষের দু\'আ',
+                          titleBn: "অযুর শেষের দু'আ",
                           titleEn: 'Dua after Wudu',
                           arabic: 'أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ',
                           uccharonBn: 'আশহাদু আল লা ইলাহা ইল্লাল্লাহু ওয়াহদাহু লা শারীকা লাহু, ওয়া আশহাদু আন্না মুহাম্মাদান আবদুহু ওয়া রাসুলুহু।',
