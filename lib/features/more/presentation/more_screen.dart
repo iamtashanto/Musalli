@@ -24,7 +24,12 @@ class MoreScreen extends ConsumerWidget {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(tokens.spacing.md),
+        padding: EdgeInsets.fromLTRB(
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.md,
+          tokens.spacing.xl + 64, // Full clearance above floating bottom bar
+        ),
         children: [
           // Section 1: Daily Companion Essentials
           Text(

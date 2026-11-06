@@ -149,9 +149,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
 
           SliverPadding(
-            padding: EdgeInsets.symmetric(
-              horizontal: tokens.spacing.md,
-              vertical: tokens.spacing.sm,
+            padding: EdgeInsets.fromLTRB(
+              tokens.spacing.md,
+              tokens.spacing.sm,
+              tokens.spacing.md,
+              tokens.spacing.xl + 64, // Clearance above floating bottom bar
             ),
             sliver: SliverList(
               delegate: SliverChildListDelegate([

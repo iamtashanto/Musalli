@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 import 'package:musalli/core/design_system/backgrounds/animated_gradient_background.dart';
 import 'package:musalli/core/design_system/components/glass_navigation.dart';
-import 'package:musalli/core/design_system/tokens/design_tokens.dart';
 import 'package:musalli/core/l10n/arb/app_localizations.dart';
 
 /// Root `StatefulShellRoute` scaffold hosting the 5 bottom navigation tabs
@@ -82,8 +81,6 @@ class _MainShellScaffoldState extends State<MainShellScaffold> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final tokens = context.tokens;
-    final reducedMotion = context.isReducedMotion;
     final currentIndex = widget.navigationShell.currentIndex;
 
     final navItems = <GlassNavBarItem>[
@@ -122,28 +119,14 @@ class _MainShellScaffoldState extends State<MainShellScaffold> {
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              // Preserve state of all 5 branches while cross-fading active tab
+              // Preserve state of all 5 branches without stacking transparent artifacts
               ...List<Widget>.generate(widget.children.length, (int i) {
                 final isActive = i == currentIndex;
-                return IgnorePointer(
-                  ignoring: !isActive,
+                return Offstage(
+                  offstage: !isActive,
                   child: TickerMode(
                     enabled: isActive,
-                    child: AnimatedOpacity(
-                      opacity: isActive ? 1.0 : 0.0,
-                      duration: reducedMotion
-                          ? Duration.zero
-                          : tokens.motion.fast,
-                      curve: tokens.motion.standardCurve,
-                      child: AnimatedSlide(
-                        offset: isActive ? Offset.zero : const Offset(0, 0.015),
-                        duration: reducedMotion
-                            ? Duration.zero
-                            : tokens.motion.normal,
-                        curve: tokens.motion.standardCurve,
-                        child: widget.children[i],
-                      ),
-                    ),
+                    child: widget.children[i],
                   ),
                 );
               }),
